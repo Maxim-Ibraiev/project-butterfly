@@ -1,6 +1,6 @@
-import Head from "next/head";
-import Layout from "../src/components/Layout";
+import Head from 'next/head';
+import Layout from '../src/components/Layout';
 
 export default function Home() {
-  return <Lafyout></Layout>;
+  return <Lafyout></Layoudast>;
 }
