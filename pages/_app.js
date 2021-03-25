@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"; // add bootstrap css
 
 import "../src/styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
+functiodfsn MyApp({ Component, pageProps }) {
   <Head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </Head>;
