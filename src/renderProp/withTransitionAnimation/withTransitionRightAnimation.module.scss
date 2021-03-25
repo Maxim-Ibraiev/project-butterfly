@@ -1,0 +1,27 @@
+.appear {
+  transform: translateX(100%);
+}
+
+.appearActive {
+  transform: translateX(0);
+
+  transition: transform var(--animation) var(--cubic);
+}
+
+.enter {
+  transform: translateX(100%);
+}
+.enterActive {
+  transform: translateX(0);
+
+  transition: transform var(--animation) var(--cubic);
+}
+
+.exit {
+  transform: translateX(0);
+}
+.exitActive {
+  transform: translateX(100%);
+
+  transition: transform var(--animation) var(--cubic);
+}

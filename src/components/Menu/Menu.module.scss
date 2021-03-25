@@ -1,0 +1,58 @@
+.menu {
+  position: absolute;
+  top: 50px;
+  left: 0;
+
+  width: 80%;
+  max-width: 320px;
+  background-color: #fff;
+}
+
+.separator {
+  position: relative;
+}
+.separator:after {
+  content: "";
+  top: 50%;
+  right: 0;
+  margin-top: -10px;
+  position: absolute;
+  height: 20px;
+  width: 1px;
+  background-color: rgba(45, 45, 45, 0.1);
+}
+
+.button {
+  height: 50px;
+  width: 50%;
+
+  border-bottom: var(--accents-5) solid 2px;
+  color: var(--accents-5);
+
+  font-weight: 900;
+  font-size: 0.9rem;
+  font-family: futura-pt, sans-serif;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.actual {
+  border-bottom-color: var(--accents-9);
+  color: var(--accents-9);
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.listContainer > li {
+  position: relative;
+  margin-top: 16px;
+  width: 100%;
+}

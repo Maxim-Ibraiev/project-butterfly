@@ -1,0 +1,5 @@
+.appearActive {
+  transform: translateX(0);
+
+  transition: transform var(--animationLonger) var(--cubic);
+}

@@ -1,0 +1,20 @@
+.enter {
+  transform: scale(0.3);
+}
+.enterActive {
+  scale: 1;
+  transform: scale(1);
+
+  transition: all var(--animation) var(--cubic);
+}
+
+.exit {
+  scale: 1;
+  transform: scale(1);
+}
+.exitActive {
+  scale: 0.1;
+  transform: scale(0.3);
+
+  transition: all var(--animation) var(--cubic);
+}

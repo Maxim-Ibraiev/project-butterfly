@@ -1,0 +1,71 @@
+@import "../../styles/variables.scss";
+
+.header {
+  height: 50px;
+  width: 100vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-left: 15px;
+  padding-right: 15px;
+
+  background-color: rgb(45, 45, 45);
+
+  @media screen and (min-width: $mobileLesser) {
+    height: 60px;
+  }
+}
+
+.nav {
+  display: flex;
+
+  &:first-child {
+    margin-right: 15px;
+  }
+}
+
+.list {
+  width: 200px;
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  padding: 25px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+}
+.searchMobBtn {
+  @media screen and (min-width: $mobileUpper) {
+    display: none;
+  }
+}
+
+.searchDesktop {
+  @media screen and (max-width: $mobileLesser) {
+    display: none;
+  }
+}
+.contentModal {
+  padding: 0 16px;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--modal);
+
+  @media screen and (min-width: $mobileUpper) {
+    display: none;
+  }
+}
+
+.modalClose {
+  display: flex;
+
+  margin-left: auto;
+}
