@@ -1,11 +1,11 @@
-import { useState } from "react";
-import cn from "classnames";
-import s from "./Menu.module.scss";
-import Button from "../buttons/MobMenuBtn/MobMenuBtn";
-import withTransitionAnimation from "../../renderProp/withTransitionAnimation";
+import { useState } from 'react';
+import cn from 'classnames';
+import s from './Menu.module.scss';
+import Button from '../buttons/MobMenuBtn/MobMenuBtn';
+import withTransitionAnimation from '../../renderProp/withTransitionAnimation';
 
 function Menu() {
-  const imageSrc = (name) => `/btnImg/top-level-${name}.jpg`;
+  const imageSrc = name => `/btnImg/top-level-${name}.jpg`;
   const [toggleBtn, setToggleBtn] = useState(true);
 
   return (
@@ -31,44 +31,44 @@ function Menu() {
         <ul className={s.listContainer}>
           <li>
             <Button
-              text={"ВЕРНУТЬСЯ НА ГЛАВНУЮ"}
+              text={'ВЕРНУТЬСЯ НА ГЛАВНУЮ'}
               type="button"
-              height={"48px"}
-              image={imageSrc("home")}
+              height={'48px'}
+              image={imageSrc('home')}
             />
           </li>
           <li>
             <Button
-              text={"Распродажа"}
+              text={'Распродажа'}
               type="button"
-              image={imageSrc("sale")}
+              image={imageSrc('sale')}
             />
           </li>
           <li>
-            <Button text={"Новинки"} type="button" image={imageSrc("newin")} />
+            <Button text={'Новинки'} type="button" image={imageSrc('newin')} />
           </li>
           <li>
             <Button
-              text={"Одежда"}
+              text={'Одежда'}
               type="button"
-              image={imageSrc("clothing")}
+              image={imageSrc('clothing')}
             />
           </li>
           <li>
-            <Button text={"Обувь"} type="button" image={imageSrc("shoes")} />
+            <Button text={'Обувь'} type="button" image={imageSrc('shoes')} />
           </li>
           <li>
             <Button
-              text={"Аксессуары"}
+              text={'Аксессуары'}
               type="button"
-              image={imageSrc("accessories")}
+              image={imageSrc('accessories')}
             />
           </li>
           <li>
             <Button
-              text={"Спортивная одежда"}
+              text={'Спортивная одежда'}
               type="button"
-              image={imageSrc("brands")}
+              image={imageSrc('brands')}
             />
           </li>
         </ul>

@@ -1,25 +1,24 @@
-import { useCallback } from "react";
-import cn from "classnames";
-import s from "./HeaderBtn.module.scss";
+import s from './HeaderBtn.module.scss';
 
 export default function HederBtn({
   src,
-  className = "",
+  className = '',
+  fill = '#fff',
   children,
   handleClick,
   ...props
 }) {
   return (
     <button
-      className={s.wrapper + " " + className}
-      type={"button"}
+      className={s.wrapper + ' ' + className}
+      type={'button'}
       onClick={handleClick}
       {...props}
     >
       {children}
       {src && (
         <span
-          style={{ backgroundImage: `url(${src})`, fill: "#fff" }}
+          style={{ backgroundImage: src && `url(${src})`, fill }}
           className={s.icon}
         ></span>
       )}

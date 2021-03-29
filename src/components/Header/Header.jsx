@@ -1,74 +1,89 @@
-import { useState } from "react";
-import Modal from "react-modal";
-import SearchForm from "../inputs/SearchForm";
-import Menu from "../Menu";
-import Button from "../buttons/HederBtn";
-import CloseIcon from "../icons/Close";
-import s from "./Header.module.scss";
+import React from 'react';
+import { useState } from 'react';
+import Link from 'next/link';
+import cn from 'classnames';
+import Modal from 'react-modal';
+import Menu from '../MenuMob';
+import Button from '../buttons/HederBtn';
+import s from './Header.module.scss';
+import routes from '../../routes';
+import { useDispatch } from 'react-redux';
 
-Modal.setAppElement("#__next");
+const { category } = routes;
+
+Modal.setAppElement('#__next');
 
 export default function Header() {
   const [modalIsOpen, setIsOpen] = useState(false);
-
+  const dispatch = useDispatch();
   return (
     <header className={s.header}>
-      <div className={s.nav}>
-        <Menu />
-        <Button type="button" aria-label="Логотип" style={{ color: "#fff" }}>
+      <Link href={routes.home}>
+        <a onClick={() => dispatch({ type: 'contacts/count', payload: 1 })}>
           <b>LOGO</b>
-        </Button>
-      </div>
+        </a>
+      </Link>
+      {/* 
+      <Button type="button" aria-label="Логотип" style={{ color: '#fff' }}>
+        <b>LOGO</b>
+      </Button> */}
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setIsOpen(false)}
-        className={s.contentModal}
-      >
-        <Button
-          onClick={() => setIsOpen(false)}
-          type="button"
-          aria-label="Закрыть окно"
-          style={{ height: "38px", width: "38px" }}
-          className={s.modalClose}
-        >
-          <CloseIcon fill="#000" height="20px" width="20px" />
-        </Button>
-        <SearchForm name="searchQuery" />
-      </Modal>
-      <SearchForm name="searchQuery" className={s.searchDesktop} />
+      <nav>
+        <ul className={cn(s.row, s.mobUpper)}>
+          <li>
+            <Link href={category.dress}>
+              <a>Платья</a>
+            </Link>
+          </li>
+          <li>
+            <Link href={category.suit}>
+              <a>Костюмы</a>
+            </Link>
+          </li>
+          <li>
+            <Link href={category.jeans}>
+              <a>Джинсы</a>
+            </Link>
+          </li>
+          <li>
+            <Link href={category.footballShirt}>
+              <a>Футболки</a>
+            </Link>
+          </li>
+          <li>
+            <Link href={category.shirt}>
+              <a>Рубашки</a>
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
-      <ul className={s.list}>
-        <li className={s.searchMobBtn}>
-          <Button
-            type="button"
-            aria-label="Поиск"
-            src={"/icons/search.svg"}
-            onClick={() => setIsOpen(true)}
-          ></Button>
-        </li>
-        <li>
-          <Button
-            type="button"
-            aria-label="Личный кабинет"
-            src={"/icons/user.svg"}
-          ></Button>
-        </li>
+      <ul className={s.row}>
         <li>
           <Button
             type="button"
             aria-label="Отложено"
-            src={"/icons/heart.svg"}
+            src={'/icons/heart.svg'}
           ></Button>
         </li>
-        <li>
+        <li className={s.menuBtn}>
           <Button
             type="button"
-            aria-label="Корзина товаров"
-            src={"/icons/bag.svg"}
+            aria-label="Меню"
+            src={modalIsOpen ? '/icons/close.svg' : '/icons/menu.svg'}
+            onClick={() => setIsOpen(!modalIsOpen)}
           ></Button>
         </li>
       </ul>
+
+      <Modal
+        className={s.modal}
+        overlayClassName={s.overModal}
+        isOpen={modalIsOpen}
+        onRequestClose={() => setIsOpen(false)}
+      >
+        <Menu />
+      </Modal>
     </header>
   );
 }

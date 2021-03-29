@@ -5,11 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "ser": "json-server --watch db.json --port 3004"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@reduxjs/toolkit": "^1.5.1",
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta3",
     "classnames": "^2.2.6",
     "next": "^10.0.8",
@@ -17,14 +20,19 @@
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-modal": "^3.12.1",
+    "react-redux": "^7.2.3",
     "react-transition-group": "^4.4.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
     "sass": "^1.32.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.5",
+    "eslint": "^7.23.0",
+    "eslint-plugin-react": "^7.23.1",
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
-    "postcss": "^8.2.8",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "prop-types": "^15.7.2"
   }
 }

@@ -1,6 +1,11 @@
-import Head from 'next/head';
+import React from 'react';
 import Layout from '../src/components/Layout';
+import Category from '../src/components/Category';
 
 export default function Home() {
-  return <Layout></Layout>;
+  return (
+    <Layout>
+      <Category></Category>
+    </Layout>
+  );
 }

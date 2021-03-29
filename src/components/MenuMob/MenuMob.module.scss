@@ -1,0 +1,23 @@
+.container {
+  color: var(--primary);
+  background: #000;
+}
+.item {
+  height: 50px;
+  border-bottom: var(--accents-6) solid 2px;
+
+  text-align: center;
+
+  text &:first-child {
+    border-top: var(--accents-6) solid 2px;
+  }
+  & a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    color: var(--primary);
+  }
+}

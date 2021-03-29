@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .header {
   height: 50px;
@@ -10,62 +10,55 @@
 
   padding-left: 15px;
   padding-right: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
 
   background-color: rgb(45, 45, 45);
 
   @media screen and (min-width: $mobileLesser) {
     height: 60px;
   }
+
+  a {
+    color: var(--primary);
+  }
 }
 
-.nav {
+.row {
   display: flex;
+  color: var(--primary);
 
-  &:first-child {
+  & > *:not(:last-child) {
     margin-right: 15px;
   }
 }
 
-.list {
-  width: 200px;
-  display: flex;
-
-  justify-content: space-between;
-}
-
-.icon {
-  width: 20px;
-  height: 20px;
-  padding: 25px;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 20px 20px;
-}
-.searchMobBtn {
-  @media screen and (min-width: $mobileUpper) {
-    display: none;
-  }
-}
-
-.searchDesktop {
+.mobUpper {
   @media screen and (max-width: $mobileLesser) {
     display: none;
   }
 }
-.contentModal {
-  padding: 0 16px;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--modal);
 
+.menuBtn {
   @media screen and (min-width: $mobileUpper) {
     display: none;
   }
 }
 
-.modalClose {
-  display: flex;
+.modal {
+  position: absolute;
+  top: 50px;
 
-  margin-left: auto;
+  width: 100%;
+
+  background: var(--secondary);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+.overModal {
+  position: fixed;
+  inset: 0;
+  background-color: var(--backdrop);
 }
