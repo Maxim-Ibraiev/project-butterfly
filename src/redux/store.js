@@ -1,70 +1,26 @@
 import { useMemo } from 'react';
-import { applyMiddleware, combineReducers } from 'redux';
-
 import { composeWithDevTools } from 'redux-devtools-extension';
-import {
-  createStore,
-  // configureStore,
-  // getDefaultMiddleware,
-} from '@reduxjs/toolkit';
-import main from './main/mainReducer';
-import user from './user/userReducers';
-// const reducer = combineReducers({ main, user });
-// import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-// import {
-//   persistStore,
-//   persistReducer,
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-// } from 'redux-persist';
+import { createStore, applyMiddleware } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import axios from 'axios';
+import reducer from './rootReducer';
 
 axios.defaults.baseURL = 'http://localhost:3004/';
-const initialState = {
-  main: {},
-  user: {},
+const initialState = {};
+const persistConfig = {
+  key: 'store',
+  storage,
 };
-
-// const userPersistConfig = {
-//   key: 'token',
-//   storage,
-//   // whitelist: ['token'],
-// };
-
-// const store = configureStore({
-//   reducer: { main, user: persistReducer(userPersistConfig, userReducer) },
-//   middleware: getDefaultMiddleware({
-//     serializableCheck: {
-//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//     },
-//   }),
-//   devTools: process.env.NODE_ENV === 'development',
-// });
-
-// const persistor = persistStore(store);
-// // eslint-disable-next-line import/no-anonymous-default-export
-// export default { store, persistor };
+const persistedReducer = persistReducer(persistConfig, reducer);
 let store;
-const reducer = combineReducers({ main, user });
+
 function initStore(preloadedState = initialState) {
   return createStore(
-    reducer,
+    persistedReducer,
     preloadedState,
     composeWithDevTools(applyMiddleware()),
   );
-  // return configureStore({
-  //   reducer: { main, user: persistReducer(userPersistConfig, user) },
-  //   middleware: getDefaultMiddleware({
-  //     serializableCheck: {
-  //       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-  //     },
-  //   }),
-  //   devTools: process.env.NODE_ENV === 'development',
-  // });
 }
 export const initializeStore = preloadedState => {
   let _store = store ?? initStore(preloadedState);
@@ -81,11 +37,13 @@ export const initializeStore = preloadedState => {
   }
 
   // For SSG and SSR always create a new store
-  if (typeof window === 'undefined') return _store;
+  if (typeof window === 'undefined')
+    return { _store, persistor: persistStore(_store) };
   // Create the store once in the client
   if (!store) store = _store;
+  let persistor = persistStore(store);
 
-  return _store;
+  return { _store, persistor };
 };
 
 export function useStore(initialState) {
