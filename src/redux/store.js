@@ -1,16 +1,30 @@
 import { useMemo } from 'react';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore, applyMiddleware } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
+import {
+  createStore,
+  applyMiddleware,
+  getDefaultMiddleware,
+} from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import axios from 'axios';
 import reducer from './rootReducer';
 
-axios.defaults.baseURL = 'http://localhost:3004/';
+axios.defaults.baseURL = '/api';
 const initialState = {};
 const persistConfig = {
   key: 'store',
   storage,
+  whitelist: ['main'],
 };
 const persistedReducer = persistReducer(persistConfig, reducer);
 let store;
@@ -19,7 +33,16 @@ function initStore(preloadedState = initialState) {
   return createStore(
     persistedReducer,
     preloadedState,
-    composeWithDevTools(applyMiddleware()),
+    composeWithDevTools(
+      applyMiddleware(
+        ...getDefaultMiddleware({
+          serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+          },
+          devTools: process.env.NODE_ENV === 'development',
+        }),
+      ),
+    ),
   );
 }
 export const initializeStore = preloadedState => {

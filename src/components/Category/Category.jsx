@@ -1,8 +1,9 @@
 import React from 'react';
 import CategoryItem from './CategoryItem';
-import s from './Category.module.scss';
+import s from './category.module.scss';
 import routes from '../../routes';
-const { category } = routes;
+const { categories } = routes;
+
 export default function Category() {
   return (
     <section>
@@ -10,7 +11,7 @@ export default function Category() {
       <div className={s.gallery}>
         <div className={s.first}>
           <CategoryItem
-            href={category.dress}
+            href={categories.dress}
             text="Платья"
             width="700px"
             height="475px"
@@ -20,7 +21,7 @@ export default function Category() {
         </div>
         <div className={s.innerGallery}>
           <CategoryItem
-            href={category.suit}
+            href={categories.suit}
             text="Костюмы"
             width="700px"
             height="475px"
@@ -28,7 +29,7 @@ export default function Category() {
             src="/exp/1.webp"
           />
           <CategoryItem
-            href={category.jeans}
+            href={categories.jeans}
             text="Джинсы"
             width="700px"
             height="475px"
@@ -36,7 +37,7 @@ export default function Category() {
             src="/exp/2.webp"
           />
           <CategoryItem
-            href={category.footballShirt}
+            href={categories.footballShirt}
             text="Футболки"
             width="700px"
             height="475px"
@@ -44,7 +45,7 @@ export default function Category() {
             src="/exp/3.webp"
           />
           <CategoryItem
-            href={category.shirt}
+            href={categories.shirt}
             text="Рубашки"
             width="700px"
             height="475px"

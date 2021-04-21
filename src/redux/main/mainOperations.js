@@ -1,14 +1,14 @@
 import axios from 'axios';
 import {
-  CategoriesRequest,
-  CategoriesSuccess,
-  CategoriesError,
+  categoriesRequest,
+  categoriesSuccess,
+  categoriesError,
 } from './mainActions';
 
-export const getCategories = () => dispatch => {
-  dispatch(CategoriesRequest());
+export const fetchCategories = () => dispatch => {
+  dispatch(categoriesRequest());
 
-  axios('/сategories')
-    .then(({ data }) => dispatch(CategoriesSuccess(data)))
-    .catch(error => dispatch(CategoriesError(error.message)));
+  axios('/categories')
+    .then(({ data }) => dispatch(categoriesSuccess(data.categories)))
+    .catch(error => dispatch(categoriesError(error.message)));
 };

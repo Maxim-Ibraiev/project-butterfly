@@ -1,6 +1,6 @@
 const routes = {
   home: '/',
-  category: {
+  categories: {
     dress: '/dress',
     suit: '/suit',
     jeans: '/jeans',

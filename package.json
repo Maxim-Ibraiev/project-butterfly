@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "ser": "json-server --watch db.json --port 3004"
+    "ser": "json-server --watch db.json --port 3004 --delay 100"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",

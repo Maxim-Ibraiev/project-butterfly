@@ -9,7 +9,7 @@ const categories = createReducer([], {
   [categoriesSuccess]: (_, { payload }) => payload,
 });
 
-const Loading = createReducer(false, {
+const categoryLoading = createReducer(false, {
   [categoriesRequest]: () => true,
   [categoriesRequest]: () => false,
   [categoriesSuccess]: () => false,
@@ -25,7 +25,7 @@ const count = createReducer(0, {
 
 export default combineReducers({
   categories: categories,
-  Loading,
+  categoryLoading,
   error,
   count,
 });

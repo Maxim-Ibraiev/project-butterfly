@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
@@ -7,15 +7,27 @@ import Menu from '../MenuMob';
 import Button from '../buttons/HederBtn';
 import s from './Header.module.scss';
 import routes from '../../routes';
-import { useDispatch } from 'react-redux';
-
-const { category } = routes;
+import { useSelector, useDispatch } from 'react-redux';
+import { getCategories } from '../../redux/selectors';
+import { fetchCategories } from '../../redux/main/mainOperations';
+import language from '../../language';
 
 Modal.setAppElement('#__next');
 
 export default function Header() {
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
   const dispatch = useDispatch();
+  const categories = useSelector(getCategories);
+
+  useEffect(() => {
+    if (firstRender) {
+      dispatch(fetchCategories());
+    }
+
+    setFirstRender(false);
+  }, [firstRender]);
+
   return (
     <header className={s.header}>
       <Link href={routes.home}>
@@ -23,38 +35,16 @@ export default function Header() {
           <b>LOGO</b>
         </a>
       </Link>
-      {/* 
-      <Button type="button" aria-label="Логотип" style={{ color: '#fff' }}>
-        <b>LOGO</b>
-      </Button> */}
 
       <nav>
         <ul className={cn(s.row, s.mobUpper)}>
-          <li>
-            <Link href={category.dress}>
-              <a>Платья</a>
-            </Link>
-          </li>
-          <li>
-            <Link href={category.suit}>
-              <a>Костюмы</a>
-            </Link>
-          </li>
-          <li>
-            <Link href={category.jeans}>
-              <a>Джинсы</a>
-            </Link>
-          </li>
-          <li>
-            <Link href={category.footballShirt}>
-              <a>Футболки</a>
-            </Link>
-          </li>
-          <li>
-            <Link href={category.shirt}>
-              <a>Рубашки</a>
-            </Link>
-          </li>
+          {categories.map(category => (
+            <li key={category}>
+              <Link href={`/${category}`}>
+                <a>{language[category]}</a>
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
 
