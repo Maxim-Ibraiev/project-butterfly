@@ -3,11 +3,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
 import Modal from 'react-modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import Menu from '../MenuMob';
 import Button from '../buttons/HederBtn';
 import s from './Header.module.scss';
 import routes from '../../routes';
-import { useSelector, useDispatch } from 'react-redux';
 import { getCategories } from '../../redux/selectors';
 import { fetchCategories } from '../../redux/main/mainOperations';
 import language from '../../language';
@@ -19,6 +20,7 @@ export default function Header() {
   const [firstRender, setFirstRender] = useState(true);
   const dispatch = useDispatch();
   const categories = useSelector(getCategories);
+  const route = useRouter();
 
   useEffect(() => {
     if (firstRender) {
@@ -31,40 +33,52 @@ export default function Header() {
   return (
     <header className={s.header}>
       <Link href={routes.home}>
-        <a onClick={() => dispatch({ type: 'contacts/count', payload: 1 })}>
-          <b>LOGO</b>
+        <a
+          onClick={() => dispatch({ type: 'contacts/count', payload: 1 })}
+          className={cn(s.logo)}
+        >
+          Butterfly
         </a>
       </Link>
+      <div className={s.nav}>
+        <nav>
+          <ul className={cn(s.row, s.mobUpper)}>
+            {categories.map(category => (
+              <li key={category}>
+                <Link href={`/${category}`}>
+                  <a
+                    className={cn(s.link, {
+                      [s.active]:
+                        '/' + route.query.category ===
+                        routes.categories[category],
+                    })}
+                  >
+                    <b>{language[category]}</b>
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      <nav>
-        <ul className={cn(s.row, s.mobUpper)}>
-          {categories.map(category => (
-            <li key={category}>
-              <Link href={`/${category}`}>
-                <a>{language[category]}</a>
-              </Link>
-            </li>
-          ))}
+        <ul className={s.row}>
+          <li>
+            <Button
+              type="button"
+              aria-label="Отложено"
+              src={'/icons/heart.svg'}
+            ></Button>
+          </li>
+          <li className={s.menuBtn}>
+            <Button
+              type="button"
+              aria-label="Меню"
+              src={modalIsOpen ? '/icons/close.svg' : '/icons/menu.svg'}
+              onClick={() => setIsOpen(!modalIsOpen)}
+            ></Button>
+          </li>
         </ul>
-      </nav>
-
-      <ul className={s.row}>
-        <li>
-          <Button
-            type="button"
-            aria-label="Отложено"
-            src={'/icons/heart.svg'}
-          ></Button>
-        </li>
-        <li className={s.menuBtn}>
-          <Button
-            type="button"
-            aria-label="Меню"
-            src={modalIsOpen ? '/icons/close.svg' : '/icons/menu.svg'}
-            onClick={() => setIsOpen(!modalIsOpen)}
-          ></Button>
-        </li>
-      </ul>
+      </div>
 
       <Modal
         className={s.modal}

@@ -18,26 +18,6 @@ export default function MenuMob() {
           </Link>
         </li>
       ))}
-      {/* <li className={s.item}>
-        <Link href={category.suit}>
-          <a>Костюмы</a>
-        </Link>
-      </li>
-      <li className={s.item}>
-        <Link href={category.jeans}>
-          <a>Джинсы</a>
-        </Link>
-      </li>
-      <li className={s.item}>
-        <Link href={category.footballShirt}>
-          <a>Футболки</a>
-        </Link>
-      </li>
-      <li className={s.item}>
-        <Link href={category.shirt}>
-          <a>Рубашки</a>
-        </Link>
-      </li> */}
     </ul>
   );
 }

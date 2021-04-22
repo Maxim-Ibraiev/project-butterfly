@@ -14,6 +14,10 @@ function MyApp({ Component, pageProps }) {
         <Head>
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Playball&display=swap"
+            rel="stylesheet"
+          ></link>
         </Head>
         <Component {...pageProps} />
       </PersistGate>
