@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import {
   addItemRequest,
   addItemSuccess,
@@ -9,30 +9,30 @@ import {
   itemsRequest,
   itemsSuccess,
   itemsError,
-} from './contactsActions';
+} from './contactsActions'
 
 export const getItems = () => dispatch => {
-  dispatch(itemsRequest());
+  dispatch(itemsRequest())
 
   axios('/contacts')
     .then(({ data }) => dispatch(itemsSuccess(data)))
-    .catch(error => dispatch(itemsError(error.message)));
-};
+    .catch(error => dispatch(itemsError(error.message)))
+}
 
 export const addItem = item => dispatch => {
-  dispatch(addItemRequest());
+  dispatch(addItemRequest())
 
   axios
     .post('/contacts', item)
     .then(({ data }) => dispatch(addItemSuccess(data)))
-    .catch(error => dispatch(addItemError(error.message)));
-};
+    .catch(error => dispatch(addItemError(error.message)))
+}
 
 export const deleteItem = id => dispatch => {
-  dispatch(deleteRequest());
+  dispatch(deleteRequest())
 
   axios
     .delete(`/contacts/${id}`)
     .then(dispatch(deleteSuccess(id)))
-    .catch(error => dispatch(deleteError(error.message)));
-};
+    .catch(error => dispatch(deleteError(error.message)))
+}

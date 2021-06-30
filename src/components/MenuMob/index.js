@@ -1,1 +1,1 @@
-export { default } from './MenuMob';
+export { default } from './MenuMob'

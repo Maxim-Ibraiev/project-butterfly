@@ -1,1 +1,1 @@
-export { default } from "./HederBtn";
+export { default } from './HederBtn'

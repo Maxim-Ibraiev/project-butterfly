@@ -1,55 +1,33 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
-import Link from 'next/link';
-import cn from 'classnames';
-import Modal from 'react-modal';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import Menu from '../MenuMob';
-import Button from '../buttons/HederBtn';
-import s from './Header.module.scss';
-import routes from '../../routes';
-import { getCategories } from '../../redux/selectors';
-import { fetchCategories } from '../../redux/main/mainOperations';
-import language from '../../language';
+import { useState } from 'react'
+import Link from 'next/link'
+import cn from 'classnames'
+import Modal from 'react-modal'
+import Menu from '../MenuMob'
+import Button from '../buttons/HederBtn'
+import s from './Header.module.scss'
+import routes from '../../routes'
+import language from '../../language'
 
-Modal.setAppElement('#__next');
+Modal.setAppElement('#__next')
 
 export default function Header() {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [firstRender, setFirstRender] = useState(true);
-  const dispatch = useDispatch();
-  const categories = useSelector(getCategories);
-  const route = useRouter();
-
-  useEffect(() => {
-    if (firstRender) {
-      dispatch(fetchCategories());
-    }
-
-    setFirstRender(false);
-  }, [firstRender]);
+  const [modalIsOpen, setIsOpen] = useState(false)
 
   return (
     <header className={s.header}>
       <Link href={routes.home}>
-        <a
-          onClick={() => dispatch({ type: 'contacts/count', payload: 1 })}
-          className={cn(s.logo)}
-        >
-          Butterfly
-        </a>
+        <a className={cn(s.logo)}>Butterfly</a>
       </Link>
       <div className={s.nav}>
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
-            {categories.map(category => (
+            {routes.categories.map(category => (
               <li key={category}>
                 <Link href={`/${category}`}>
                   <a
                     className={cn(s.link, {
                       [s.active]:
-                        '/' + route.query.category ===
+                        `'/' + ${routes.query.category}` ===
                         routes.categories[category],
                     })}
                   >
@@ -66,8 +44,8 @@ export default function Header() {
             <Button
               type="button"
               aria-label="Отложено"
-              src={'/icons/heart.svg'}
-            ></Button>
+              src="/icons/heart.svg"
+            />
           </li>
           <li className={s.menuBtn}>
             <Button
@@ -75,7 +53,7 @@ export default function Header() {
               aria-label="Меню"
               src={modalIsOpen ? '/icons/close.svg' : '/icons/menu.svg'}
               onClick={() => setIsOpen(!modalIsOpen)}
-            ></Button>
+            />
           </li>
         </ul>
       </div>
@@ -89,5 +67,5 @@ export default function Header() {
         <Menu />
       </Modal>
     </header>
-  );
+  )
 }

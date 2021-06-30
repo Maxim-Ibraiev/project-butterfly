@@ -1,2 +1,3 @@
-// Animation
-export const TIMEOUT = 250;
+const TIMEOUT = 250
+
+export default { TIMEOUT }

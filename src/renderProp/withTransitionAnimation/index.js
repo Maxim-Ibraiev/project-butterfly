@@ -1,1 +1,1 @@
-export { default } from "./withTransitionAnimation";
+export { default } from './withTransitionAnimation'

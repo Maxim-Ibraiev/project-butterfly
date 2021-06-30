@@ -1,1 +1,1 @@
-export { default } from "./MobMenuBtn";
+export { default } from './MobMenuBtn'

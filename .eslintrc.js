@@ -1,10 +1,8 @@
-// eslint-disable-next-line no-undef
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -14,9 +12,19 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    semi: ['warn', 'never'],
+    'linebreak-style': 0,
+    'global-require': 0,
+    'eslint linebreak-style': [0, 'error', 'windows'],
+    'no-return-assign': 'off',
+    'no-console': 'off',
+    'import/prefer-default-export': 'off',
+    'import/extensions': 'off',
     'react/react-in-jsx-scope': 'off',
+    'arrow-parens': 'off',
+    'import/no-unresolved': 'off',
     'react/prop-types': 'off',
-    'no-unused-vars': 'off',
-    'no-undef': 'off',
+    'import/no-cycle': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
   },
-};
+}

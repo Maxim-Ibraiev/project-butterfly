@@ -7,6 +7,6 @@ const routes = {
     footballShirt: '/footballShirt',
     shirt: '/shirt',
   },
-};
+}
 
-export default routes;
+export default routes

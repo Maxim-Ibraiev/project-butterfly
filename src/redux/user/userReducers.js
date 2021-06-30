@@ -1,4 +1,4 @@
-import { createReducer, combineReducers } from '@reduxjs/toolkit';
+import { createReducer, combineReducers } from '@reduxjs/toolkit'
 import {
   loginRequest,
   loginSuccess,
@@ -15,7 +15,7 @@ import {
   currentUserRequest,
   currentUserSuccess,
   currentUserError,
-} from './userActions';
+} from './userActions'
 
 const token = createReducer('', {
   [loginSuccess]: (_, { payload }) => payload.token,
@@ -23,21 +23,21 @@ const token = createReducer('', {
   [logoutSuccess]: () => '',
 
   [currentUserError]: () => '',
-});
+})
 
 const name = createReducer('', {
   [singUpSuccess]: (_, { payload }) => payload.user.name,
   [loginSuccess]: (_, { payload }) => payload.user.name,
   [logoutSuccess]: () => '',
   [currentUserSuccess]: (_, { payload }) => payload.name,
-});
+})
 
 const email = createReducer('', {
   [singUpSuccess]: (_, { payload }) => payload.user.email,
   [loginSuccess]: (_, { payload }) => payload.user.email,
   [logoutSuccess]: () => '',
   [currentUserSuccess]: (_, { payload }) => payload.email,
-});
+})
 
 const isAuthorized = createReducer(false, {
   [isAuthorizedSuccess]: () => true,
@@ -46,7 +46,7 @@ const isAuthorized = createReducer(false, {
   [loginSuccess]: () => true,
   [singUpSuccess]: () => true,
   [logoutSuccess]: () => false,
-});
+})
 
 const loading = createReducer(false, {
   [loginRequest]: () => true,
@@ -68,7 +68,7 @@ const loading = createReducer(false, {
   [isAuthorizedRequest]: () => true,
   [isAuthorizedSuccess]: () => false,
   [isAuthorizedError]: () => false,
-});
+})
 
 const error = createReducer(null, {
   [singUpError]: (state, { payload }) => payload,
@@ -76,7 +76,7 @@ const error = createReducer(null, {
   [logoutError]: (state, { payload }) => payload,
   [isAuthorizedError]: (state, { payload }) => payload,
   [currentUserError]: (state, { payload }) => payload,
-});
+})
 
 export default combineReducers({
   email,
@@ -85,4 +85,4 @@ export default combineReducers({
   isAuthorized,
   loading,
   error,
-});
+})
