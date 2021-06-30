@@ -1,6 +1,5 @@
-import React from 'react';
-import ProductCard from '../../components/cards/ProductCard';
-import s from './CategoryPage.module.scss';
+import ProductCard from '../../components/cards/ProductCard'
+import s from './CategoryPage.module.scss'
 
 export default function CategoryPage() {
   return (
@@ -8,9 +7,9 @@ export default function CategoryPage() {
       <div className={s.cards}>
         <ProductCard
           layout="responsive"
-          width={'100%'}
-          height={'100%'}
-          src={'/products/ex-1.jpg'}
+          width="100%"
+          height="100%"
+          src="/products/ex-1.jpg"
           price={250}
           description="lorem lorem lorem lorem"
           palette={['red', 'green']}
@@ -18,9 +17,9 @@ export default function CategoryPage() {
         />
         <ProductCard
           layout="responsive"
-          width={'100%'}
-          height={'auto'}
-          src={'/products/ex-1.jpg'}
+          width="100%"
+          height="auto"
+          src="/products/ex-1.jpg"
           price={250}
           description="lorem lorem lorem lorem"
           palette={['red', 'green']}
@@ -28,9 +27,9 @@ export default function CategoryPage() {
         />
         <ProductCard
           layout="responsive"
-          width={'100%'}
-          height={'auto'}
-          src={'/products/ex-1.jpg'}
+          width="100%"
+          height="auto"
+          src="/products/ex-1.jpg"
           price={250}
           description="lorem lorem lorem lorem"
           palette={['red', 'green']}
@@ -38,9 +37,9 @@ export default function CategoryPage() {
         />
         <ProductCard
           layout="responsive"
-          width={'100%'}
-          height={'auto'}
-          src={'/products/ex-1.jpg'}
+          width="100%"
+          height="auto"
+          src="/products/ex-1.jpg"
           price={250}
           description="lorem lorem lorem lorem"
           palette={['red', 'green']}
@@ -48,9 +47,9 @@ export default function CategoryPage() {
         />
         <ProductCard
           layout="responsive"
-          width={'100%'}
-          height={'auto'}
-          src={'/products/ex-1.jpg'}
+          width="100%"
+          height="auto"
+          src="/products/ex-1.jpg"
           price={250}
           description="lorem lorem lorem lorem"
           palette={['red', 'green']}
@@ -58,9 +57,9 @@ export default function CategoryPage() {
         />
         <ProductCard
           layout="responsive"
-          width={'100%'}
-          height={'auto'}
-          src={'/products/ex-1.jpg'}
+          width="100%"
+          height="auto"
+          src="/products/ex-1.jpg"
           price={250}
           description="lorem lorem lorem lorem"
           palette={['red', 'green']}
@@ -68,5 +67,5 @@ export default function CategoryPage() {
         />
       </div>
     </div>
-  );
+  )
 }

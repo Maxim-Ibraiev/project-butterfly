@@ -1,4 +1,3 @@
-import React from 'react'
 import MainPage from '../src/pages/MainPage'
 import api from '../src/api'
 

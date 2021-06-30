@@ -1,10 +1,10 @@
-import React from 'react';
-import CategoryItem from './CategoryItem';
-import s from './category.module.scss';
-import routes from '../../routes';
-const { categories } = routes;
+import CategoryItem from './CategoryItem'
+import s from './category.module.scss'
+import routes from '../../routes'
 
 export default function Category() {
+  const { categories } = routes
+
   return (
     <section>
       <h2 className={s.item}>Категории</h2>
@@ -55,5 +55,5 @@ export default function Category() {
         </div>
       </div>
     </section>
-  );
+  )
 }

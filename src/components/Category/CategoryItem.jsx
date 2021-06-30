@@ -1,8 +1,6 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
-import Image from 'next/image';
-import Link from 'next/link';
-import s from './CategoryItem.module.scss';
+import Image from 'next/image'
+import Link from 'next/link'
+import s from './CategoryItem.module.scss'
 
 export default function CategoryItem({
   href = '/',
@@ -29,5 +27,5 @@ export default function CategoryItem({
         <h3 className={s.text}>{text}</h3>
       </a>
     </Link>
-  );
+  )
 }

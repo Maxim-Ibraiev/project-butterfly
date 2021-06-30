@@ -1,14 +1,9 @@
-import React from 'react'
 import Link from 'next/link'
 import s from './MenuMob.module.scss'
 import routes from '../../routes'
-// import { useSelector } from 'react-redux';
-// import { getCategories } from '../../redux/selectors';
 import language from '../../language'
 
 export default function MenuMob() {
-  // const categories = useSelector(getCategories);
-
   return (
     <ul className={s.container}>
       {routes.categories.map(category => (
