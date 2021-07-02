@@ -1,77 +1,70 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-shadow */
-import { useMemo } from 'react'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import {
-  createStore,
-  applyMiddleware,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit'
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist'
+import { createWrapper } from 'next-redux-wrapper'
+import { createStore, applyMiddleware } from '@reduxjs/toolkit'
+import thunkMiddleware from 'redux-thunk'
+import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
-import axios from 'axios'
 import reducer from './rootReducer'
 
-axios.defaults.baseURL = '/api'
-const initialState = {}
+const initialState = {
+  main: {
+    categories: [],
+    categoryLoading: false,
+    error: null,
+    count: 0,
+  },
+  user: {
+    email: '',
+    name: '',
+    token: '',
+    isAuthorized: false,
+    loading: false,
+    error: null,
+  },
+}
 const persistConfig = {
   key: 'store',
   storage,
   whitelist: ['main'],
 }
-const persistedReducer = persistReducer(persistConfig, reducer)
-let store
 
-function initStore(preloadedState = initialState) {
-  return createStore(
-    persistedReducer,
-    preloadedState,
-    composeWithDevTools(
-      applyMiddleware(
-        ...getDefaultMiddleware({
-          serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-          },
-          devTools: process.env.NODE_ENV === 'development',
-        })
-      )
-    )
-  )
-}
-export const initializeStore = preloadedState => {
-  // eslint-disable-next-line no-underscore-dangle
-  let _store = store ?? initStore(preloadedState)
-
-  // After navigating to a page with an initial Redux state, merge that state
-  // with the current state in the store, and create a new store
-  if (preloadedState && store) {
-    _store = initStore({
-      ...store.getState(),
-      ...preloadedState,
-    })
-    // Reset the current store
-    store = undefined
+// function initStore(preloadedState = initialState) {
+//   return createStore(
+//     persistedReducer,
+//     preloadedState,
+//     composeWithDevTools(
+//       applyMiddleware(
+//         ...getDefaultMiddleware({
+//           serializableCheck: {
+//             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//           },
+//           devTools: process.env.NODE_ENV === 'development',
+//         })
+//       )
+//     )
+//   )
+// }
+const bindMiddleware = middleware => {
+  if (process.env.NODE_ENV !== 'production') {
+    const { composeWithDevTools } = require('redux-devtools-extension')
+    return composeWithDevTools(applyMiddleware(...middleware))
   }
-
-  // For SSG and SSR always create a new store
-  if (typeof window === 'undefined')
-    return { _store, persistor: persistStore(_store) }
-  // Create the store once in the client
-  if (!store) store = _store
-  const persistor = persistStore(store)
-
-  return { _store, persistor }
+  return applyMiddleware(...middleware)
 }
 
-export function useStore(initialState) {
-  const store = useMemo(() => initializeStore(initialState), [initialState])
+export const initializeStore = ({ isServer }) => {
+  if (isServer) {
+    // If it's on server side, create a store
+    return createStore(reducer, bindMiddleware([thunkMiddleware]))
+  }
+  // If it's on client side, create a store which will persist
+  const persistedReducer = persistReducer(persistConfig, reducer) // Create a new reducer with our existing reducer
+  const store = createStore(persistedReducer, bindMiddleware([thunkMiddleware])) // Creating the store again
+
+  store.__persistor = persistStore(store) // This creates a persistor object & push that persisted object to .__persistor, so that we can avail the persistability feature
+
   return store
 }
+
+export const wrapper = createWrapper(initializeStore)
