@@ -2,7 +2,6 @@ import MainPage from '../src/pages/MainPage'
 import api from '../src/api'
 
 export default function Home({ categories }) {
-  console.log(categories)
   return (
     <>
       {categories && (

@@ -12,17 +12,20 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playball&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
       {process.browser ? (
         <Provider store={store._store}>
           <PersistGate persistor={store.persistor}>
+            <Head>
+              <meta charSet="utf-8" />
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1"
+              />
+              <link
+                href="https://fonts.googleapis.com/css2?family=Playball&display=swap"
+                rel="stylesheet"
+              />
+            </Head>
             <Component {...pageProps} />
           </PersistGate>
         </Provider>

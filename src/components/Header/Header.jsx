@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
-import cn from 'classnames'
+import { useRouter } from 'next/router'
 import Modal from 'react-modal'
+import cn from 'classnames'
 import Menu from '../MenuMob'
 import Button from '../buttons/HederBtn'
 import s from './Header.module.scss'
@@ -12,6 +13,8 @@ Modal.setAppElement('#__next')
 
 export default function Header() {
   const [modalIsOpen, setIsOpen] = useState(false)
+  const categories = Object.keys(routes.categories)
+  const route = useRouter()
 
   return (
     <header className={s.header}>
@@ -21,13 +24,13 @@ export default function Header() {
       <div className={s.nav}>
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
-            {routes.categories.map(category => (
+            {categories.map(category => (
               <li key={category}>
                 <Link href={`/${category}`}>
                   <a
                     className={cn(s.link, {
                       [s.active]:
-                        `'/' + ${routes.query.category}` ===
+                        `'/' + ${route.query.category}` ===
                         routes.categories[category],
                     })}
                   >
