@@ -4,31 +4,12 @@ import { createWrapper } from 'next-redux-wrapper'
 import { createStore, applyMiddleware } from '@reduxjs/toolkit'
 import thunkMiddleware from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import reducer from './rootReducer'
 
-const initialState = {
-  main: {
-    categories: [],
-    categoryLoading: false,
-    error: null,
-    count: 0,
-  },
-  user: {
-    email: '',
-    name: '',
-    token: '',
-    isAuthorized: false,
-    loading: false,
-    error: null,
-  },
-}
-const persistConfig = {
-  key: 'store',
-  storage,
-  whitelist: ['main'],
-}
-
+// const initialState = {
+// }
 // function initStore(preloadedState = initialState) {
 //   return createStore(
 //     persistedReducer,
@@ -45,9 +26,14 @@ const persistConfig = {
 //     )
 //   )
 // }
+
+const persistConfig = {
+  key: 'store',
+  storage,
+  whitelist: ['main'],
+}
 const bindMiddleware = middleware => {
   if (process.env.NODE_ENV !== 'production') {
-    const { composeWithDevTools } = require('redux-devtools-extension')
     return composeWithDevTools(applyMiddleware(...middleware))
   }
   return applyMiddleware(...middleware)
