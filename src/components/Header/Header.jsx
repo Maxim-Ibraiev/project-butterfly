@@ -2,18 +2,20 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Modal from 'react-modal'
+import { useSelector } from 'react-redux'
 import cn from 'classnames'
 import Menu from '../MenuMob'
 import Button from '../buttons/HederBtn'
-import s from './Header.module.scss'
+import { getCategories } from '../../redux/selectors'
 import routes from '../../routes'
 import language from '../../language'
+import s from './Header.module.scss'
 
 Modal.setAppElement('#__next')
 
 export default function Header() {
   const [modalIsOpen, setIsOpen] = useState(false)
-  const categories = Object.keys(routes.categories)
+  const categories = useSelector(getCategories)
   const route = useRouter()
 
   return (
@@ -24,21 +26,22 @@ export default function Header() {
       <div className={s.nav}>
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
-            {categories.map(category => (
-              <li key={category}>
-                <Link href={`/${category}`}>
-                  <a
-                    className={cn(s.link, {
-                      [s.active]:
-                        `'/' + ${route.query.category}` ===
-                        routes.categories[category],
-                    })}
-                  >
-                    <b>{language[category]}</b>
-                  </a>
-                </Link>
-              </li>
-            ))}
+            {categories &&
+              categories.map(category => (
+                <li key={category}>
+                  <Link href={`/${category}`}>
+                    <a
+                      className={cn(s.link, {
+                        [s.active]:
+                          `'/' + ${route.query.category}` ===
+                          routes.categories[category],
+                      })}
+                    >
+                      <b>{language[category]}</b>
+                    </a>
+                  </Link>
+                </li>
+              ))}
           </ul>
         </nav>
 
