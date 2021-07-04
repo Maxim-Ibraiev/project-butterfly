@@ -16,6 +16,7 @@ const categoryLoading = createReducer(false, {
 })
 
 const error = createReducer(null, {
+  [categoriesSuccess]: () => null,
   [categoriesError]: (_, { payload }) => payload,
 })
 

@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  min-height: 80px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  padding: 20px;
+
+  background-color: var(--bg);
+
+  & > *:not(:last-child) {
+    margin-right: 10px;
+  }
+  & > * {
+    flex-basis: 200px;
+
+    margin-bottom: 10px;
+  }
+}

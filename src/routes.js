@@ -4,7 +4,7 @@ const routes = {
     dress: '/dress',
     suit: '/suit',
     jeans: '/jeans',
-    footballShirt: '/footballShirt',
+    largeSizes: '/largeSizes',
     shirt: '/shirt',
   },
 }

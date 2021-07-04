@@ -1,10 +1,10 @@
 import Header from '../Header'
 import s from './Layout.module.scss'
 
-export default function Layout({ children }) {
+export default function Layout({ categories, children }) {
   return (
     <div className={s.container}>
-      <Header />
+      <Header categories={categories} />
 
       <main>{children}</main>
 

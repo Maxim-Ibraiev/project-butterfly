@@ -1,21 +1,18 @@
 import { useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import Modal from 'react-modal'
-import { useSelector } from 'react-redux'
 import cn from 'classnames'
 import Menu from '../MenuMob'
 import Button from '../buttons/HederBtn'
-import { getCategories } from '../../redux/selectors'
 import routes from '../../routes'
 import language from '../../language'
 import s from './Header.module.scss'
 
 Modal.setAppElement('#__next')
 
-export default function Header() {
+export default function Header({ categories }) {
   const [modalIsOpen, setIsOpen] = useState(false)
-  const categories = useSelector(getCategories)
   const route = useRouter()
 
   return (
@@ -70,7 +67,7 @@ export default function Header() {
         isOpen={modalIsOpen}
         onRequestClose={() => setIsOpen(false)}
       >
-        <Menu />
+        <Menu setIsOpen={setIsOpen} />
       </Modal>
     </header>
   )

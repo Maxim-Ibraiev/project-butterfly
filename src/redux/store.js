@@ -8,8 +8,22 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import reducer from './rootReducer'
 
-// const initialState = {
-// }
+const initialState = {
+  main: {
+    categories: [],
+    categoryLoading: false,
+    error: null,
+    count: 0,
+  },
+  user: {
+    email: '',
+    name: '',
+    token: '',
+    isAuthorized: false,
+    loading: false,
+    error: null,
+  },
+}
 // function initStore(preloadedState = initialState) {
 //   return createStore(
 //     persistedReducer,
@@ -42,7 +56,10 @@ const bindMiddleware = middleware => {
 export const initializeStore = ({ isServer }) => {
   if (isServer) {
     // If it's on server side, create a store
-    return createStore(reducer, bindMiddleware([thunkMiddleware]))
+    return createStore(
+      (reducer = initialState),
+      bindMiddleware([thunkMiddleware])
+    )
   }
   // If it's on client side, create a store which will persist
   const persistedReducer = persistReducer(persistConfig, reducer) // Create a new reducer with our existing reducer

@@ -1,7 +1,23 @@
 export default {
+  // ru - categories
   dress: 'Платья',
   suit: 'Костюмы',
   jeans: 'Джинсы',
-  footballShirt: 'Футболки',
+  largeSizes: 'Большие размеры',
   shirt: 'Рубашки',
+
+  // ru - filters
+  size: 'Размер',
+  material: 'Материал',
+  color: 'Цвет',
+  season: 'Сезон',
+  popularity: 'По популярности',
+  highPrice: 'По возрастанию цены',
+  lowPrice: 'По убыванию цены',
+  cotton: 'Хлопок',
+  silk: 'Шелк',
+  red: 'Красный',
+  blue: 'Синий',
+  winter: 'Зима',
+  summer: 'Лето',
 }
