@@ -1,6 +1,7 @@
-import data from '../../../db.json'
+// import data from '../../../db.json'
+import api from '../../../src/api'
 
-export default function categoriesHandler(req, res) {
+export default async function categoriesHandler(req, res) {
   const {
     query: { id, name },
     method,
@@ -9,7 +10,12 @@ export default function categoriesHandler(req, res) {
   switch (method) {
     case 'GET':
       // Get data from your database
-      res.status(200).json(data)
+      // const data = await api.getCategories()
+      console.log('api')
+      res.status(200).json({
+        categories: ['dress', 'suit', 'jeans', 'shirt', 'largeSizes'],
+        error: null,
+      })
       break
     case 'PUT':
       // Update or create data in your database

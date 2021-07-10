@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import s from './ProductCard.module.scss';
+import Image from 'next/image'
+import s from './ProductCard.module.scss'
 
 export default function ProductCard({
   width,
@@ -25,23 +25,24 @@ export default function ProductCard({
       <span className={s.description}>{description}</span>
       <div className="footer">
         {palette &&
-          palette.map(el => {
+          palette.map(el => (
             <div
               className={s.paletteItem}
               style={{ backgroundColor: el }}
-            ></div>;
-          })}
+              key={el}
+            />
+          ))}
         {sises && (
           <span className={s.sises}>
             {sises.reduce((acc, el) => {
-              if (!acc) return (acc = el);
-              acc += ', ' + el;
+              if (!acc) return el
+              const result = `${acc}, ${el}`
 
-              return acc;
+              return result
             }, '')}
           </span>
-        )}{' '}
+        )}
       </div>
     </div>
-  );
+  )
 }

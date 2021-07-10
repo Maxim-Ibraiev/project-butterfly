@@ -4,6 +4,7 @@ import { useStore, Provider } from 'react-redux'
 import { wrapper } from '../src/redux/store'
 import 'bootstrap/dist/css/bootstrap.css' // add bootstrap css
 import '../src/styles/globals.css'
+import '../src/styles/variables.scss'
 
 function MyApp({ Component, pageProps }) {
   const store = useStore()

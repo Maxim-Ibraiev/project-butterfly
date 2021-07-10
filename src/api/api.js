@@ -8,10 +8,22 @@ const getCategories = async () => {
     return { error: null, categories: res.data.data }
   } catch (error) {
     return {
-      error: { data: error.response.data, message: error.message },
+      error: { data: error.response?.data || null, message: error.message },
       categories: null,
     }
   }
 }
 
-export default { getCategories }
+const getProducts = async () => {
+  try {
+    const res = await axios.get('products')
+    return { error: null, products: res.data.data }
+  } catch (error) {
+    return {
+      error: { data: error.response?.data || null, message: error.message },
+      products: null,
+    }
+  }
+}
+
+export default { getCategories, getProducts }

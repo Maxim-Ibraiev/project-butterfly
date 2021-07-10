@@ -1,29 +1,44 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import MainPage from '../src/pages/MainPage'
 import api from '../src/api'
-import { getCategories } from '../src/redux/selectors'
 import {
   categoriesSuccess,
   categoriesError,
+  productsSuccess,
+  productsError,
 } from '../src/redux/main/mainActions'
 
-export default function Home({ categories, error }) {
+export default function Home({
+  categories,
+  errorCategories,
+  products,
+  errorProducts,
+}) {
   const dispatch = useDispatch()
-  const LocalCategories = useSelector(getCategories)
 
   useEffect(() => {
-    if (!error && categories) dispatch(categoriesSuccess(categories))
-    if (error) dispatch(categoriesError(error))
+    if (!errorCategories && categories) dispatch(categoriesSuccess(categories))
+    if (errorCategories) dispatch(categoriesError(errorCategories))
+
+    if (!errorProducts && products) dispatch(productsSuccess(products))
+    if (errorProducts) dispatch(productsError(errorCategories))
   })
 
-  return <MainPage categories={categories || LocalCategories} />
+  return <MainPage />
 }
 
-export async function getServerSideProps() {
-  const data = await api.getCategories()
+export async function getStaticProps() {
+  const dataCategories = await api.getCategories()
+  const dataProducts = await api.getProducts()
 
   return {
-    props: data,
+    props: {
+      categories: dataCategories.categories,
+      errorCategories: dataCategories.error,
+      products: dataProducts.products,
+      errorProducts: dataProducts.error,
+    },
+    revalidate: 100000,
   }
 }

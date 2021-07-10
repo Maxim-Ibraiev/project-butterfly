@@ -1,19 +1,22 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import Modal from 'react-modal'
 import cn from 'classnames'
 import Menu from '../MenuMob'
 import Button from '../buttons/HederBtn'
+import { getCategories } from '../../redux/selectors'
 import routes from '../../routes'
 import language from '../../language'
 import s from './Header.module.scss'
 
 Modal.setAppElement('#__next')
 
-export default function Header({ categories }) {
+export default function Header() {
   const [modalIsOpen, setIsOpen] = useState(false)
   const route = useRouter()
+  const categories = useSelector(getCategories)
 
   return (
     <header className={s.header}>

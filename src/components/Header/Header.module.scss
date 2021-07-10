@@ -3,6 +3,7 @@
 .header {
   height: 50px;
   width: 100vw;
+  max-width: $desktop;
 
   display: flex;
   align-items: center;

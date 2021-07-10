@@ -4,7 +4,7 @@ import l from '../../language'
 import s from './Filter.module.scss'
 
 const handleOption = e => {
-  console.log(e)
+  // console.log(e)
 }
 
 const size = [

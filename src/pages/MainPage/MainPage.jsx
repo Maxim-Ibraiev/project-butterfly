@@ -1,9 +1,9 @@
 import Layout from '../../components/Layout'
 import Category from '../../components/Category'
 
-export default function MainPage({ categories }) {
+export default function MainPage() {
   return (
-    <Layout categories={categories}>
+    <Layout>
       <Category />
     </Layout>
   )
