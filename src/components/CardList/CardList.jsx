@@ -3,33 +3,25 @@ import { useSelector } from 'react-redux'
 import throttle from 'lodash.throttle'
 import ProductCard from '../cards/ProductCard'
 import { getProducts } from '../../redux/selectors'
+import { getImgSize } from '../../helpers'
 import s from './CardList.module.scss'
-
-const getImgSize = () => {
-  const bodyWidth = document.body.clientWidth
-  const numberOfColumns = () => {
-    if (bodyWidth >= 1000) return 4
-    if (bodyWidth >= 768) return 3
-
-    return 2
-  }
-  const imgWidth = (bodyWidth - 37) / numberOfColumns()
-  const imgHeight = imgWidth / 0.75
-
-  return { width: imgWidth, height: imgHeight }
-}
 
 export default function CardList() {
   const products = useSelector(getProducts)
-  const [size, setSize] = useState(getImgSize())
+  const [size, setSize] = useState()
+  const [firstRender, setFirstRender] = useState(true)
 
   useEffect(() => {
-    const handleResize = throttle(() => setSize(getImgSize()), 2000)
+    if (firstRender) {
+      setSize(getImgSize())
+      setFirstRender(false)
+    }
 
+    const handleResize = throttle(() => setSize(getImgSize()), 2000)
     window.addEventListener('resize', handleResize)
 
     return () => window.removeEventListener('resize', handleResize)
-  })
+  }, [firstRender])
 
   return (
     <section className={s.cards}>
