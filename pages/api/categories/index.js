@@ -1,5 +1,5 @@
 // import data from '../../../db.json'
-import api from '../../../src/api'
+// import api from '../../../src/api'
 
 export default async function categoriesHandler(req, res) {
   const {

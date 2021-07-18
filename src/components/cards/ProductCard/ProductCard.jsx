@@ -4,43 +4,36 @@ import s from './ProductCard.module.scss'
 export default function ProductCard({
   width,
   height,
-  layout,
   src,
   alt,
   price,
-  description,
+  title,
   palette,
   sises,
 }) {
   return (
     <div className={s.wrapper}>
-      <Image
-        width={width}
-        height={height}
-        layout={layout}
-        src={src}
-        alt={alt}
-      />
-      <b className={s.price}>{price}</b>
-      <span className={s.description}>{description}</span>
-      <div className="footer">
-        {palette &&
-          palette.map(el => (
-            <div
-              className={s.paletteItem}
-              style={{ backgroundColor: el }}
-              key={el}
-            />
-          ))}
+      <div className={s.image}>
+        <Image width={width} height={height} src={src} alt={alt} />
+      </div>
+      <div className={s.productDetails}>
+        <b className={s.price}>{`${price} грн`}</b>
+        <span className={s.title}>{title}</span>
         {sises && (
           <span className={s.sises}>
             {sises.reduce((acc, el) => {
               if (!acc) return el
-              const result = `${acc}, ${el}`
 
-              return result
+              return `${acc}, ${el}`
             }, '')}
           </span>
+        )}
+        {palette && (
+          <div className={s.palette}>
+            {palette.map(el => (
+              <div style={{ backgroundColor: el }} key={el} />
+            ))}
+          </div>
         )}
       </div>
     </div>

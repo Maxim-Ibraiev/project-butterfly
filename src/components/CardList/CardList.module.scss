@@ -3,8 +3,8 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  column-gap: 7px;
+  row-gap: 7px;
 
   @media screen and (min-width: $mobileUpper) {
     grid-template-columns: repeat(3, 1fr);
