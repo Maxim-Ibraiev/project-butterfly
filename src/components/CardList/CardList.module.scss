@@ -4,10 +4,11 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 7px;
-  row-gap: 7px;
+  row-gap: 14px;
 
   @media screen and (min-width: $mobileUpper) {
     grid-template-columns: repeat(3, 1fr);
+    column-gap: 14px;
   }
 
   @media screen and (min-width: 1000px) {
