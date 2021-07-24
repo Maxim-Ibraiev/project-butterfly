@@ -1,18 +1,25 @@
-import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 import throttle from 'lodash.throttle'
 import ProductCard from '../cards/ProductCard'
 import { getProducts } from '../../redux/selectors'
-import { getImgSize } from '../../helpers'
+import { getImgSize, getFilteredProducts } from '../../helpers'
+
 import s from './CardList.module.scss'
 
-export default function CardList() {
-  const products = useSelector(getProducts)
-  const [size, setSize] = useState()
+export default function CardList({ filter }) {
+  const data = useSelector(getProducts)
+  const [size, setSize] = useState({ width: 170, height: 220 })
   const [firstRender, setFirstRender] = useState(true)
+  const [products, setProducts] = useState(data)
 
   useEffect(() => {
+    if ((data, filter)) {
+      setProducts(getFilteredProducts(data, filter))
+    }
+
     if (firstRender) {
+      setProducts(data)
       setSize(getImgSize())
       setFirstRender(false)
     }
@@ -21,8 +28,15 @@ export default function CardList() {
     window.addEventListener('resize', handleResize)
 
     return () => window.removeEventListener('resize', handleResize)
-  }, [firstRender])
+  }, [firstRender, data, filter])
 
+  const colors = () => [
+    Math.random() > 0.5 ? 'blue' : 'black',
+    'rgb(255, 178, 208)',
+    'red',
+    'green',
+    'while',
+  ]
   return (
     <section className={s.cards}>
       {products.map(el => (
@@ -30,11 +44,12 @@ export default function CardList() {
           key={el.id || el.title}
           width={size.width}
           height={size.height}
-          src={el.image || '/products/ex-1.jpg'}
+          src="/products/ex-1.jpg"
           price={el.price}
           title={el.title}
+          material={el.material}
           description={el.description}
-          palette={['rgb(255, 178, 208)', 'red', 'green', 'while']}
+          palette={colors()}
           sises={[35, 37, 38, 40]}
         />
       ))}

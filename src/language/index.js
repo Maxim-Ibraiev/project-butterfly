@@ -18,6 +18,7 @@ export default {
   silk: 'Шелк',
   red: 'Красный',
   blue: 'Синий',
+  black: 'Черный',
   winter: 'Зима',
   summer: 'Лето',
 }

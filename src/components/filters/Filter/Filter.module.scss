@@ -1,0 +1,53 @@
+@import '../../../styles/variables.scss';
+
+@media screen and (max-width: $mobileLesser) {
+  .selector {
+    [class$='-control'] {
+      box-shadow: none;
+      border: none;
+    }
+    [class$='-ValueContainer'] {
+      padding: 0;
+    }
+    [class$='-indicatorSeparator'] {
+      display: none;
+    }
+    [class$='-indicatorContainer'] {
+      padding: 0;
+    }
+  }
+
+  .container > *:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+.container {
+  display: flex;
+
+  @media screen and (max-width: $mobileLesser) {
+    font-size: 12px;
+    & > *:not(:first-child) {
+      margin-left: 15px;
+    }
+
+    & > *:nth-child(1) {
+      width: 130px;
+    }
+    & > *:nth-child(2) {
+      width: 25%;
+    }
+    & > *:nth-child(3) {
+      width: 25%;
+    }
+  }
+
+  @media screen and (min-width: $mobileUpper) {
+    & > * {
+      flex-basis: 100%;
+    }
+    & > *:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+}

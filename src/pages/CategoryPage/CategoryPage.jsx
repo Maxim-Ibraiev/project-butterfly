@@ -1,15 +1,16 @@
+import { useState } from 'react'
 import Layout from '../../components/Layout'
-import Filter from '../../components/Filter'
+import Filter from '../../components/filters/Filter'
 import CardList from '../../components/CardList'
 import s from './CategoryPage.module.scss'
 
-export default function CategoryPage() {
-  const arr = []
-  arr.length = 30
+export default function CategoryPage({ products }) {
+  const [filter, setFilter] = useState(null)
+
   return (
     <Layout className={s.layout}>
-      <Filter />
-      <CardList data={arr.fill('0')} />
+      <Filter handleFilter={setFilter} />
+      <CardList products={products} filter={filter} />
     </Layout>
   )
 }

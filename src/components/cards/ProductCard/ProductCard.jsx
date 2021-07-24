@@ -10,7 +10,9 @@ export default function ProductCard({
   title,
   palette,
   sises,
+  material,
 }) {
+  console.log(material)
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
@@ -35,6 +37,7 @@ export default function ProductCard({
             ))}
           </div>
         )}
+        <span>{material}</span>
       </div>
     </div>
   )

@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { getProductsProps, getCategoriesProps } from '../src/api/staticProps'
 import MainPage from '../src/pages/MainPage'
-import api from '../src/api'
 import {
-  categoriesSuccess,
   categoriesError,
-  productsSuccess,
+  categoriesSuccess,
   productsError,
+  productsSuccess,
 } from '../src/redux/main/mainActions'
 
 export default function Home({
@@ -22,22 +22,20 @@ export default function Home({
     if (errorCategories) dispatch(categoriesError(errorCategories))
 
     if (!errorProducts && products) dispatch(productsSuccess(products))
-    if (errorProducts) dispatch(productsError(errorCategories))
+    if (errorProducts) dispatch(productsError(errorProducts))
   })
 
   return <MainPage />
 }
 
 export async function getStaticProps() {
-  const dataCategories = await api.getCategories()
-  const dataProducts = await api.getProducts()
+  const categoriesProps = await getCategoriesProps()
+  const productsProps = await getProductsProps()
 
   return {
     props: {
-      categories: dataCategories.categories,
-      errorCategories: dataCategories.error,
-      products: dataProducts.products,
-      errorProducts: dataProducts.error,
+      ...categoriesProps,
+      ...productsProps,
     },
     revalidate: 100000,
   }
