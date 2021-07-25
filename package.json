@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "prestart": "npm  run build",
-    "start": "next start",
+    "start": "next start --port 3001",
     "ser": "json-server --watch db.json --port 3004 --delay 100",
     "lint": "next lint"
   },

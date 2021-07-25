@@ -25,7 +25,7 @@ export default function Home({
     if (errorProducts) dispatch(productsError(errorProducts))
   })
 
-  return <MainPage />
+  return <MainPage categories={categories} />
 }
 
 export async function getStaticProps() {
@@ -37,6 +37,6 @@ export async function getStaticProps() {
       ...categoriesProps,
       ...productsProps,
     },
-    revalidate: 100000,
+    revalidate: 600,
   }
 }

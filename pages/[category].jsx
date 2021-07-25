@@ -2,16 +2,24 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import CategoryPage from '../src/pages/CategoryPage'
 import { getProductsProps, getCategoriesProps } from '../src/api/staticProps'
-import { productsError, productsSuccess } from '../src/redux/main/mainActions'
+import {
+  productsError,
+  productsSuccess,
+  categoriesError,
+  categoriesSuccess,
+} from '../src/redux/main/mainActions'
 
-export default function Category({ products, errorProducts }) {
+export default function Category({ products, errorProducts, errorCategories, categories }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    if (!errorCategories && categories) dispatch(categoriesSuccess(categories))
+    if (errorCategories) dispatch(categoriesError(errorCategories))
+
     if (!errorProducts && products) dispatch(productsSuccess(products))
     if (errorProducts) dispatch(productsError(errorProducts))
   })
-  return <CategoryPage />
+  return <CategoryPage products={products} />
 }
 
 export async function getStaticProps() {
@@ -23,13 +31,21 @@ export async function getStaticProps() {
       ...categoriesProps,
       ...productsProps,
     },
-    revalidate: 100000,
+    revalidate: 600,
   }
 }
 
 export async function getStaticPaths() {
+  const { categories, errorCategories } = await getCategoriesProps()
+
+  const paths = !errorCategories
+    ? categories.map(category => ({
+        params: { category },
+      }))
+    : [{ params: { category: 'dress' } }]
+
   return {
-    paths: [{ params: { category: 'suit' } }],
+    paths,
     fallback: true,
   }
 }

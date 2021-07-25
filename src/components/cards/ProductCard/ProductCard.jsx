@@ -12,7 +12,6 @@ export default function ProductCard({
   sises,
   material,
 }) {
-  console.log(material)
   return (
     <div className={s.wrapper}>
       <div className={s.image}>

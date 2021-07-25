@@ -13,10 +13,11 @@ import s from './Header.module.scss'
 
 Modal.setAppElement('#__next')
 
-export default function Header() {
+export default function Header({ categories }) {
   const [modalIsOpen, setIsOpen] = useState(false)
   const route = useRouter()
-  const categories = useSelector(getCategories)
+  const categoriesFromStorage = useSelector(getCategories)
+  const data = categories || categoriesFromStorage
 
   return (
     <header className={s.header}>
@@ -26,32 +27,25 @@ export default function Header() {
       <div className={s.nav}>
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
-            {categories &&
-              categories.map(category => (
-                <li key={category}>
-                  <Link href={`/${category}`}>
-                    <a
-                      className={cn(s.link, {
-                        [s.active]:
-                          `'/' + ${route.query.category}` ===
-                          routes.categories[category],
-                      })}
-                    >
-                      <b>{language[category]}</b>
-                    </a>
-                  </Link>
-                </li>
-              ))}
+            {data.map(category => (
+              <li key={category}>
+                <Link href={`/${category}`}>
+                  <a
+                    className={cn(s.link, {
+                      [s.active]: `'/' + ${route.query.category}` === routes.categories[category],
+                    })}
+                  >
+                    <b>{language[category]}</b>
+                  </a>
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
         <ul className={s.row}>
           <li>
-            <Button
-              type="button"
-              aria-label="Отложено"
-              src="/icons/heart.svg"
-            />
+            <Button type="button" aria-label="Отложено" src="/icons/heart.svg" />
           </li>
           <li className={s.menuBtn}>
             <Button

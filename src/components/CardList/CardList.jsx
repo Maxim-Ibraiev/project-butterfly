@@ -7,19 +7,20 @@ import { getImgSize, getFilteredProducts } from '../../helpers'
 
 import s from './CardList.module.scss'
 
-export default function CardList({ filter }) {
-  const data = useSelector(getProducts)
+export default function CardList({ products, filter }) {
+  const productsFromStorage = useSelector(getProducts)
   const [size, setSize] = useState({ width: 170, height: 220 })
   const [firstRender, setFirstRender] = useState(true)
-  const [products, setProducts] = useState(data)
+  const [filteredProducts, setFilteredProducts] = useState(products)
+  const data = products || productsFromStorage
 
   useEffect(() => {
-    if ((data, filter)) {
-      setProducts(getFilteredProducts(data, filter))
+    if ((productsFromStorage, filter)) {
+      setFilteredProducts(getFilteredProducts(productsFromStorage, filter))
     }
 
     if (firstRender) {
-      setProducts(data)
+      setFilteredProducts(productsFromStorage)
       setSize(getImgSize())
       setFirstRender(false)
     }
@@ -28,7 +29,7 @@ export default function CardList({ filter }) {
     window.addEventListener('resize', handleResize)
 
     return () => window.removeEventListener('resize', handleResize)
-  }, [firstRender, data, filter])
+  }, [firstRender, productsFromStorage, filter])
 
   const colors = () => [
     Math.random() > 0.5 ? 'blue' : 'black',
@@ -39,7 +40,7 @@ export default function CardList({ filter }) {
   ]
   return (
     <section className={s.cards}>
-      {products.map(el => (
+      {data.map(el => (
         <ProductCard
           key={el.id || el.title}
           width={size.width}
@@ -49,7 +50,7 @@ export default function CardList({ filter }) {
           title={el.title}
           material={el.material}
           description={el.description}
-          palette={colors()}
+          palette={['rgb(255, 178, 208)', 'red', 'green', 'while']}
           sises={[35, 37, 38, 40]}
         />
       ))}
