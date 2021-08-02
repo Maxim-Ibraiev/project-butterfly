@@ -5,12 +5,10 @@ import CardList from '../../components/CardList'
 import s from './CategoryPage.module.scss'
 
 export default function CategoryPage({ products }) {
-  const [filter, setFilter] = useState(null)
-
   return (
     <Layout className={s.layout}>
-      <Filter handleFilter={setFilter} />
-      <CardList products={products} filter={filter} />
+      <Filter />
+      <CardList products={products} />
     </Layout>
   )
 }

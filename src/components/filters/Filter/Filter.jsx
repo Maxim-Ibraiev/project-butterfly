@@ -1,74 +1,33 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated'
-import l from '../../../language'
+import queryString from 'query-string'
+import CustomSelector from '../../CustomSelector'
+import { getOptionsFormatFromValue } from '../../../helpers'
 import s from './Filter.module.scss'
-
-const options = {
-  size: [
-    { value: 45, label: 45 },
-    { value: 48, label: 48 },
-    { value: 50, label: 50 },
-    { value: 52, label: 52 },
-    { value: 55, label: 55 },
-  ],
-  sort: [
-    { value: 'popularity', label: l.popularity },
-    { value: 'highPrice', label: l.highPrice },
-    { value: 'lowPrice', label: l.lowPrice },
-  ],
-  material: [
-    { value: 'cotton', label: l.cotton },
-    { value: 'silk', label: l.silk },
-  ],
-  color: [
-    { value: 'red', label: l.red },
-    { value: 'blue', label: l.blue },
-    { value: 'black', label: l.black },
-  ],
-  season: [
-    { value: 'winter', label: l.winter },
-    { value: 'summer', label: l.summer },
-  ],
-}
-
-// function defaultValue(optionsArr, value) {
-//   if (Array.isArray(value)) {
-//     return optionsArr.filter(option => value.some(el => el === option.value))
-//   }
-//   if (typeof value === 'string') {
-//     return optionsArr.filter(option => option.value === value)
-//   }
-
-//   return []
-// }
+import l from '../../../language'
 
 export default function Filter() {
   const router = useRouter()
-  const [sort, setSort] = useState({ value: 'highPrice', label: l.highPrice })
-  const [size, setSize] = useState()
-  const [material, setMaterial] = useState()
-  const [color, setColor] = useState()
-  const [season, setSeason] = useState()
-  const [filterChanged, setFilterChanged] = useState(false)
-  const animatedComponents = makeAnimated()
-  const [defaultValue, setDefaultValue] = useState()
+  const params = queryString.parseUrl(router.asPath).query
+
+  const [size, setSize] = useState(getOptionsFormatFromValue(params.size))
+  const [material, setMaterial] = useState(getOptionsFormatFromValue(params.material))
+  const [color, setColor] = useState(getOptionsFormatFromValue(params.color))
+  const [season, setSeason] = useState(getOptionsFormatFromValue(params.season))
+  const [sort, setSort] = useState(
+    getOptionsFormatFromValue(params.sort) || { value: 'popularity', label: l.popularity }
+  )
 
   const handleFilter = dependencies => {
-    if (!filterChanged) {
-      setFilterChanged(true)
-      return
-    }
-
-    const allOptions = Object.keys(options)
+    const allOptions = Object.keys(dependencies)
     const filter = allOptions.reduce((acc, el) => {
-      if (dependencies[el]) {
-        acc[el] = Array.isArray(dependencies[el])
-          ? dependencies[el].map(element => element.value)
-          : dependencies[el].value
-      } else if (router.query[el]) {
-        acc[el] = router.query[el]
+      const currentOption = dependencies[el]
+      if (currentOption) {
+        acc[el] = Array.isArray(currentOption)
+          ? currentOption.map(element => element.value)
+          : currentOption.value
+      } else if (params[el]) {
+        acc[el] = params[el]
       }
 
       return acc
@@ -79,20 +38,6 @@ export default function Filter() {
       query: filter,
     })
   }
-  const handleSelected = option => {
-    if (Array.isArray(router.query.size))
-      return router.query.size.some(el => Number(el) === option.value)
-
-    return Number(router.query.size) === option.value
-  }
-
-  useEffect(() => {
-    if (Array.isArray(router.query.size)) {
-      setDefaultValue(router.query.size.map(el => ({ value: el, label: el })))
-    } else if (router.query.size) {
-      setDefaultValue({ value: router.query.size, label: router.query.size })
-    }
-  }, [router.query])
 
   useEffect(() => {
     handleFilter({ sort, size, material, color, season })
@@ -100,77 +45,11 @@ export default function Filter() {
 
   return (
     <div className={s.container}>
-      <div>
-        <Select
-          className={s.selector}
-          onChange={setSort}
-          label={l.popularity}
-          options={options.sort}
-          defaultValue={sort}
-          inputId={l.popularity}
-          isSearchable={false}
-        />
-      </div>
-      <div>
-        <Select
-          className={s.selector}
-          isClearable
-          onChange={setSize}
-          placeholder={l.size}
-          label={l.size}
-          options={options.size}
-          value={size || defaultValue}
-          components={animatedComponents}
-          isOptionSelected={handleSelected}
-          inputId={l.size}
-          isMulti
-          MultiValueContainer={l.size}
-          closeMenuOnSelect={false}
-          hideSelectedOptions={false}
-        />
-      </div>
-      <div>
-        <Select
-          className={s.selector}
-          isClearable
-          onChange={setMaterial}
-          placeholder={l.material}
-          options={options.material}
-          defaultValue={material}
-          inputId={l.material}
-          isMulti
-          components={animatedComponents}
-          closeMenuOnSelect={false}
-          hideSelectedOptions={false}
-          isSearchable={false}
-        />
-      </div>
-      <Select
-        isClearable
-        onChange={setColor}
-        placeholder={l.color}
-        options={options.color}
-        defaultValue={color}
-        inputId={l.color}
-        isMulti
-        components={animatedComponents}
-        closeMenuOnSelect={false}
-        hideSelectedOptions={false}
-        isSearchable={false}
-      />
-      <Select
-        isClearable
-        onChange={setSeason}
-        placeholder={l.season}
-        options={options.season}
-        defaultValue={season}
-        inputId={l.season}
-        isMulti
-        components={animatedComponents}
-        closeMenuOnSelect={false}
-        hideSelectedOptions={false}
-        isSearchable={false}
-      />
+      <CustomSelector handleChange={setSort} type="sort" defaultValue={sort} />
+      <CustomSelector type="size" defaultValue={size} handleChange={setSize} isMulti />
+      <CustomSelector type="material" defaultValue={material} handleChange={setMaterial} isMulti />
+      <CustomSelector type="color" defaultValue={color} handleChange={setColor} isMulti />
+      <CustomSelector type="season" defaultValue={season} handleChange={setSeason} isMulti />
     </div>
   )
 }

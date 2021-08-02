@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import Modal from 'react-modal'
+import queryString from 'query-string'
 import cn from 'classnames'
 import Menu from '../MenuMob'
 import Button from '../buttons/HederBtn'
@@ -15,9 +16,10 @@ Modal.setAppElement('#__next')
 
 export default function Header({ categories }) {
   const [modalIsOpen, setIsOpen] = useState(false)
-  const route = useRouter()
+  const router = useRouter()
   const categoriesFromStorage = useSelector(getCategories)
   const data = categories || categoriesFromStorage
+  const params = queryString.parseUrl(router.asPath).query
 
   return (
     <header className={s.header}>
@@ -29,10 +31,15 @@ export default function Header({ categories }) {
           <ul className={cn(s.row, s.mobUpper)}>
             {data.map(category => (
               <li key={category}>
-                <Link href={`/${category}`}>
+                <Link
+                  href={{
+                    pathname: `/${category}`,
+                    query: params,
+                  }}
+                >
                   <a
                     className={cn(s.link, {
-                      [s.active]: `'/' + ${route.query.category}` === routes.categories[category],
+                      [s.active]: `'/' + ${router.query.category}` === routes.categories[category],
                     })}
                   >
                     <b>{language[category]}</b>

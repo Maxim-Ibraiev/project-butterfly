@@ -9,12 +9,7 @@ import {
   productsSuccess,
 } from '../src/redux/main/mainActions'
 
-export default function Home({
-  categories,
-  errorCategories,
-  products,
-  errorProducts,
-}) {
+export default function Home({ categories, errorCategories, products, errorProducts }) {
   const dispatch = useDispatch()
 
   useEffect(() => {

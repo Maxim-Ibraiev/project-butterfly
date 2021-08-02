@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+@media screen and (max-width: $mobileLesser) {
+  .selector {
+    [class$='-control'] {
+      box-shadow: none;
+      border: none;
+    }
+    [class$='-ValueContainer'] {
+      padding: 0;
+    }
+    [class$='-indicatorSeparator'] {
+      display: none;
+    }
+    [class$='-indicatorContainer'] {
+      padding: 0;
+    }
+    [class$='-multiValue'] {
+      width: 50%;
+    }
+  }
+}
