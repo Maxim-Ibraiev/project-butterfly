@@ -6,7 +6,7 @@ interface Props {
   ariaLabel: string
   className?: string
   fill?: string
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+  handleClick: () => void
 }
 
 const HederBtn: React.FC<Props> = ({

@@ -31,12 +31,12 @@ module.exports = {
   plugins: ['react'],
   overrides: [
     {
-      files: ['src/**/*.{js,jsx}'],
+      files: ['./**/*.{js,jsx}'],
       extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
       rules: rulesBasic,
     },
     {
-      files: ['src/**/*.{ts,tsx}'],
+      files: ['./**/*.{ts,tsx}'],
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
@@ -49,6 +49,7 @@ module.exports = {
         'no-use-before-define': 0,
         'no-unused-vars': 0,
         'react/jsx-filename-extension': 0,
+        '@typescript-eslint/explicit-module-boundary-types': 0,
       },
     },
   ],

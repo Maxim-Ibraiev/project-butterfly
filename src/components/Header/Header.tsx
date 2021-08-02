@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
@@ -13,8 +13,11 @@ import language from '../../language'
 import s from './Header.module.scss'
 
 Modal.setAppElement('#__next')
+interface Props {
+  categories: string[]
+}
 
-export default function Header({ categories }) {
+export default function Header({ categories = [] }: Props) {
   const [modalIsOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const categoriesFromStorage = useSelector(getCategories)
@@ -52,13 +55,13 @@ export default function Header({ categories }) {
 
         <ul className={s.row}>
           <li>
-            <Button ariaLabel={language.save} src="/icons/heart.svg" />
+            <Button handleClick={() => ({})} ariaLabel={language.save} src="/icons/heart.svg" />
           </li>
           <li className={s.menuBtn}>
             <Button
               ariaLabel={language.menu}
               src={modalIsOpen ? '/icons/close.svg' : '/icons/menu.svg'}
-              onClick={() => setIsOpen(!modalIsOpen)}
+              handleClick={() => setIsOpen(!modalIsOpen)}
             />
           </li>
         </ul>
