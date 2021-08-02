@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Layout from '../../components/Layout'
 import Filter from '../../components/filters/Filter'
 import CardList from '../../components/CardList'

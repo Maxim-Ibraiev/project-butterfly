@@ -1,19 +1,10 @@
-import Link from "next/link";
-import SearchIcon from "../../icons/Search";
-import s from "./SearchForm.module.scss";
+import Link from 'next/link'
+import SearchIcon from '../../icons/Search'
+import s from './SearchForm.module.scss'
 
-export default function InputsSearch({
-  handleSubmit,
-  name,
-  className,
-  ...props
-}) {
+export default function InputsSearch({ handleSubmit, name, className }) {
   return (
-    <form
-      className={s.wrapper + " " + className}
-      onSubmit={handleSubmit}
-      role="search"
-    >
+    <form className={`${s.wrapper} ${className}`} onSubmit={handleSubmit} role="search">
       <input
         className={s.input}
         type="search"
@@ -26,13 +17,12 @@ export default function InputsSearch({
         aria-controls="search-results"
         aria-expanded="false"
         maxLength="150"
-        {...props}
       />
-      <Link href={"/"}>
+      <Link href="/">
         <a className={s.icon}>
           <SearchIcon />
         </a>
       </Link>
     </form>
-  );
+  )
 }

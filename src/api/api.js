@@ -8,7 +8,7 @@ const getCategories = async () => {
     return { error: null, categories: res.data.data }
   } catch (error) {
     return {
-      error: { data: error.response?.data || null, message: error.message },
+      error: { data: error.response.data || null, message: error.message },
       categories: null,
     }
   }
@@ -20,7 +20,7 @@ const getProducts = async () => {
     return { error: null, products: res.data.data }
   } catch (error) {
     return {
-      error: { data: error.response?.data || null, message: error.message },
+      error: { data: error.response.data || null, message: error.message },
       products: null,
     }
   }

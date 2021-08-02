@@ -52,12 +52,11 @@ export default function Header({ categories }) {
 
         <ul className={s.row}>
           <li>
-            <Button type="button" aria-label="Отложено" src="/icons/heart.svg" />
+            <Button ariaLabel={language.save} src="/icons/heart.svg" />
           </li>
           <li className={s.menuBtn}>
             <Button
-              type="button"
-              aria-label="Меню"
+              ariaLabel={language.menu}
               src={modalIsOpen ? '/icons/close.svg' : '/icons/menu.svg'}
               onClick={() => setIsOpen(!modalIsOpen)}
             />

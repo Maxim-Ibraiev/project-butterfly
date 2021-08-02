@@ -21,4 +21,7 @@ export default {
   black: 'Черный',
   winter: 'Зима',
   summer: 'Лето',
+
+  menu: 'Меню',
+  save: 'Сохранить',
 }
