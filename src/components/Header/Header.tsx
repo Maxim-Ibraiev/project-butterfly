@@ -11,13 +11,15 @@ import { getCategories } from '../../redux/selectors'
 import routes from '../../routes'
 import language from '../../language'
 import s from './Header.module.scss'
+import { Categories } from '../../interfaces'
 
 Modal.setAppElement('#__next')
+
 interface Props {
-  categories: string[]
+  categories: Categories
 }
 
-export default function Header({ categories = [] }: Props) {
+export default function Header({ categories }: Props) {
   const [modalIsOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const categoriesFromStorage = useSelector(getCategories)
@@ -27,29 +29,32 @@ export default function Header({ categories = [] }: Props) {
   return (
     <header className={s.header}>
       <Link href={routes.home}>
-        <a className={cn(s.logo)}>Butterfly</a>
+        <a className={s.logo}>Butterfly</a>
       </Link>
       <div className={s.nav}>
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
-            {data.map(category => (
-              <li key={category}>
-                <Link
-                  href={{
-                    pathname: `/${category}`,
-                    query: params,
-                  }}
-                >
-                  <a
-                    className={cn(s.link, {
-                      [s.active]: `'/' + ${router.query.category}` === routes.categories[category],
-                    })}
-                  >
-                    <b>{language[category]}</b>
-                  </a>
-                </Link>
-              </li>
-            ))}
+            {data.map(
+              category =>
+                category && (
+                  <li key={category}>
+                    <Link
+                      href={{
+                        pathname: `/${category}`,
+                        query: params,
+                      }}
+                    >
+                      <a
+                        className={cn(s.link, {
+                          [s.active]: `'/' + ${router.query.category}` === routes.categories[category],
+                        })}
+                      >
+                        <b>{language[category]}</b>
+                      </a>
+                    </Link>
+                  </li>
+                )
+            )}
           </ul>
         </nav>
 

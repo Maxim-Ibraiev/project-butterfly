@@ -1,13 +1,11 @@
+import { IProduct } from '../interfaces'
+
 interface IOptions {
   sort: string
   size?: string | string[]
   material?: string | string[]
   color?: string | string[]
   season?: string | string[]
-}
-
-interface IProduct {
-  price: number
 }
 
 type Products = IProduct[]

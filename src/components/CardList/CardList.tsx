@@ -8,7 +8,13 @@ import { getProducts } from '../../redux/selectors'
 import { getImgSize, getFilteredProducts } from '../../helpers'
 import s from './CardList.module.scss'
 
-export default function CardList({ products }) {
+import { IProduct } from '../../interfaces'
+
+interface IProps {
+  products: IProduct[]
+}
+
+export default function CardList({ products }: IProps) {
   const productsFromStorage = useSelector(getProducts)
   const router = useRouter()
   const data = products || productsFromStorage
@@ -40,8 +46,9 @@ export default function CardList({ products }) {
           src="/products/ex-1.jpg"
           price={el.price}
           title={el.title}
+          alt={el.title}
           material={el.material}
-          description={el.description}
+          // description={el.description}
           palette={['rgb(255, 178, 208)', 'red', 'green', 'while']}
           sises={[35, 37, 38, 40]}
         />

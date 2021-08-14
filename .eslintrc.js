@@ -17,6 +17,14 @@ const rulesBasic = {
   'eslint linebreak-style': [0, 'error', 'windows'],
 }
 
+const rulesTS = {
+  'no-use-before-define': 0,
+  'no-unused-vars': 0,
+  'react/jsx-filename-extension': 0,
+  '@typescript-eslint/explicit-module-boundary-types': 0,
+  '@typescript-eslint/no-unused-vars': 0,
+}
+
 module.exports = {
   env: {
     browser: true,
@@ -46,10 +54,7 @@ module.exports = {
       excludedFiles: '*.d.ts',
       rules: {
         ...rulesBasic,
-        'no-use-before-define': 0,
-        'no-unused-vars': 0,
-        'react/jsx-filename-extension': 0,
-        '@typescript-eslint/explicit-module-boundary-types': 0,
+        ...rulesTS,
       },
     },
   ],

@@ -1,17 +1,7 @@
 import Image from 'next/image'
 import s from './ProductCard.module.scss'
 
-export default function ProductCard({
-  width,
-  height,
-  src,
-  alt,
-  price,
-  title,
-  palette,
-  sises,
-  material,
-}) {
+export default function ProductCard({ width, height, src, alt, price, title, palette, sises, material }) {
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
