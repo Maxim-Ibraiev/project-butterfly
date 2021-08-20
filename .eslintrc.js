@@ -22,18 +22,19 @@ const rulesTS = {
   'no-unused-vars': 0,
   'react/jsx-filename-extension': 0,
   '@typescript-eslint/explicit-module-boundary-types': 0,
-  '@typescript-eslint/no-unused-vars': 0,
+  '@typescript-eslint/no-unused-vars': 'warn',
 }
 
 module.exports = {
   env: {
     browser: true,
   },
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2020,
+    ecmaVersion: 2021,
     sourceType: 'module',
   },
   plugins: ['react'],
@@ -45,12 +46,7 @@ module.exports = {
     },
     {
       files: ['./**/*.{ts,tsx}'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:react/recommended',
-        'airbnb',
-        'prettier',
-      ],
+      extends: ['plugin:@typescript-eslint/recommended', 'plugin:react/recommended', 'airbnb', 'prettier'],
       excludedFiles: '*.d.ts',
       rules: {
         ...rulesBasic,

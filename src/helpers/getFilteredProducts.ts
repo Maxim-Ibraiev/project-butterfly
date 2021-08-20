@@ -1,20 +1,24 @@
 import { IProduct } from '../interfaces'
 
 interface IOptions {
-  sort: string
+  sort?: string
   size?: string | string[]
   material?: string | string[]
   color?: string | string[]
   season?: string | string[]
 }
 
-type Products = IProduct[]
+function getSortedProducts(products: IProduct[], sort?: string): IProduct[] {
+  switch (sort) {
+    case 'highPrice':
+      return products.sort((a, b) => (a.price > b.price ? 1 : -1))
 
-function getSortedProducts(products: Products, sort: string) {
-  if (sort === 'highPrice') products.sort((a, b) => (a.price > b.price ? 1 : -1))
-  if (sort === 'lowPrice') products.sort((a, b) => (a.price > b.price ? -1 : 1))
+    case 'lowPrice':
+      return products.sort((a, b) => (a.price > b.price ? -1 : 1))
 
-  return products
+    default:
+      return products
+  }
 }
 
 function getArrayFormat(param: string | string[]): string[] {
@@ -40,13 +44,13 @@ function filterForProducts(product: IProduct, options: IOptions) {
   })
 }
 
-export default function getFilteredProducts(products: Products, options: IOptions): Products {
+export default function getFilteredProducts(products: IProduct[], options?: IOptions): IProduct[] {
   if (!products) {
     throw new Error(`Product is ${products}. The Products are expected to be an array`)
   }
 
   const filteredProducts = products.filter(el => filterForProducts(el, options))
-  const result: Products = getSortedProducts(filteredProducts, options.sort)
+  const result = getSortedProducts(filteredProducts, options.sort)
 
   return result
 }

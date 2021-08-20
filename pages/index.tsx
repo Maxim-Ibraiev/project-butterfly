@@ -1,23 +1,20 @@
-import { getProductsProps, getCategoriesProps } from '../src/api/staticProps'
+import { wrapper } from '../src/redux/store'
 import MainPage from '../src/pages/MainPage'
-import { useDispatchData } from '../src/customHook'
+import { getCategoriesProps } from '../src/api/staticProps'
+import { dispatchData } from '../src/helpers'
 import { REVALIDATE } from '../src/constants'
 
-export default function Home({ categoriesResponse, productsResponse }) {
-  useDispatchData(categoriesResponse)
-
-  return <MainPage categories={categoriesResponse.categories} />
+export default function Home() {
+  return <MainPage />
 }
 
-export async function getStaticProps() {
+export const getStaticProps = wrapper.getStaticProps(store => async () => {
   const categoriesResponse = await getCategoriesProps()
-  const productsResponse = await getProductsProps()
+
+  dispatchData(store.dispatch, categoriesResponse)
 
   return {
-    props: {
-      categoriesResponse,
-      productsResponse,
-    },
+    props: {},
     revalidate: REVALIDATE,
   }
-}
+})

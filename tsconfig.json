@@ -14,6 +14,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["additional.d.ts", "**/*.ts", "**/*.tsx", "src/components/Header/Header.tsx"],
+  "include": ["additional.d.ts", "**/*.ts", "**/*.tsx", "src/components/Header/Header.tsx", "src/components/Category/index.js"],
   "exclude": ["node_modules"]
 }

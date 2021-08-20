@@ -1,15 +1,9 @@
 import Layout from '../../components/Layout'
 import Category from '../../components/Category'
-import { IProduct, Categories } from '../../interfaces'
 
-type Props = {
-  // products: IProduct
-  categories: Categories
-}
-
-export default function MainPage({ categories }: Props) {
+export default function MainPage() {
   return (
-    <Layout categories={categories}>
+    <Layout>
       <Category />
     </Layout>
   )

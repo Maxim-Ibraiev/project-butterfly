@@ -1,11 +1,13 @@
 import { createAction } from '@reduxjs/toolkit'
 
-export const categoriesRequest = createAction('contacts/categoriesRequest')
-export const categoriesSuccess = createAction('contacts/categoriesSuccess')
-export const categoriesError = createAction('contacts/categoriesError')
+import type { IState, IProduct } from '../../interfaces'
 
-export const productsRequest = createAction('contacts/productsRequest')
-export const productsSuccess = createAction('contacts/productsSuccess')
-export const productsError = createAction('contacts/productsError')
+export const categoriesSuccess = createAction<string[]>('main/categoriesSuccess')
+export const categoriesError = createAction('main/categoriesError')
 
-export const count = createAction('contacts/count')
+export const productsSuccess = createAction<IProduct[]>('main/productsSuccess')
+export const productsError = createAction('main/productsError')
+
+export const hydrate = createAction<IState>('main/hydrate')
+
+export const count = createAction('main/count')

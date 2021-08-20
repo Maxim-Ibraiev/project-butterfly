@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 import Modal from 'react-modal'
 import queryString from 'query-string'
 import cn from 'classnames'
@@ -11,19 +11,13 @@ import { getCategories } from '../../redux/selectors'
 import routes from '../../routes'
 import language from '../../language'
 import s from './Header.module.scss'
-import { Categories } from '../../interfaces'
 
 Modal.setAppElement('#__next')
 
-interface Props {
-  categories: Categories
-}
-
-export default function Header({ categories }: Props) {
-  const [modalIsOpen, setIsOpen] = useState(false)
+export default function Header() {
   const router = useRouter()
-  const categoriesFromStorage = useSelector(getCategories)
-  const data = categories || categoriesFromStorage
+  const categories = useSelector(getCategories)
+  const [modalIsOpen, setIsOpen] = useState(false)
   const params = queryString.parseUrl(router.asPath).query
 
   return (
@@ -34,7 +28,7 @@ export default function Header({ categories }: Props) {
       <div className={s.nav}>
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
-            {data.map(
+            {categories.map(
               category =>
                 category && (
                   <li key={category}>
@@ -78,7 +72,7 @@ export default function Header({ categories }: Props) {
         isOpen={modalIsOpen}
         onRequestClose={() => setIsOpen(false)}
       >
-        <Menu setIsOpen={setIsOpen} />
+        <Menu setIsOpen={() => setIsOpen(false)} />
       </Modal>
     </header>
   )

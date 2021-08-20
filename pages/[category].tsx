@@ -1,33 +1,24 @@
-import { useEffect } from 'react'
 import CategoryPage from '../src/pages/CategoryPage'
+import { wrapper } from '../src/redux/store'
 import { getProductsProps, getCategoriesProps } from '../src/api/staticProps'
-import { useDispatchData } from '../src/customHook'
-import { REVALIDATE } from '../src/constants'
+import { dispatchData } from '../src/helpers'
+import { REVALIDATE, CATEGORIES } from '../src/constants'
 
-import { IProductsProps, ICategoriesProps } from '../src/interfaces'
-
-interface IProps {
-  categoriesResponse: ICategoriesProps
-  productsResponse: IProductsProps
+export default function Category() {
+  return <CategoryPage />
 }
 
-export default function Category({ categoriesResponse, productsResponse }: IProps) {
-  useDispatchData(categoriesResponse, productsResponse)
-
-  return <CategoryPage products={productsResponse?.products} categories={categoriesResponse?.categories} />
-}
-
-export async function getStaticProps() {
+export const getStaticProps = wrapper.getStaticProps(store => async () => {
   const categoriesResponse = await getCategoriesProps()
   const productsResponse = await getProductsProps()
+
+  dispatchData(store.dispatch, categoriesResponse, productsResponse)
+
   return {
-    props: {
-      categoriesResponse,
-      productsResponse,
-    },
+    props: {},
     revalidate: REVALIDATE,
   }
-}
+})
 
 export async function getStaticPaths() {
   const { categories, categoriesError } = await getCategoriesProps()
@@ -36,7 +27,9 @@ export async function getStaticPaths() {
     ? categories.map(category => ({
         params: { category },
       }))
-    : [{ params: { category: 'dress' } }]
+    : CATEGORIES.map(category => ({
+        params: { category },
+      }))
 
   return {
     paths,

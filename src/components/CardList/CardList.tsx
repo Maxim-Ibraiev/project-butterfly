@@ -8,25 +8,17 @@ import { getProducts } from '../../redux/selectors'
 import { getImgSize, getFilteredProducts } from '../../helpers'
 import s from './CardList.module.scss'
 
-import { IProduct } from '../../interfaces'
-
-interface IProps {
-  products: IProduct[]
-}
-
-export default function CardList({ products }: IProps) {
-  const productsFromStorage = useSelector(getProducts)
+export default function CardList() {
+  const products = useSelector(getProducts)
   const router = useRouter()
-  const data = products || productsFromStorage
   const params = queryString.parseUrl(router.asPath).query
-
   const [imgSize, setImgSize] = useState({ width: 170, height: 220 })
-  const [filteredProducts, setFilteredProducts] = useState(getFilteredProducts(data, params))
+  const [filteredProducts, setFilteredProducts] = useState(getFilteredProducts(products, params))
 
   useEffect(() => {
     const currentParams = queryString.parseUrl(router.asPath).query
 
-    setFilteredProducts(getFilteredProducts(data, currentParams))
+    setFilteredProducts(getFilteredProducts(products, currentParams))
   }, [router.asPath])
 
   useEffect(() => {

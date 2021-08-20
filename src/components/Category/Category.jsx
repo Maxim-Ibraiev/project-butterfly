@@ -34,7 +34,7 @@ export default function Category() {
           src="/exp/2.webp"
         />
         <CategoryItem
-          href={categories.footballShirt}
+          href={categories.TShirt}
           text="Футболки"
           width="700px"
           height="475px"
