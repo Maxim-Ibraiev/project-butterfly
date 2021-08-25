@@ -1,4 +1,11 @@
-export default function Close({ fill, ...props }) {
+import { Attributes } from 'react'
+
+interface Props {
+  fill: string
+  props: Attributes[]
+}
+
+export default function Close({ fill, ...props }: Props) {
   return (
     <svg
       version="1.1"

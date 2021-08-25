@@ -22,11 +22,13 @@ export default function CardList() {
   }, [router.asPath])
 
   useEffect(() => {
-    const handleResize = () => throttle(() => setImgSize(getImgSize()), 2000)
+    const handleResize = throttle(() => setImgSize(getImgSize()), 1000)
+
     window.addEventListener('resize', handleResize)
+    setImgSize(getImgSize())
 
     return () => window.removeEventListener('resize', handleResize)
-  })
+  }, [])
 
   return (
     <section className={s.cards}>
@@ -42,7 +44,7 @@ export default function CardList() {
           material={el.material}
           // description={el.description}
           palette={['rgb(255, 178, 208)', 'red', 'green', 'while']}
-          sises={[35, 37, 38, 40]}
+          sizes={[35, 37, 38, 40]}
         />
       ))}
     </section>

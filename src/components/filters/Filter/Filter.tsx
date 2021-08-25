@@ -4,7 +4,7 @@ import queryString from 'query-string'
 import CustomSelector from '../../CustomSelector'
 import { getOptionsFormatFromValue } from '../../../helpers'
 import s from './Filter.module.scss'
-import l from '../../../language'
+import l from '../../../language/index.ts'
 
 export default function Filter() {
   const router = useRouter()
@@ -34,7 +34,7 @@ export default function Filter() {
     }, {})
 
     router.push({
-      pathname: router.query.category,
+      pathname: Array.isArray(router.query.category) ? router.query.category[0] : router.query.category,
       query: filter,
     })
   }

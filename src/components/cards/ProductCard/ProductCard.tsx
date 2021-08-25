@@ -1,7 +1,29 @@
 import Image from 'next/image'
 import s from './ProductCard.module.scss'
 
-export default function ProductCard({ width, height, src, alt, price, title, palette, sises, material }) {
+interface Props {
+  width: number
+  height: number
+  price: number
+  sizes: number[]
+  src: string
+  alt: string
+  title: string
+  material: string[]
+  palette: string[]
+}
+
+export default function ProductCard({
+  width,
+  height,
+  src,
+  alt,
+  price,
+  title,
+  palette,
+  sizes,
+  material,
+}: Props) {
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
@@ -10,9 +32,9 @@ export default function ProductCard({ width, height, src, alt, price, title, pal
       <div className={s.productDetails}>
         <b className={s.price}>{`${price} грн`}</b>
         <span className={s.title}>{title}</span>
-        {sises && (
-          <span className={s.sises}>
-            {sises.reduce((acc, el) => {
+        {sizes && (
+          <span className={s.sizes}>
+            {sizes.reduce((acc, el) => {
               if (!acc) return el
 
               return `${acc}, ${el}`

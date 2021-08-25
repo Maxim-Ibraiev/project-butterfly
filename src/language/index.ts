@@ -4,6 +4,7 @@ export default {
   suit: 'Костюмы',
   jeans: 'Джинсы',
   largeSizes: 'Большие размеры',
+  tShirt: 'Футболки',
   shirt: 'Рубашки',
 
   // ru - filters

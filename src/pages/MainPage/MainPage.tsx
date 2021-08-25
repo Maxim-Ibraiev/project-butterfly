@@ -1,10 +1,10 @@
 import Layout from '../../components/Layout'
-import Category from '../../components/Category'
+import CategoryGrid from '../../components/CategoryGrid'
 
 export default function MainPage() {
   return (
     <Layout>
-      <Category />
+      <CategoryGrid />
     </Layout>
   )
 }

@@ -9,7 +9,7 @@ import Menu from '../MenuMob'
 import Button from '../buttons/HederBtn'
 import { getCategories } from '../../redux/selectors'
 import routes from '../../routes'
-import language from '../../language'
+import language from '../../language/index.ts'
 import s from './Header.module.scss'
 
 Modal.setAppElement('#__next')

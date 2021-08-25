@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import { getCategories } from '../../redux/selectors.ts'
 import routes from '../../routes'
-import language from '../../language'
+import language from '../../language/index.ts'
 import s from './MenuMob.module.scss'
 
 export default function MenuMob({ setIsOpen }) {

@@ -1,6 +1,7 @@
-import CategoryItem from './CategoryItem'
-import s from './category.module.scss'
+import CategoryItem from './CategoryGridItem'
 import routes from '../../routes'
+import s from './CategoryGrid.module.scss'
+import language from '../../language/index.ts'
 
 export default function Category() {
   const { categories } = routes
@@ -11,7 +12,7 @@ export default function Category() {
       <div className={s.gallery}>
         <CategoryItem
           href={categories.dress}
-          text="Платья"
+          text={language.dress}
           width="700px"
           height="475px"
           layout="responsive"
@@ -19,7 +20,7 @@ export default function Category() {
         />
         <CategoryItem
           href={categories.suit}
-          text="Костюмы"
+          text={language.suit}
           width="700px"
           height="475px"
           layout="responsive"
@@ -27,7 +28,7 @@ export default function Category() {
         />
         <CategoryItem
           href={categories.jeans}
-          text="Джинсы"
+          text={language.jeans}
           width="700px"
           height="475px"
           layout="responsive"
@@ -35,7 +36,7 @@ export default function Category() {
         />
         <CategoryItem
           href={categories.TShirt}
-          text="Футболки"
+          text={language.tShirt}
           width="700px"
           height="475px"
           layout="responsive"
@@ -43,7 +44,7 @@ export default function Category() {
         />
         <CategoryItem
           href={categories.shirt}
-          text="Рубашки"
+          text={language.shirt}
           width="700px"
           height="475px"
           layout="responsive"

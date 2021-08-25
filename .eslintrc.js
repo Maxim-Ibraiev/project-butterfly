@@ -23,6 +23,7 @@ const rulesTS = {
   'react/jsx-filename-extension': 0,
   '@typescript-eslint/explicit-module-boundary-types': 0,
   '@typescript-eslint/no-unused-vars': 'warn',
+  'react/require-default-props': 0,
 }
 
 module.exports = {

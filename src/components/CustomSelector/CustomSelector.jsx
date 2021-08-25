@@ -1,6 +1,6 @@
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
-import l from '../../language'
+import l from '../../language/index.ts'
 import s from './CustomSelector.module.scss'
 
 const allOptions = {
@@ -31,13 +31,13 @@ const allOptions = {
   ],
 }
 
-export default function CustomSelector({ type = '', value, handleChange, isMulti, defaultValue }) {
+export default function CustomSelector({ type = '', handleChange, isMulti = false, defaultValue }) {
   const animatedComponents = makeAnimated()
   const select = isMulti ? type : defaultValue.value
 
   return (
     <Select
-      value={value}
+      key={select}
       defaultValue={defaultValue}
       label={l[select]}
       inputId={l[select]}
