@@ -34,7 +34,13 @@ export interface IError {
   message: string
 }
 
-// interface a { main?: { categories?: string[]; products?: {}[]; error?: { ...; }; }; }
+export type FilterOption = { value: string; label: string }
 
-// // The types of 'main.error' are incompatible between these types.
-//     Type '{}' is missing the following properties from type '{ data: {}; message: string; }': data, message
+export type InitialFilter = {
+  category?: string
+  size?: string | string[]
+  material?: string | string[]
+  color?: string | string[]
+  season?: string | string[]
+  sort?: string | string[]
+}

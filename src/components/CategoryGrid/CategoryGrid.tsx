@@ -1,7 +1,7 @@
 import CategoryItem from './CategoryGridItem'
 import routes from '../../routes'
 import s from './CategoryGrid.module.scss'
-import language from '../../language/index.ts'
+import language from '../../language'
 
 export default function Category() {
   const { categories } = routes
@@ -35,7 +35,7 @@ export default function Category() {
           src="/exp/2.webp"
         />
         <CategoryItem
-          href={categories.TShirt}
+          href={categories.tShirt}
           text={language.tShirt}
           width="700px"
           height="475px"

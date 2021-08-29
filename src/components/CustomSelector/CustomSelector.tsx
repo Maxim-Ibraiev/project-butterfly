@@ -1,7 +1,11 @@
-import Select from 'react-select'
+import Select, { OptionsType } from 'react-select'
+import { Dispatch } from 'react'
 import makeAnimated from 'react-select/animated'
-import l from '../../language/index.ts'
+import l from '../../language'
 import s from './CustomSelector.module.scss'
+
+import type { FilterOption } from '../../interfaces'
+import { getOptionsFormatFromValue } from '../../helpers'
 
 const allOptions = {
   size: [
@@ -31,25 +35,32 @@ const allOptions = {
   ],
 }
 
-export default function CustomSelector({ type = '', handleChange, isMulti = false, defaultValue }) {
+interface Props {
+  type: string
+  handleChange: (option: OptionsType<FilterOption>, type: string) => void
+  value: string | string[]
+  isMulti?: boolean
+  label?: string
+}
+
+export default function CustomSelector({ type, handleChange, label = ' ', isMulti = false, value }: Props) {
   const animatedComponents = makeAnimated()
-  const select = isMulti ? type : defaultValue.value
 
   return (
     <Select
-      key={select}
-      defaultValue={defaultValue}
-      label={l[select]}
-      inputId={l[select]}
-      className={s.selector}
-      placeholder={l[select]}
+      value={getOptionsFormatFromValue(value)}
+      onChange={(option: OptionsType<FilterOption>) => handleChange(option, type)}
+      placeholder={l[type]}
+      label={label || l[type]}
       options={allOptions[type]}
-      isMulti={isMulti}
-      isSearchable={false}
-      onChange={handleChange}
+      inputId={label || l[type]}
       closeMenuOnSelect={!isMulti}
+      isMulti={isMulti}
+      key={type}
+      isSearchable={false}
       hideSelectedOptions={false}
       components={animatedComponents}
+      className={s.selector}
     />
   )
 }

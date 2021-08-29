@@ -9,7 +9,7 @@ import Menu from '../MenuMob'
 import Button from '../buttons/HederBtn'
 import { getCategories } from '../../redux/selectors'
 import routes from '../../routes'
-import language from '../../language/index.ts'
+import language from '../../language'
 import s from './Header.module.scss'
 
 Modal.setAppElement('#__next')
@@ -34,13 +34,13 @@ export default function Header() {
                   <li key={category}>
                     <Link
                       href={{
-                        pathname: `/${category}`,
+                        pathname: routes.categories[category],
                         query: params,
                       }}
                     >
                       <a
                         className={cn(s.link, {
-                          [s.active]: `'/' + ${router.query.category}` === routes.categories[category],
+                          [s.active]: router.query.category === category,
                         })}
                       >
                         <b>{language[category]}</b>

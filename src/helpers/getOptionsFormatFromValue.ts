@@ -1,4 +1,4 @@
-import language from '../language/index.ts'
+import language from '../language'
 
 export default function getOptionsFormatFromValue(valueOption: string | string[]) {
   if (!valueOption) return null
@@ -8,8 +8,10 @@ export default function getOptionsFormatFromValue(valueOption: string | string[]
         value: element,
         label: language[element] || element,
       }))
-    : {
-        value: valueOption || 'popularity',
-        label: language[valueOption] || valueOption,
-      }
+    : [
+        {
+          value: valueOption || 'popularity',
+          label: language[valueOption] || valueOption,
+        },
+      ]
 }

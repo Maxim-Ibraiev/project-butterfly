@@ -1,55 +1,57 @@
-import { useState, useEffect } from 'react'
+import type { OptionsType } from 'react-select'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import queryString from 'query-string'
 import CustomSelector from '../../CustomSelector'
-import { getOptionsFormatFromValue } from '../../../helpers'
 import s from './Filter.module.scss'
-import l from '../../../language/index.ts'
+
+import type { FilterOption, InitialFilter } from '../../../interfaces'
+
+type HandleFilter = (option: OptionsType<FilterOption>, type: string) => void
 
 export default function Filter() {
   const router = useRouter()
-  const params = queryString.parseUrl(router.asPath).query
 
-  const [size, setSize] = useState(getOptionsFormatFromValue(params.size))
-  const [material, setMaterial] = useState(getOptionsFormatFromValue(params.material))
-  const [color, setColor] = useState(getOptionsFormatFromValue(params.color))
-  const [season, setSeason] = useState(getOptionsFormatFromValue(params.season))
-  const [sort, setSort] = useState(
-    getOptionsFormatFromValue(params.sort) || { value: 'popularity', label: l.popularity }
-  )
+  const initialFilter: InitialFilter = router.query
 
-  const handleFilter = dependencies => {
-    const allOptions = Object.keys(dependencies)
-    const filter = allOptions.reduce((acc, el) => {
-      const currentOption = dependencies[el]
-      if (currentOption) {
-        acc[el] = Array.isArray(currentOption)
-          ? currentOption.map(element => element.value)
-          : currentOption.value
-      } else if (params[el]) {
-        acc[el] = params[el]
-      }
+  const [filter, setFilter] = useState(initialFilter)
+  const [isFirstSetFilter, setIsFistSetFilter] = useState(true)
 
-      return acc
-    }, {})
+  const handleFilter: HandleFilter = (option, type) => {
+    const pathname = Array.isArray(router.query.category) ? router.query.category[0] : router.query.category
+    const newOption = Array.isArray(option) ? option : [option]
+    let newFilter = null
+    if (newOption[0]) {
+      newFilter = { ...filter, [type]: newOption.map(el => el.value) }
+    } else {
+      delete filter[type]
 
-    router.push({
-      pathname: Array.isArray(router.query.category) ? router.query.category[0] : router.query.category,
-      query: filter,
+      newFilter = filter
+    }
+
+    delete newFilter.category
+
+    router.replace({
+      pathname,
+      query: newFilter,
     })
+
+    setFilter(newFilter)
   }
 
   useEffect(() => {
-    handleFilter({ sort, size, material, color, season })
-  }, [sort, size, material, color, season])
+    if (isFirstSetFilter && Object.keys(router.query).length > 1) {
+      setFilter(router.query)
+      setIsFistSetFilter(false)
+    }
+  }, [router.query, isFirstSetFilter])
 
   return (
     <div className={s.container}>
-      <CustomSelector handleChange={setSort} type="sort" defaultValue={sort} />
-      <CustomSelector type="size" defaultValue={size} handleChange={setSize} isMulti />
-      <CustomSelector type="material" defaultValue={material} handleChange={setMaterial} isMulti />
-      <CustomSelector type="color" defaultValue={color} handleChange={setColor} isMulti />
-      <CustomSelector type="season" defaultValue={season} handleChange={setSeason} isMulti />
+      <CustomSelector type="sort" value={filter.sort} handleChange={handleFilter} label="sort" />
+      <CustomSelector type="size" value={filter.size} handleChange={handleFilter} isMulti />
+      <CustomSelector type="material" value={filter.material} handleChange={handleFilter} isMulti />
+      <CustomSelector type="color" value={filter.color} handleChange={handleFilter} isMulti />
+      <CustomSelector type="season" value={filter.season} handleChange={handleFilter} isMulti />
     </div>
   )
 }

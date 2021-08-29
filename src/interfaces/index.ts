@@ -1,2 +1,10 @@
 export type { ICategoriesProps, IProductsProps } from './props'
-export type { Categories, IProduct, IDataResponse, IState, IError } from './interfaces'
+export type {
+  Categories,
+  IProduct,
+  IDataResponse,
+  IState,
+  IError,
+  FilterOption,
+  InitialFilter,
+} from './interfaces'
