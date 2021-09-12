@@ -1,54 +1,43 @@
 import Image from 'next/image'
 import s from './ProductCard.module.scss'
 
+import type { IProduct } from '../../../interfaces'
+
 interface Props {
   width: number
   height: number
-  price: number
-  sizes: number[]
-  src: string
-  alt: string
-  title: string
-  material: string[]
-  palette: string[]
+  product: IProduct
 }
 
-export default function ProductCard({
-  width,
-  height,
-  src,
-  alt,
-  price,
-  title,
-  palette,
-  sizes,
-  material,
-}: Props) {
+export default function ProductCard({ width, height, product }: Props) {
+  const { image, alert, price, title, color, size, material, popularity } = product
+
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <Image width={width} height={height} src={src} alt={alt} />
+        <Image width={width} height={height} src={image || '/products/ex-2.jpg'} alt={alert} />
       </div>
       <div className={s.productDetails}>
         <b className={s.price}>{`${price} грн`}</b>
         <span className={s.title}>{title}</span>
-        {sizes && (
+        {size && (
           <span className={s.sizes}>
-            {sizes.reduce((acc, el) => {
+            {Object.values(size).reduce((acc, el) => {
               if (!acc) return el
 
               return `${acc}, ${el}`
             }, '')}
           </span>
         )}
-        {palette && (
+        {color && (
           <div className={s.palette}>
-            {palette.map(el => (
+            {color.map(el => (
               <div style={{ backgroundColor: el }} key={el} />
             ))}
           </div>
         )}
         <span>{material}</span>
+        <span>{popularity}</span>
       </div>
     </div>
   )

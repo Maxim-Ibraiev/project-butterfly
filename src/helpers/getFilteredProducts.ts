@@ -1,24 +1,36 @@
 import { IProduct } from '../interfaces'
 
 interface IOptions {
-  sort?: string
-  size?: string | string[]
-  material?: string | string[]
-  color?: string | string[]
-  season?: string | string[]
+  [key: string]: string | string[]
 }
 
-function getSortedProducts(products: IProduct[], sort?: string): IProduct[] {
-  switch (sort) {
-    case 'highPrice':
-      return products.sort((a, b) => (a.price > b.price ? 1 : -1))
+function wrapperArr<T>(arg: T | T[]): T[] {
+  return Array.isArray(arg) ? arg : [arg]
+}
 
-    case 'lowPrice':
-      return products.sort((a, b) => (a.price > b.price ? -1 : 1))
+function getSortedProducts(products: IProduct[], sort?: string | string[]): IProduct[] {
+  const sortArr = wrapperArr<string>(sort)
 
-    default:
-      return products
-  }
+  sortArr.forEach(sortOption => {
+    switch (sortOption) {
+      case 'highPrice':
+        products.sort((a, b) => (a.price > b.price ? 1 : -1))
+        break
+
+      case 'lowPrice':
+        products.sort((a, b) => (a.price > b.price ? -1 : 1))
+        break
+
+      case 'popularity':
+        products.sort((a, b) => (a.popularity > b.popularity ? -1 : 1))
+        break
+
+      default:
+        break
+    }
+  })
+
+  return products
 }
 
 function getArrayFormat(param: string | string[]): string[] {
@@ -50,7 +62,6 @@ export default function getFilteredProducts(products: IProduct[], options?: IOpt
   }
 
   const filteredProducts = products.filter(el => filterForProducts(el, options))
-  const result = getSortedProducts(filteredProducts, options.sort)
 
-  return result
+  return getSortedProducts(filteredProducts, options.sort)
 }

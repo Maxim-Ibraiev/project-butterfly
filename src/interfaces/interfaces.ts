@@ -1,11 +1,15 @@
 export type Categories = string[]
 
 export interface IProduct {
+  price: number
+  popularity: number
   material: string[]
+  image: string
   id: string
+  color: string[]
+  category: string
   description: string
   title: string
-  price: number
   alert: string
   createdAt: string
   updatedAt: string

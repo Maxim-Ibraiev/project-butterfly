@@ -1,5 +1,4 @@
 import Select, { OptionsType } from 'react-select'
-import { Dispatch } from 'react'
 import makeAnimated from 'react-select/animated'
 import l from '../../language'
 import s from './CustomSelector.module.scss'
