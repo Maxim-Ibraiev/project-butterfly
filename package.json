@@ -30,7 +30,9 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
+    "react-image-gallery": "^1.2.7",
     "react-modal": "^3.12.1",
+    "react-phone-number-input": "^3.1.27",
     "react-redux": "^7.2.3",
     "react-select": "^4.3.1",
     "react-transition-group": "^4.4.1",
@@ -43,7 +45,10 @@
     "typescript": "^4.3.5"
   },
   "devDependencies": {
+    "@types/classnames": "^2.3.1",
     "@types/lodash.throttle": "^4.1.6",
+    "@types/react-image-gallery": "^1.0.4",
+    "@types/react-phone-number-input": "^3.0.11",
     "autoprefixer": "^10.2.5",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",

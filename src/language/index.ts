@@ -9,6 +9,7 @@ export default {
 
   // ru - filters
   size: 'Размер',
+  sizes: 'Размеры',
   material: 'Материал',
   color: 'Цвет',
   season: 'Сезон',
@@ -25,4 +26,8 @@ export default {
 
   menu: 'Меню',
   save: 'Сохранить',
+
+  // ru - text
+  toCart: 'В корзину',
+  buyInOneTouch: 'Купить в 1 клик',
 }

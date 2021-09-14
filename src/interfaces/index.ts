@@ -7,4 +7,5 @@ export type {
   IError,
   FilterOption,
   InitialFilter,
+  Request,
 } from './interfaces'

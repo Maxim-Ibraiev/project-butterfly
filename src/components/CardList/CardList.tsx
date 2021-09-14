@@ -29,7 +29,7 @@ export default function CardList() {
   return (
     <section className={s.cards}>
       {filteredProducts.map(el => (
-        <ProductCard key={el.id || el.title} width={imgSize.width} height={imgSize.height} product={el} />
+        <ProductCard key={el.id} width={imgSize.width} height={imgSize.height} product={el} />
       ))}
     </section>
   )

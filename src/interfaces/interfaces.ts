@@ -48,3 +48,5 @@ export type InitialFilter = {
   season?: string | string[]
   sort?: string | string[]
 }
+
+export type Request = 'Error' | 'Request' | 'Success' | undefined | null

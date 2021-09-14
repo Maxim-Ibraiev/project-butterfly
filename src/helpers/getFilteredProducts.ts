@@ -26,6 +26,7 @@ function getSortedProducts(products: IProduct[], sort?: string | string[]): IPro
         break
 
       default:
+        products.sort((a, b) => (a.popularity > b.popularity ? -1 : 1))
         break
     }
   })

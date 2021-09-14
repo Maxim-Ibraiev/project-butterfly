@@ -8,6 +8,7 @@ const routes = {
     shirt: '/shirt',
     tShirt: '/t-shirt',
   },
+  product: '/product',
 }
 
 export default routes
