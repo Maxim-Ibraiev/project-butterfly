@@ -24,11 +24,12 @@ export default function MainProduct() {
   const [phoneNumber, setPhoneNumber] = useState('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
 
-  const items = [
-    { original: product.image, thumbnail: product.image, originalClass: s.image },
-    { original: product.image, thumbnail: product.image, originalClass: s.image },
-    { original: product.image, thumbnail: product.image, originalClass: s.image },
-  ]
+  const items = product.images.map(el => {
+    const original = `/products/${el.original}`
+    const thumbnail = `/products/${el.original}`
+
+    return { ...el, thumbnail, original }
+  })
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()

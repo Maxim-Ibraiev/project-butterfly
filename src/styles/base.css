@@ -18,6 +18,8 @@
   --gray: #cccccc;
   --border-palette: #dadada;
   --accent: #6458b7;
+  --disabledText: #9b9b9b;
+  --disabledBg: #f6f6f6;
   --error: red;
   --request: gray;
   --success: green;

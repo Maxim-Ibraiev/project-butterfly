@@ -43,8 +43,8 @@ export default function Category() {
           src="/exp/3.webp"
         />
         <CategoryItem
-          href={categories.shirt}
-          text={language.shirt}
+          href={categories.shirts}
+          text={language.shirts}
           width="700px"
           height="475px"
           layout="responsive"

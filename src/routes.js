@@ -5,7 +5,7 @@ const routes = {
     suit: '/suit',
     jeans: '/jeans',
     largeSizes: '/largeSizes',
-    shirt: '/shirt',
+    shirts: '/shirts',
     tShirt: '/t-shirt',
   },
   product: '/product',

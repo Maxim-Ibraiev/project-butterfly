@@ -12,13 +12,19 @@ interface Props {
 }
 
 export default function ProductCard({ width, height, product }: Props) {
-  const { image, alert, price, title, color, size, material, popularity, id } = product
+  const { images, price, title, color, size, material, popularity, id } = product
 
   return (
     <Link href={`${routes.product}/${id}`}>
       <a className={s.wrapper}>
         <div className={s.image}>
-          <Image width={width} height={height} src={image || '/products/ex-2.jpg'} alt={alert} />
+          <Image
+            width={width}
+            height={height}
+            loader={el => `/products/${el.src}`}
+            src={images[0].original}
+            alt={title}
+          />
         </div>
         <div className={s.productDetails}>
           <b className={s.price}>{`${price} грн`}</b>
@@ -34,9 +40,7 @@ export default function ProductCard({ width, height, product }: Props) {
           )}
           {color && (
             <div className={s.palette}>
-              {color.map(el => (
-                <div style={{ backgroundColor: el }} key={el} />
-              ))}
+              <div style={{ backgroundColor: color }} />
             </div>
           )}
           <span>{material}</span>

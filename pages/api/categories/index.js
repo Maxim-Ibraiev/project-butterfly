@@ -9,7 +9,7 @@ export default async function categoriesHandler(req, res) {
       // Get data from your database
       // const data = await api.getCategories()
       res.status(200).json({
-        data: ['dress', 'suit', 'jeans', 'shirt', 'largeSizes'],
+        data: ['dress', 'suit', 'jeans', 'shirts', 'largeSizes'],
         error: null,
       })
       break

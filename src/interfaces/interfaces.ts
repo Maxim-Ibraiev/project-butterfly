@@ -4,18 +4,17 @@ export interface IProduct {
   price: number
   popularity: number
   material: string[]
-  image: string
+  color: string
+  images: { original: string; thumbnail: string; color: string[] }[]
   id: string
-  color: string[]
   category: string
   description: string
   title: string
-  alert: string
   createdAt: string
   updatedAt: string
   __v: number
   size: {
-    [key: number]: number
+    [key: string]: number
   }
 }
 

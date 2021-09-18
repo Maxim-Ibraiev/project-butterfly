@@ -88,7 +88,12 @@
 }
 
 .disableBtn {
-  display: none;
+  color: var(--disabledText);
+  background: var(--disabledBg);
+
+  &.activeBtn {
+    border-color: black;
+  }
 }
 
 .buyBtn {
