@@ -2,7 +2,9 @@ import type { OptionsType } from 'react-select'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import CustomSelector from '../../CustomSelector'
+import routes from '../../../routes'
 import s from './Filter.module.scss'
+import language from '../../../language'
 
 import type { FilterOption, InitialFilter } from '../../../interfaces'
 
@@ -17,9 +19,9 @@ export default function Filter() {
   const [isFirstSetFilter, setIsFistSetFilter] = useState(true)
 
   const handleFilter: HandleFilter = (option, type) => {
-    const pathname = Array.isArray(router.query.category) ? router.query.category[0] : router.query.category
     const newOption = Array.isArray(option) ? option : [option]
     let newFilter = null
+
     if (newOption[0]) {
       newFilter = { ...filter, [type]: newOption.map(el => el.value) }
     } else {
@@ -28,10 +30,8 @@ export default function Filter() {
       newFilter = filter
     }
 
-    delete newFilter.category
-
     router.replace({
-      pathname,
+      pathname: routes.category,
       query: newFilter,
     })
 
@@ -43,11 +43,22 @@ export default function Filter() {
       setFilter(router.query)
       setIsFistSetFilter(false)
     }
+    if (router.query.category !== filter.category) {
+      setFilter({
+        ...filter,
+        category: Array.isArray(router.query.category) ? router.query.category[0] : router.query.category,
+      })
+    }
   }, [router.query, isFirstSetFilter])
 
   return (
     <div className={s.container}>
-      <CustomSelector type="sort" value={filter.sort} handleChange={handleFilter} label="sort" />
+      <CustomSelector
+        type="sort"
+        value={filter.sort}
+        handleChange={handleFilter}
+        label={language[filter.sort] || language.popularity}
+      />
       <CustomSelector type="size" value={filter.size} handleChange={handleFilter} isMulti />
       <CustomSelector type="material" value={filter.material} handleChange={handleFilter} isMulti />
       <CustomSelector type="color" value={filter.color} handleChange={handleFilter} isMulti />

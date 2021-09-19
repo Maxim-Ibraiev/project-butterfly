@@ -10,6 +10,8 @@ export interface IProduct {
   category: string
   description: string
   title: string
+  model: string
+  season: string
   createdAt: string
   updatedAt: string
   __v: number
@@ -45,7 +47,7 @@ export type InitialFilter = {
   material?: string | string[]
   color?: string | string[]
   season?: string | string[]
-  sort?: string | string[]
+  sort?: string
 }
 
 export type Request = 'Error' | 'Request' | 'Success' | undefined | null

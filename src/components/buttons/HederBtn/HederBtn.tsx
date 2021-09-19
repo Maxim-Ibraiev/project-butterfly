@@ -17,14 +17,9 @@ const HederBtn: React.FC<Props> = ({
   children,
   handleClick,
 }) => (
-  <button
-    className={`${s.wrapper} ${className}`}
-    type="button"
-    onClick={handleClick}
-    aria-label={ariaLabel}
-  >
+  <button className={`${s.wrapper} ${className}`} type="button" onClick={handleClick} aria-label={ariaLabel}>
     {children}
-    {src && <span style={{ backgroundImage: src && `url(${src})`, fill }} className={s.icon} />}
+    {src && <span style={{ backgroundImage: `url(${src})`, fill }} className={s.icon} />}
   </button>
 )
 

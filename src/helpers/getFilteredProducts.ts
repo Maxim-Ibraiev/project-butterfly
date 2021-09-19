@@ -4,12 +4,10 @@ interface IOptions {
   [key: string]: string | string[]
 }
 
-function wrapperArr<T>(arg: T | T[]): T[] {
-  return Array.isArray(arg) ? arg : [arg]
-}
+const arrayWrapper = <T = string>(arg: T | T[]): T[] => (Array.isArray(arg) ? arg : [arg])
 
 function getSortedProducts(products: IProduct[], sort?: string | string[]): IProduct[] {
-  const sortArr = wrapperArr<string>(sort)
+  const sortArr = arrayWrapper(sort)
 
   sortArr.forEach(sortOption => {
     switch (sortOption) {
@@ -34,35 +32,46 @@ function getSortedProducts(products: IProduct[], sort?: string | string[]): IPro
   return products
 }
 
-function getArrayFormat(param: string | string[]): string[] {
-  if (Array.isArray(param)) {
-    return param
-  }
+const isSizeMatchedProduct = (product: IProduct, option: string | string[]): boolean => {
+  const options = arrayWrapper(option)
 
-  return [param]
+  return options.some(sizeOption => {
+    if (!sizeOption) return true
+
+    const productSize = Object.keys(product.size)
+
+    return productSize.includes(sizeOption)
+  })
 }
 
-function filterForProducts(product: IProduct, options: IOptions) {
+function isMatchedProduct(product: IProduct, options: IOptions): boolean {
   const specialOptions = ['sort', 'size']
   const optionsKeys = Object.keys(options)
   const filteredOptions = optionsKeys.filter(element => !specialOptions.some(el => el === element))
 
   return filteredOptions.every(currentOption => {
-    const currentOptionsOfProduct = getArrayFormat(product[currentOption])
-    const currentOptions = getArrayFormat(options[currentOption])
+    const currentOptionsOfProduct = arrayWrapper(product[currentOption])
+    const currentOptions = arrayWrapper(options[currentOption])
 
-    return currentOptions.every(optionOfProduct =>
+    return currentOptions.some(optionOfProduct =>
       currentOptionsOfProduct.some(value => value === optionOfProduct)
     )
   })
 }
 
-export default function getFilteredProducts(products: IProduct[], options?: IOptions): IProduct[] {
+function filterForProducts(products: IProduct[], options?: IOptions): IProduct[] {
+  return products.filter(
+    product => isMatchedProduct(product, options) && isSizeMatchedProduct(product, options.size)
+  )
+}
+
+export default function getFilteredProducts(products: readonly IProduct[], options?: IOptions): IProduct[] {
   if (!products) {
     throw new Error(`Product is ${products}. The Products are expected to be an array`)
   }
 
-  const filteredProducts = products.filter(el => filterForProducts(el, options))
+  let filteredProducts = [...products]
+  filteredProducts = filterForProducts(filteredProducts, options)
 
   return getSortedProducts(filteredProducts, options.sort)
 }

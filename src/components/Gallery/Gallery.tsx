@@ -1,5 +1,7 @@
 import ImageGallery from 'react-image-gallery'
+import cn from 'classnames'
 import { useDevice } from '../../customHook'
+import s from './Gallery.module.scss'
 
 type Props = {
   items: {
@@ -15,13 +17,13 @@ export default function Gallery({ items, position, additionalClass }: Props) {
 
   return (
     <ImageGallery
-      additionalClass={additionalClass}
+      additionalClass={cn(s.wrapper, additionalClass)}
       showThumbnails={isDesktop}
       items={items}
-      showBullets={isDesktop}
       thumbnailPosition={position}
       showPlayButton={false}
       disableKeyDown
+      showBullets
     />
   )
 }

@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  [class~='image-gallery-right-nav'],
+  [class~='image-gallery-left-nav'] {
+    padding-top: 50%;
+    padding-bottom: 50%;
+  }
+
+  [class*='image-gallery-slide'] [class*='image-gallery-image'] {
+    max-height: none;
+  }
+}

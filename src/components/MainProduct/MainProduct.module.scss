@@ -3,7 +3,6 @@
 .container {
   @media screen and (min-width: $tableUpper) {
     display: flex;
-
     padding: 40px 60px;
   }
 }
@@ -23,11 +22,15 @@
   }
 }
 
-.image {
-  min-height: 400px;
+.infoContainer {
+  @media screen and (min-width: $mobileUpper) {
+    @media screen and (max-width: $tableLesser) {
+      display: flex;
+    }
+  }
 }
 
-.infoContainer {
+.infoSection {
   display: flex;
   flex-direction: column;
 
@@ -37,6 +40,10 @@
   padding-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
+
+  @media screen and (min-width: $mobileUpper) {
+    margin-left: 0;
+  }
 
   @media screen and (min-width: $tableUpper) {
     padding: 0;
@@ -55,16 +62,19 @@
   font-size: 22px;
 }
 
-.size {
+.title {
   font-size: 14px;
   font-weight: 500;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .sizeWrapper {
   display: flex;
   flex-wrap: wrap;
 
-  margin: 10px -3px;
+  margin: 5px -3px;
 
   & > * {
     width: 60px;
@@ -78,6 +88,9 @@
 }
 
 .baseBtn {
+  margin-top: 5px;
+  margin-bottom: 5px;
+
   font-weight: 500;
   font-size: 12px;
 }
@@ -97,12 +110,16 @@
 }
 
 .buyBtn {
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 .phoneWrapper {
   position: relative;
   width: 100%;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .phoneInput {
   width: 100%;
@@ -121,4 +138,13 @@
 
   font-size: 11px;
   text-transform: none;
+}
+
+.color {
+  display: flex;
+  flex-wrap: wrap;
+
+  .colorImg {
+    margin-right: 15px;
+  }
 }

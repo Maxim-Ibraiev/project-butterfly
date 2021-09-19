@@ -1,7 +1,18 @@
 @import '../../styles/variables.scss';
 
-@media screen and (max-width: $mobileLesser) {
-  .selector {
+.selector {
+  [class$='-ValueContainer'] {
+    padding-right: 0;
+  }
+  [class$='-placeholder'] {
+    width: calc(100% - 5px);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media screen and (max-width: $mobileLesser) {
     [class$='-control'] {
       box-shadow: none;
       border: none;

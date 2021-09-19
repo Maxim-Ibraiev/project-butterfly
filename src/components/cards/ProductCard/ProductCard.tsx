@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
+import { getProductsByModel } from '../../../redux/selectors'
 import routes from '../../../routes'
 import s from './ProductCard.module.scss'
 
-import type { IProduct } from '../../../interfaces'
+import type { IProduct, IState } from '../../../interfaces'
 
 interface Props {
   width: number
@@ -12,7 +14,8 @@ interface Props {
 }
 
 export default function ProductCard({ width, height, product }: Props) {
-  const { images, price, title, color, size, material, popularity, id } = product
+  const { images, price, title, size, material, popularity, id, model } = product
+  const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, model))
 
   return (
     <Link href={`${routes.product}/${id}`}>
@@ -38,13 +41,16 @@ export default function ProductCard({ width, height, product }: Props) {
               }, '')}
             </span>
           )}
-          {color && (
+          {allModels.length > 1 && (
             <div className={s.palette}>
-              <div style={{ backgroundColor: color }} />
+              {allModels.map(models => (
+                <div key={models.color} style={{ backgroundColor: models.color }} />
+              ))}
             </div>
           )}
           <span>{material}</span>
           <span>{popularity}</span>
+          <span>{Object.keys(size).map(el => `${el} `)}</span>
         </div>
       </a>
     </Link>
