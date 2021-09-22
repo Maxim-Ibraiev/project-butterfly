@@ -25,7 +25,7 @@
     font-family: Playball, serif;
     font-size: 24px;
 
-    padding: 15px 0;
+    padding: 11px 0;
   }
 
   a {
@@ -73,10 +73,6 @@
 .row {
   display: flex;
   color: var(--primary);
-
-  & > *:not(:last-child) {
-    margin-right: 15px;
-  }
 }
 
 .mobUpper {
@@ -109,4 +105,12 @@
   inset: 0;
   background-color: var(--backdrop);
   z-index: 5;
+}
+
+.shoppingBag {
+  top: auto;
+  bottom: 0;
+
+  height: 80vh;
+  background-color: var(--primary);
 }

@@ -1,11 +1,11 @@
 import { Attributes } from 'react'
 
 interface Props {
-  fill: string
-  props: Attributes[]
+  fill?: string
+  props?: Attributes[]
 }
 
-export default function Close({ fill, ...props }: Props) {
+export default function Close({ fill = 'inherit', ...props }: Props) {
   return (
     <svg
       version="1.1"
@@ -18,7 +18,7 @@ export default function Close({ fill, ...props }: Props) {
     >
       <title>x</title>
       <path
-        fill={fill || '#fff'}
+        fill={fill}
         d="M30 24.398l-8.406-8.398 8.406-8.398-5.602-5.602-8.398 8.402-8.402-8.402-5.598 5.602 8.398 8.398-8.398 8.398 5.598 5.602 8.402-8.402 8.398 8.402z"
       />
     </svg>

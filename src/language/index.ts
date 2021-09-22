@@ -30,4 +30,11 @@ export default {
   // ru - text
   toCart: 'В корзину',
   buyInOneTouch: 'Купить в 1 клик',
+  productsInBag: 'Товары в корзине',
+  emptyBag: 'Корзина пуста',
+  close: 'Закрыть',
+  orderProduct: 'Оформить заказ',
+  orderResults: 'Итог заказа',
+  total: 'Сумма',
+  continueShopping: 'Продолжить покупки',
 }

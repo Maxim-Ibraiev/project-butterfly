@@ -114,6 +114,12 @@
   margin-bottom: 15px;
 }
 
+.productSelected {
+  background-color: var(--primary);
+  border: 1px solid var(--accent);
+  color: inherit;
+}
+
 .phoneWrapper {
   position: relative;
   width: 100%;

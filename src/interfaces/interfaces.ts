@@ -30,6 +30,7 @@ export interface IState {
   main: {
     categories: Categories
     products: IProduct[]
+    selectedProducts: IProduct[]
     error: IError
   }
 }

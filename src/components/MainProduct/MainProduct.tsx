@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
@@ -11,12 +11,12 @@ import MainButton from '../buttons/MainButton'
 import Icon from '../icons/Bag'
 import { getProductsByModel, getProductById } from '../../redux/selectors'
 import { imageLoader, UAH } from '../../constants'
-import { useDevice } from '../../customHook'
+import { useDevice, useSelectedProducts } from '../../customHook'
+import routes from '../../routes'
 import language from '../../language'
 import s from './MainProduct.module.scss'
 
 import type { IProduct, IState, Request } from '../../interfaces'
-import routes from '../../routes'
 
 export default function MainProduct() {
   const router = useRouter()
@@ -24,6 +24,8 @@ export default function MainProduct() {
   const product = useSelector<IState, IProduct>(state => getProductById(state, idProduct))
   const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, product.model))
   const { isDesktop } = useDevice()
+  const [selectedProducts, setSelectedProduct] = useSelectedProducts()
+  const [isProductsSelected, setIsProductsSelected] = useState(false)
   const [activeBtn, setActiveBtn] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
@@ -50,6 +52,19 @@ export default function MainProduct() {
     }
   }
 
+  function handleSelectProduct() {
+    if (!selectedProducts.some(({ id }) => id === product.id)) {
+      setSelectedProduct([...selectedProducts, product])
+    }
+
+    setIsProductsSelected(true)
+  }
+
+  useEffect(() => {
+    console.log(selectedProducts)
+    setIsProductsSelected(selectedProducts.some(({ id }) => id === product.id))
+  })
+
   return (
     <section className={s.container}>
       <div className={s.galleryWrapper}>
@@ -75,8 +90,12 @@ export default function MainProduct() {
               </button>
             ))}
           </div>
-          <MainButton className={s.buyBtn}>
-            <Icon width="24px" height="24px" /> {language.toCart}
+          <MainButton
+            className={cn(s.buyBtn, { [s.productSelected]: isProductsSelected })}
+            handleClick={handleSelectProduct}
+          >
+            {!isProductsSelected && <Icon width="24px" height="24px" />}
+            <span>{isProductsSelected ? language.orderProduct : language.toCart}</span>
           </MainButton>
           <form className={s.phoneWrapper} onSubmit={handleSubmit}>
             <PhoneNumber
@@ -97,7 +116,7 @@ export default function MainProduct() {
               <b className={s.title}>{language.color}</b>
               <div className={s.color}>
                 {allModels.map(model => (
-                  <Link href={`${routes.product}/${model.id}`}>
+                  <Link key={model.id} href={`${routes.product}/${model.id}`}>
                     <a className={s.colorImg}>
                       <Image
                         src={model.images[0].original}

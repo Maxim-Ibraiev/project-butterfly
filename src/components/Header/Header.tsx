@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+// import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import Modal from 'react-modal'
 import queryString from 'query-string'
 import cn from 'classnames'
+import ShoppingBag from '../ShoppingBag'
 import Menu from '../MenuMob'
 import Button from '../buttons/HederBtn'
 import { getCategories } from '../../redux/selectors'
@@ -18,6 +20,7 @@ export default function Header() {
   const router = useRouter()
   const categories = useSelector(getCategories)
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [isOpenShoppingBag, setIsOpenShoppingBag] = useState(false)
   const params = queryString.parseUrl(router.asPath).query
 
   return (
@@ -54,7 +57,11 @@ export default function Header() {
 
         <ul className={s.row}>
           <li>
-            <Button handleClick={() => ({})} ariaLabel={language.save} src="/icons/heart.svg" />
+            <Button
+              handleClick={() => setIsOpenShoppingBag(true)}
+              ariaLabel={language.save}
+              src="/icons/bag.svg"
+            />
           </li>
           <li className={s.menuBtn}>
             <Button
@@ -73,6 +80,17 @@ export default function Header() {
         onRequestClose={() => setIsOpen(false)}
       >
         <Menu setIsOpen={() => setIsOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isOpenShoppingBag}
+        className={cn(s.modal, s.shoppingBag)}
+        overlayClassName={s.overModal}
+        onRequestClose={() => {
+          setIsOpenShoppingBag(false)
+        }}
+      >
+        <ShoppingBag isOpen={setIsOpenShoppingBag} />
       </Modal>
     </header>
   )

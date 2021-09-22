@@ -1,6 +1,12 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit'
 import { HYDRATE } from 'next-redux-wrapper'
-import { categoriesSuccess, categoriesError, productsSuccess, productsError } from './mainActions'
+import {
+  categoriesSuccess,
+  categoriesError,
+  productsSuccess,
+  productsError,
+  setSelectedProducts,
+} from './mainActions'
 
 import type { Categories, IProduct, IError } from '../../interfaces'
 
@@ -14,6 +20,11 @@ const products = createReducer<IProduct[]>([], {
   [HYDRATE]: (_, { payload }) => payload.main.products,
 })
 
+const selectedProducts = createReducer<IProduct[]>([], {
+  [setSelectedProducts.type]: (_, { payload }) => payload,
+  [HYDRATE]: (_, { payload }) => payload.main.selectedProducts,
+})
+
 const error = createReducer<IError>(null, {
   [categoriesSuccess.type]: () => null,
   [productsSuccess.type]: () => null,
@@ -25,5 +36,6 @@ const error = createReducer<IError>(null, {
 export default combineReducers({
   categories,
   products,
+  selectedProducts,
   error,
 })

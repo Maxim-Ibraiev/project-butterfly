@@ -1,0 +1,49 @@
+import React, { useState } from 'react'
+import Image from 'next/image'
+import CustomSelector from '../CustomSelector'
+import Button from '../buttons/MainButton'
+import CloseSvg from '../icons/Close'
+import { imageLoader } from '../../constants'
+import { arrayWrapper, getOptionsFormatFromValue } from '../../helpers'
+import language from '../../language'
+import s from './ShoppingBagItem.module.scss'
+
+import type { IProduct, FilterOption } from '../../interfaces'
+
+interface Props {
+  product: IProduct
+  handleClose: () => void
+}
+
+export default function ShoppingBagItem({ product, handleClose }: Props) {
+  const [size, setSize] = useState<FilterOption[]>([])
+
+  function handleChangeSize(option) {
+    setSize(arrayWrapper<FilterOption>(option))
+  }
+
+  return (
+    <div className={s.wrapper}>
+      <div className={s.image}>
+        <Image src={product.images[0].original} width={80} height={110} loader={imageLoader} />
+      </div>
+      <div className={s.info}>
+        <span>{product.title}</span>
+        <div className={s.size}>
+          <span>{language.size}:</span>
+          <div className={s.select}>
+            <CustomSelector
+              handleChange={handleChangeSize}
+              options={getOptionsFormatFromValue(Object.keys(product.size))}
+              type="size"
+              value={size.map(el => el.value)}
+            />
+          </div>
+        </div>
+      </div>
+      <Button className={s.close} handleClick={handleClose}>
+        <CloseSvg />
+      </Button>
+    </div>
+  )
+}

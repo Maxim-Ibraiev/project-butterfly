@@ -81,9 +81,17 @@ interface Props {
   value: string | string[]
   isMulti?: boolean
   label?: string
+  options?: FilterOption[]
 }
 
-export default function CustomSelector({ type, handleChange, label = '', isMulti = false, value }: Props) {
+export default function CustomSelector({
+  type,
+  handleChange,
+  options,
+  label = '',
+  isMulti = false,
+  value,
+}: Props) {
   const products = useSelector(getProducts)
   const animatedComponents = makeAnimated()
   const allOptions = getOptionsFromProducts(products)
@@ -94,7 +102,7 @@ export default function CustomSelector({ type, handleChange, label = '', isMulti
       onChange={(option: OptionsType<FilterOption>) => handleChange(option, type)}
       placeholder={label || l[type]}
       label={label || l[type]}
-      options={allOptions[type]}
+      options={options || allOptions[type]}
       inputId={label || l[type]}
       closeMenuOnSelect={!isMulti}
       isMulti={isMulti}

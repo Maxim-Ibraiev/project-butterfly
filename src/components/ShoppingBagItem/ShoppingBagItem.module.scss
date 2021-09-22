@@ -1,0 +1,42 @@
+.wrapper {
+  position: relative;
+  display: flex;
+
+  padding: 20px 0;
+}
+.image {
+  min-width: 82px;
+}
+.info {
+  width: calc(100% - 120px);
+
+  padding-left: 10px;
+  // padding-right: 40px;
+
+  font-size: 14px;
+}
+.size {
+  display: flex;
+  align-items: center;
+
+  margin-top: 20px;
+
+  & > *:not(:first-child) {
+    margin-left: 20px;
+  }
+}
+.select {
+  width: 120px;
+}
+
+.close {
+  position: absolute;
+
+  top: 10px;
+  right: 0;
+
+  width: 40px;
+
+  bottom: none;
+  background: inherit;
+}

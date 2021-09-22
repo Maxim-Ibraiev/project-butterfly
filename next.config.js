@@ -1,5 +1,10 @@
 module.exports = {
-  images: {
-    domains: ['cdn.dressa.com.ua'],
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    })
+
+    return config
   },
 }

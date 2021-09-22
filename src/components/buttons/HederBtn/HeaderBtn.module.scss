@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .wrapper {
   width: 50px;
   height: 50px;
@@ -14,7 +16,7 @@
     box-shadow: inset 0 0 3px 1px var(--blue);
   }
 
-  @media screen and (min-width: 400px) {
+  @media screen and (min-width: $mobileUpper) {
     height: 60px;
   }
 }
