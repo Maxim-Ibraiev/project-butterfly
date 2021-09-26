@@ -24,10 +24,10 @@ export async function getStaticPaths() {
   const { products } = await getProductsProps()
 
   const paths = products
-    ? [{ params: { id: '/' } }]
-    : products.map(product => ({
+    ? products.map(product => ({
         params: product.id,
       }))
+    : [{ params: { id: '/' } }]
 
   return {
     paths,
