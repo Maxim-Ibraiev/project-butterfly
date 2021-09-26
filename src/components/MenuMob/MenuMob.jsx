@@ -15,7 +15,7 @@ export default function MenuMob({ setIsOpen }) {
       {categories.map(category => (
         <li key={category} className={s.item}>
           <Link href={routes.categories[category]}>
-            <a onClick={() => setIsOpen()} role="button">
+            <a onClick={setIsOpen} role="button">
               {language[category] || category}
             </a>
           </Link>

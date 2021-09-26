@@ -22,7 +22,9 @@ export default function MainProduct() {
   const router = useRouter()
   const idProduct = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id
   const product = useSelector<IState, IProduct>(state => getProductById(state, idProduct))
-  const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, product.model))
+  const allModels = useSelector<IState, IProduct[]>(state =>
+    getProductsByModel(state, product ? product.model : '')
+  )
   const { isDesktop } = useDevice()
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
   const [isProductsSelected, setIsProductsSelected] = useState(false)
@@ -30,12 +32,13 @@ export default function MainProduct() {
   const [phoneNumber, setPhoneNumber] = useState('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
 
-  const items = product.images.map(el => {
-    const original = `/products/${el.original}`
-    const thumbnail = `/products/${el.original}`
+  const items = () =>
+    product.images.map(el => {
+      const original = `/products/${el.original}`
+      const thumbnail = `/products/${el.original}`
 
-    return { ...el, thumbnail, original }
-  })
+      return { ...el, thumbnail, original }
+    })
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -61,14 +64,14 @@ export default function MainProduct() {
   }
 
   useEffect(() => {
-    console.log(selectedProducts)
+    if (!product) router.push(routes.home)
     setIsProductsSelected(selectedProducts.some(({ id }) => id === product.id))
   })
 
-  return (
+  return product ? (
     <section className={s.container}>
       <div className={s.galleryWrapper}>
-        <Gallery items={items} position={isDesktop ? 'left' : undefined} />
+        <Gallery items={items()} position={isDesktop ? 'left' : undefined} />
       </div>
       <div className={s.infoContainer}>
         <div className={s.infoSection}>
@@ -135,5 +138,7 @@ export default function MainProduct() {
         </div>
       </div>
     </section>
+  ) : (
+    <div> No content</div>
   )
 }

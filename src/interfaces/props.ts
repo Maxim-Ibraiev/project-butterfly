@@ -1,14 +1,14 @@
 import { Categories, IProduct } from '.'
 
 export interface IProductsProps {
-  products: IProduct[]
+  products: IProduct[] | null
   productsError: {
     data: unknown
     message: string
   }
 }
 export interface ICategoriesProps {
-  categories: Categories
+  categories: Categories | null
   categoriesError: {
     data: unknown
     message: string
