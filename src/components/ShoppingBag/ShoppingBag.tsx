@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
-import { useSelector } from 'react-redux'
 import { useSelectedProducts } from '../../customHook'
 import language from '../../language'
 import Button from '../buttons/MainButton'
@@ -9,7 +7,7 @@ import s from './ShoppingBag.module.scss'
 import { UAH } from '../../constants'
 
 interface Props {
-  isOpen: Dispatch<SetStateAction<boolean>>
+  isOpen: () => void
 }
 
 export default function ShoppingBag({ isOpen }: Props) {
@@ -17,7 +15,7 @@ export default function ShoppingBag({ isOpen }: Props) {
 
   return (
     <section className={s.wrapper}>
-      <Button handleClick={() => isOpen(false)} className={s.x}>
+      <Button handleClick={() => isOpen()} className={s.x}>
         <CloseSvg />
       </Button>
 
@@ -34,24 +32,26 @@ export default function ShoppingBag({ isOpen }: Props) {
               }}
             />
           ))}
-          <div className={s.totalContainer}>
-            <span className={s.totalTitle}>{language.orderResults}</span>
-            <div className={s.totalItem}>
-              <span>{language.total}</span>
-              <span>
-                {selectedProducts.reduce((acc, el) => acc + el.price, 0)} {UAH}
-              </span>
-            </div>
-          </div>
           <div className={s.footer}>
-            <Button handleClick={() => isOpen(false)}>{language.continueShopping}</Button>
-            <Button>{language.orderProduct}</Button>
+            <div className={s.totalContainer}>
+              <span className={s.totalTitle}>{language.orderResults}</span>
+              <div className={s.totalItem}>
+                <span>{language.total}</span>
+                <span>
+                  {selectedProducts.reduce((acc, el) => acc + el.price, 0)} {UAH}
+                </span>
+              </div>
+            </div>
+            <div className={s.footerBottoms}>
+              <Button handleClick={() => isOpen()}>{language.continueShopping}</Button>
+              <Button>{language.orderProduct}</Button>
+            </div>
           </div>
         </div>
       ) : (
         <>
           <p style={{ textAlign: 'center' }}>{language.emptyBag}</p>
-          <Button className={s.close} handleClick={() => isOpen(false)}>
+          <Button className={s.close} handleClick={() => isOpen()}>
             {language.close}
           </Button>
         </>

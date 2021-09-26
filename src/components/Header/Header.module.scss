@@ -93,22 +93,26 @@
 
   background: var(--secondary);
   overflow: auto;
-  border-radius: 4px;
   outline: none;
   padding: 20px;
 }
 
 .overModal {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  background-color: var(--backdrop);
   z-index: 5;
+
+  height: 110vh;
+
+  background-color: var(--backdrop);
 }
 
 .shoppingBag {
   top: auto;
   bottom: 0;
 
-  height: 80vh;
+  height: 100vh;
+
+  border-radius: 4px;
   background-color: var(--primary);
 }

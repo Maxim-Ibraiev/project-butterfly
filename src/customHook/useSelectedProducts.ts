@@ -13,10 +13,11 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
   const storageId: string[] = JSON.parse(localStorage.getItem('selectedProducts'))
   const selectedProductsFromStorage = storageId ? storageId.map(id => getProductById(state, id)) : []
   const isProductsSame = selectedProductsFromStorage.every(productFromLocalStorage =>
-    selectedProductFormRedux.some(productFormStore => productFromLocalStorage.id === productFormStore.id)
+    selectedProductFormRedux.some(productFormStore => productFromLocalStorage?.id === productFormStore?.id)
   )
 
-  if (!isProductsSame) dispatch(actions.setSelectedProducts([...selectedProductsFromStorage]))
+  if (!isProductsSame && selectedProductsFromStorage[0])
+    dispatch(actions.setSelectedProducts([...selectedProductsFromStorage]))
 
   const setProducts = (newSelectedProducts: IProduct[]) => {
     if (newSelectedProducts === selectedProductFormRedux) {

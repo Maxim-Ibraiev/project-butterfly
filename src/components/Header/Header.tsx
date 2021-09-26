@@ -22,6 +22,10 @@ export default function Header() {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [isOpenShoppingBag, setIsOpenShoppingBag] = useState(false)
   const params = queryString.parseUrl(router.asPath).query
+  const handleCloseShoppingBag = () => {
+    setIsOpenShoppingBag(false)
+    document.body.style.overflow = 'visible'
+  }
 
   return (
     <header className={s.header}>
@@ -58,7 +62,10 @@ export default function Header() {
         <ul className={s.row}>
           <li>
             <Button
-              handleClick={() => setIsOpenShoppingBag(true)}
+              handleClick={() => {
+                setIsOpenShoppingBag(true)
+                document.body.style.overflow = 'hidden'
+              }}
               ariaLabel={language.save}
               src="/icons/bag.svg"
             />
@@ -86,11 +93,9 @@ export default function Header() {
         isOpen={isOpenShoppingBag}
         className={cn(s.modal, s.shoppingBag)}
         overlayClassName={s.overModal}
-        onRequestClose={() => {
-          setIsOpenShoppingBag(false)
-        }}
+        onRequestClose={handleCloseShoppingBag}
       >
-        <ShoppingBag isOpen={setIsOpenShoppingBag} />
+        <ShoppingBag isOpen={handleCloseShoppingBag} />
       </Modal>
     </header>
   )
