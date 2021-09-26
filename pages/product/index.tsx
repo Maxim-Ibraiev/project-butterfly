@@ -1,11 +1,18 @@
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { getCategoriesProps, getProductsProps } from '../../src/api/staticProps'
 import { REVALIDATE } from '../../src/constants'
 import { dispatchData } from '../../src/helpers'
-import ProductPage from '../../src/pages/ProductPage'
 import { wrapper } from '../../src/redux/store'
+import routes from '../../src/routes'
 
 export default function Product() {
-  return <ProductPage />
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push(routes.home)
+  })
+  return <section />
 }
 
 export const getStaticProps = wrapper.getStaticProps(store => async () => {
@@ -19,18 +26,3 @@ export const getStaticProps = wrapper.getStaticProps(store => async () => {
     revalidate: REVALIDATE,
   }
 })
-
-export async function getStaticPaths() {
-  const { products } = await getProductsProps()
-
-  const paths = products
-    ? [{ params: { id: '/' } }]
-    : products.map(product => ({
-        params: product.id,
-      }))
-
-  return {
-    paths,
-    fallback: true,
-  }
-}
