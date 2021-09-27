@@ -1,3 +1,3 @@
 export default function NotFoundProduct() {
-  return <div>no content</div>
+  return <div>No content</div>
 }
