@@ -22,10 +22,11 @@ export const getStaticProps = wrapper.getStaticProps(store => async () => {
 
 export async function getStaticPaths() {
   const { products } = await getProductsProps()
+  if (!products) throw new Error(`products : ${JSON.stringify(products)}`)
 
   const paths = products
     ? products.map(product => ({
-        params: product.id,
+        params: { id: product.id },
       }))
     : [{ params: { id: '/' } }]
 

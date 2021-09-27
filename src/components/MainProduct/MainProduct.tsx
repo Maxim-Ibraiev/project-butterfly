@@ -17,6 +17,7 @@ import language from '../../language'
 import s from './MainProduct.module.scss'
 
 import type { IProduct, IState, Request } from '../../interfaces'
+import NotFoundProduct from '../NotFoundProduct'
 
 export default function MainProduct() {
   const router = useRouter()
@@ -139,6 +140,6 @@ export default function MainProduct() {
       </div>
     </section>
   ) : (
-    <div> No content</div>
+    <NotFoundProduct />
   )
 }
