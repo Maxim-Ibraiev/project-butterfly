@@ -7,22 +7,23 @@ import {
   productsError,
   setSelectedProducts,
 } from './mainActions'
+import { getCategories } from '../selectors'
 
-import type { Categories, IProduct, IError } from '../../interfaces'
+import type { Categories, IProductObject, IError, IState } from '../../interfaces'
 
 const categories = createReducer<Categories>([], {
   [categoriesSuccess.type]: (_, { payload }) => payload,
-  [HYDRATE]: (_, { payload }) => [...payload.main.categories],
+  [HYDRATE]: (_, { payload }) => [...getCategories(payload)],
 })
 
-const products = createReducer<IProduct[]>([], {
+const products = createReducer<IProductObject[]>([], {
   [productsSuccess.type]: (_, { payload }) => payload,
-  [HYDRATE]: (_, { payload }) => payload.main.products,
+  [HYDRATE]: (_, { payload }: { payload: IState }) => payload.main.products,
 })
 
-const selectedProducts = createReducer<IProduct[]>([], {
+const selectedProducts = createReducer<IProductObject[]>([], {
   [setSelectedProducts.type]: (_, { payload }) => payload,
-  [HYDRATE]: (_, { payload }) => payload.main.selectedProducts,
+  [HYDRATE]: (_, { payload }: { payload: IState }) => payload.main.selectedProducts,
 })
 
 const error = createReducer<IError>(null, {

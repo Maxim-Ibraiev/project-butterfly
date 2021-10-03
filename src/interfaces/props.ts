@@ -1,7 +1,7 @@
-import { Categories, IProduct } from '.'
+import { Categories, IProductObject } from '.'
 
 export interface IProductsProps {
-  products: IProduct[] | null
+  products: IProductObject[] | null
   productsError: {
     data: unknown
     message: string

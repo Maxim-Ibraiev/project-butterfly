@@ -36,37 +36,36 @@ import s from './CustomSelector.module.scss'
 // }
 
 const getOptionsFromProducts = (products: IProduct[]) => {
-  const initialOptions = {
+  const initialOptions: { size: string[]; material: string[]; color: string[]; season: string[] } = {
     size: [],
     material: [],
     color: [],
     season: [],
   }
 
-  const allOptions1 = products.reduce((acc, product) => {
-    // size
-    acc.size.push(...Object.keys(product.size))
-    // arr
-    acc.material.push(...product.material)
-    // str
-    acc.color.push(product.color)
-    acc.season.push(product.season)
+  const allOptions = products.reduce((acc, product) => {
+    acc.size.push(...product.getAllSizeOptions())
+    acc.material.push(...product.getMaterial())
+    acc.color.push(product.getColor())
+    acc.season.push(product.getSeason())
 
     return acc
   }, initialOptions)
 
   const setOptions = {
-    size: Array.from(new Set(allOptions1.size)),
-    material: Array.from(new Set(allOptions1.material)),
-    color: Array.from(new Set(allOptions1.color)),
-    season: Array.from(new Set(allOptions1.season)),
+    size: Array.from(new Set(allOptions.size)),
+    material: Array.from(new Set(allOptions.material)),
+    color: Array.from(new Set(allOptions.color)),
+    season: Array.from(new Set(allOptions.season)),
   }
 
+  const getOptionFormat = (arr: string[]) => arr.map(el => ({ value: el, label: l[el] || el }))
+
   return {
-    size: setOptions.size.map(el => ({ value: el, label: l[el] || el })),
-    material: setOptions.material.map(el => ({ value: el, label: l[el] || el })),
-    color: setOptions.color.map(el => ({ value: el, label: l[el] || el })),
-    season: setOptions.season.map(el => ({ value: el, label: l[el] || el })),
+    size: getOptionFormat(setOptions.size),
+    material: getOptionFormat(setOptions.material),
+    color: getOptionFormat(setOptions.color),
+    season: getOptionFormat(setOptions.season),
     sort: [
       { value: 'popularity', label: l.popularity },
       { value: 'highPrice', label: l.highPrice },

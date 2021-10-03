@@ -30,12 +30,12 @@ export default function Filter() {
       newFilter = filter
     }
 
+    setFilter(newFilter)
+
     router.replace({
       pathname: routes.category,
       query: newFilter,
     })
-
-    setFilter(newFilter)
   }
 
   useEffect(() => {

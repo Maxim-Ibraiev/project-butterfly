@@ -23,8 +23,8 @@ export default function MainProduct() {
   const router = useRouter()
   const idProduct = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id
   const product = useSelector<IState, IProduct>(state => getProductById(state, idProduct))
-  const allModels = useSelector<IState, IProduct[]>(state =>
-    getProductsByModel(state, product ? product.model : '')
+  const allModels = useSelector<IState, IProduct[]>(
+    state => product && getProductsByModel(state, product.getModel())
   )
   const { isDesktop } = useDevice()
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
@@ -32,9 +32,8 @@ export default function MainProduct() {
   const [activeBtn, setActiveBtn] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
-
   const items = () =>
-    product.images.map(el => {
+    product.getImages().map(el => {
       const original = `/products/${el.original}`
       const thumbnail = `/products/${el.original}`
 
@@ -57,7 +56,7 @@ export default function MainProduct() {
   }
 
   function handleSelectProduct() {
-    if (!selectedProducts.some(({ id }) => id === product.id)) {
+    if (!selectedProducts.some(({ getId }) => getId() === product.getId())) {
       setSelectedProduct([...selectedProducts, product])
     }
 
@@ -65,9 +64,8 @@ export default function MainProduct() {
   }
 
   useEffect(() => {
-    if (!product) router.push(routes.home)
-    setIsProductsSelected(selectedProducts.some(({ id }) => id === product.id))
-  })
+    setIsProductsSelected(!!product && selectedProducts.some(({ getId }) => getId() === product.getId()))
+  }, [selectedProducts])
 
   return product ? (
     <section className={s.container}>
@@ -76,17 +74,17 @@ export default function MainProduct() {
       </div>
       <div className={s.infoContainer}>
         <div className={s.infoSection}>
-          <h1 className={s.title}>{product.title}</h1>
-          <b className={s.price}>{`${product.price} ${UAH}`} </b>
+          <h1 className={s.title}>{product.getTitle()}</h1>
+          <b className={s.price}>{`${product.getPrice()} ${UAH}`} </b>
           <b className={s.title}>{language.size}</b>
           <div className={s.sizeWrapper}>
-            {Object.keys(product.size).map(el => (
+            {product.getAllSizeOptions().map(el => (
               <button
                 type="button"
                 onClick={() => setActiveBtn(el)}
                 className={cn(s.baseBtn, {
                   [s.activeBtn]: el === activeBtn,
-                  [s.disableBtn]: product.size[el] === 0,
+                  [s.disableBtn]: product.getAvailableSize()[el] === 0,
                 })}
                 key={el}
               >
@@ -120,15 +118,15 @@ export default function MainProduct() {
               <b className={s.title}>{language.color}</b>
               <div className={s.color}>
                 {allModels.map(model => (
-                  <Link key={model.id} href={`${routes.product}/${model.id}`}>
+                  <Link key={model.getId()} href={`${routes.product}/${model.getId()}`}>
                     <a className={s.colorImg}>
                       <Image
-                        src={model.images[0].original}
-                        key={model.color}
+                        src={model.getMainImageSrc()}
+                        key={model.getColor()}
                         width={70}
                         height={90}
                         loader={imageLoader}
-                        alt={model.title}
+                        alt={model.getTitle()}
                       />
                     </a>
                   </Link>

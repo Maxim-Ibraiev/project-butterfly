@@ -1,6 +1,9 @@
+import { ProductStructure } from '../helpers'
+
 export type Categories = string[]
 
-export interface IProduct {
+export type IProduct = ProductStructure
+export interface IProductObject {
   price: number
   popularity: number
   material: string[]
@@ -29,8 +32,8 @@ export interface IDataResponse {
 export interface IState {
   main: {
     categories: Categories
-    products: IProduct[]
-    selectedProducts: IProduct[]
+    products: IProductObject[]
+    selectedProducts: IProductObject[]
     error: IError
   }
 }

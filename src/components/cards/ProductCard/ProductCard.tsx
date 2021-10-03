@@ -14,27 +14,28 @@ interface Props {
 }
 
 export default function ProductCard({ width, height, product }: Props) {
-  const { images, price, title, size, material, popularity, id, model } = product
-  const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, model))
+  // const { images, price, title, size, material, popularity, id, model } = product
+  const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, product.getModel()))
 
   return (
-    <Link href={`${routes.product}/${id}`}>
+    <Link href={`${routes.product}/${product.getId()}`}>
       <a className={s.wrapper}>
         <div className={s.image}>
           <Image
+            placeholder="blur"
             width={width}
             height={height}
             loader={el => `/products/${el.src}`}
-            src={images[0].original}
-            alt={title}
+            src={product.getMainImageSrc()}
+            alt={product.getTitle()}
           />
         </div>
         <div className={s.productDetails}>
-          <b className={s.price}>{`${price} грн`}</b>
-          <span className={s.title}>{title}</span>
-          {size && (
+          <b className={s.price}>{`${product.getPrice()} грн`}</b>
+          <span className={s.title}>{product.getTitle()}</span>
+          {product.getAllSizeOptions() && (
             <span className={s.sizes}>
-              {Object.values(size).reduce((acc, el) => {
+              {product.getAllSizeOptions().reduce((acc, el) => {
                 if (!acc) return el
 
                 return `${acc}, ${el}`
@@ -44,13 +45,13 @@ export default function ProductCard({ width, height, product }: Props) {
           {allModels.length > 1 && (
             <div className={s.palette}>
               {allModels.map(models => (
-                <div key={models.color} style={{ backgroundColor: models.color }} />
+                <div key={models.getColor()} style={{ backgroundColor: models.getColor() }} />
               ))}
             </div>
           )}
-          <span>{material}</span>
-          <span>{popularity}</span>
-          <span>{Object.keys(size).map(el => `${el} `)}</span>
+          <span>{product.getMaterial()}</span>
+          <span>{product.getPopularity()}</span>
+          <span>{product.getAllSizeOptions().map(el => `${el} `)}</span>
         </div>
       </a>
     </Link>

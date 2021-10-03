@@ -8,4 +8,5 @@ export type {
   FilterOption,
   InitialFilter,
   Request,
+  IProductObject,
 } from './interfaces'

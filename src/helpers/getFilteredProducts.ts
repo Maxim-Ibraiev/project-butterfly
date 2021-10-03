@@ -12,19 +12,19 @@ function getSortedProducts(products: IProduct[], sort?: string | string[]): IPro
   sortArr.forEach(sortOption => {
     switch (sortOption) {
       case 'highPrice':
-        products.sort((a, b) => (a.price > b.price ? 1 : -1))
+        products.sort((a, b) => (a.getPrice() > b.getPrice() ? 1 : -1))
         break
 
       case 'lowPrice':
-        products.sort((a, b) => (a.price > b.price ? -1 : 1))
+        products.sort((a, b) => (a.getPrice() > b.getPrice() ? -1 : 1))
         break
 
       case 'popularity':
-        products.sort((a, b) => (a.popularity > b.popularity ? -1 : 1))
+        products.sort((a, b) => (a.getPopularity() > b.getPopularity() ? -1 : 1))
         break
 
       default:
-        products.sort((a, b) => (a.popularity > b.popularity ? -1 : 1))
+        products.sort((a, b) => (a.getPopularity() > b.getPopularity() ? -1 : 1))
         break
     }
   })
@@ -33,12 +33,11 @@ function getSortedProducts(products: IProduct[], sort?: string | string[]): IPro
 }
 
 const isSizeMatchedProduct = (product: IProduct, option: string | string[]): boolean => {
-  const options = arrayWrapper(option)
-
-  return options.some(sizeOption => {
+  const optionsArr = arrayWrapper(option)
+  return optionsArr.some(sizeOption => {
     if (!sizeOption) return true
 
-    const productSize = Object.keys(product.size)
+    const productSize = product.getAllSizeOptions()
 
     return productSize.includes(sizeOption)
   })
@@ -48,9 +47,9 @@ function isMatchedProduct(product: IProduct, options: IOptions): boolean {
   const specialOptions = ['sort', 'size']
   const optionsKeys = Object.keys(options)
   const filteredOptions = optionsKeys.filter(element => !specialOptions.some(el => el === element))
-
   return filteredOptions.every(currentOption => {
-    const currentOptionsOfProduct = arrayWrapper(product[currentOption])
+    const fnName = `get${currentOption.slice(0, 1).toUpperCase()}${currentOption.slice(1)}`
+    const currentOptionsOfProduct = arrayWrapper(product[fnName]())
     const currentOptions = arrayWrapper(options[currentOption])
 
     return currentOptions.some(optionOfProduct =>

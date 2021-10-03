@@ -17,6 +17,7 @@ interface Props {
 
 export default function ShoppingBagItem({ product, handleClose }: Props) {
   const [size, setSize] = useState<FilterOption[]>([])
+  const options = getOptionsFormatFromValue(product.getAllSizeOptions())
 
   function handleChangeSize(option) {
     setSize(arrayWrapper<FilterOption>(option))
@@ -25,16 +26,16 @@ export default function ShoppingBagItem({ product, handleClose }: Props) {
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <Image src={product.images[0].original} width={80} height={110} loader={imageLoader} />
+        <Image src={product.getMainImageSrc()} width={80} height={110} loader={imageLoader} />
       </div>
       <div className={s.info}>
-        <span>{product.title}</span>
+        <span>{product.getTitle()}</span>
         <div className={s.size}>
           <span>{language.size}:</span>
           <div className={s.select}>
             <CustomSelector
               handleChange={handleChangeSize}
-              options={getOptionsFormatFromValue(Object.keys(product.size))}
+              options={options}
               type="size"
               value={size.map(el => el.value)}
             />

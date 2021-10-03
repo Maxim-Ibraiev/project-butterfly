@@ -1,14 +1,14 @@
 import axios from 'axios'
-import { Categories, IProduct } from '../interfaces'
+import { Categories, IProductObject } from '../interfaces'
 
-axios.defaults.baseURL = 'https://product-bf.herokuapp.com'
+axios.defaults.baseURL = 'http://localhost:4000'
 
 interface IGetProducts {
   error: null | {
     data: unknown | string | null
     message: string
   }
-  products: IProduct[] | null
+  products: IProductObject[] | null
 }
 
 interface IGetCategories {

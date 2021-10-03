@@ -25,10 +25,10 @@ export default function ShoppingBag({ isOpen }: Props) {
         <div className={s.container}>
           {selectedProducts.map(product => (
             <ShoppingBagItem
-              key={product.id}
+              key={product.getId()}
               product={product}
               handleClose={() => {
-                setSelectedProducts(selectedProducts.filter(el => el.id !== product.id))
+                setSelectedProducts(selectedProducts.filter(el => el.getId() !== product.getId()))
               }}
             />
           ))}
@@ -38,7 +38,7 @@ export default function ShoppingBag({ isOpen }: Props) {
               <div className={s.totalItem}>
                 <span>{language.total}</span>
                 <span>
-                  {selectedProducts.reduce((acc, el) => acc + el.price, 0)} {UAH}
+                  {selectedProducts.reduce((acc, el) => acc + el.getPrice(), 0)} {UAH}
                 </span>
               </div>
             </div>

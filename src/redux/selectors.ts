@@ -1,10 +1,18 @@
-import type { Categories, IProduct, IState } from '../interfaces'
+import { ProductStructure } from '../helpers'
+import type { Categories, IProduct, IProductObject, IState } from '../interfaces'
 
 export const getState = (state: IState): IState => state
 export const getCategories = (state: IState): Categories => state.main.categories
-export const getProducts = (state: IState): IProduct[] => state.main.products
-export const getSelectedProducts = (state: IState): IProduct[] => state.main.selectedProducts
+export const getProducts = (state: IState): IProduct[] => getProductStructure(state.main.products)
+
+export const getSelectedProducts = (state: IState): IProduct[] =>
+  getProductStructure(state.main.selectedProducts)
+
 export const getProductById = (state: IState, id: string): IProduct | undefined =>
-  getProducts(state).find(el => el.id === id)
+  getProducts(state).find(el => el.getId() === id)
+
 export const getProductsByModel = (state: IState, model: string): IProduct[] =>
-  getProducts(state).filter(product => product.model === model)
+  getProducts(state).filter(product => product.getModel() === model)
+
+export const getProductStructure = (products: IProductObject[]): IProduct[] =>
+  products.map(product => new ProductStructure(product))
