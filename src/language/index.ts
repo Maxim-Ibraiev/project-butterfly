@@ -22,7 +22,19 @@ export default {
   blue: 'Синий',
   black: 'Черный',
   winter: 'Зима',
+  yellow: 'Жёлтый',
+  white: 'Белый',
+  pink: 'Розовый',
+  brown: 'Коричневый',
+  green: 'Зелёный',
+  beige: 'бежевый',
   summer: 'Лето',
+  'autumn/spring': 'Осень/Лето',
+  costumeFabric: 'Костюмная ткань',
+  guipure: 'Гипюр',
+  crepe: 'Креп',
+  soft: 'Soft',
+  staple: 'Штапель',
 
   menu: 'Меню',
   save: 'Сохранить',
@@ -37,4 +49,8 @@ export default {
   orderResults: 'Итог заказа',
   total: 'Сумма',
   continueShopping: 'Продолжить покупки',
+
+  // ru - navigation
+  toHomePage: 'на главную страницу',
+  noProducts: 'Товар не найден!',
 }

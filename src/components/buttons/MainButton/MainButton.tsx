@@ -8,10 +8,11 @@ interface Props {
   isSubmit?: boolean
   status?: Request
   className?: string
+  width?: number
   handleClick?: (event: MouseEvent) => void
 }
 
-const Button: React.FC<Props> = ({ children, className, handleClick, isSubmit, status }) => (
+const Button: React.FC<Props> = ({ children, className, handleClick, isSubmit, status, width }) => (
   <button
     className={cn(
       s.btn,
@@ -24,6 +25,7 @@ const Button: React.FC<Props> = ({ children, className, handleClick, isSubmit, s
     )}
     type={isSubmit ? 'submit' : 'button'}
     onClick={handleClick}
+    style={{ width }}
   >
     {children}
   </button>
