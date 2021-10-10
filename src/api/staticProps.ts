@@ -10,6 +10,7 @@ export const getProductsProps = async (): Promise<IProductsProps> => {
 
 export const getCategoriesProps = async (): Promise<ICategoriesProps> => {
   const dataCategories = await api.getCategories()
+
   return {
     categories: dataCategories.categories,
     categoriesError: dataCategories.error,
