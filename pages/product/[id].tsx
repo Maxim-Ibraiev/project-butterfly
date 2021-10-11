@@ -24,8 +24,6 @@ export const getStaticProps = wrapper.getStaticProps(store => async () => {
 export async function getStaticPaths() {
   const { products } = await getProductsProps()
 
-  if (!products) throw new Error(`getStaticPaths products : ${JSON.stringify(products)}`)
-
   const productsStructure = getProductStructure(products)
 
   const paths = products
