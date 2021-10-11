@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Categories, IProductObject } from '../interfaces'
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : 'https://product-bf.herokuapp.com'
+  process.env.NODE_ENV === 'production' ? 'https://project-bf.vercel.app' : 'http://localhost:3000/api'
 
 interface IGetProducts {
   error: null | {
