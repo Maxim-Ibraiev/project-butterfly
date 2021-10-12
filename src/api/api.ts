@@ -2,9 +2,18 @@ import os from 'os'
 import axios from 'axios'
 import { Categories, IProductObject } from '../interfaces'
 
-console.log(os.hostname())
-axios.defaults.baseURL =
-  process.env.NODE_ENV === 'production' ? `${os.hostname()}/api` : 'http://localhost:3000/api'
+const nets = os.networkInterfaces()
+let ip = ''
+
+Object.keys(nets).forEach(name => {
+  nets[name].forEach(net => {
+    if (net.family === 'IPv4' && !net.internal) ip = net.address
+  })
+})
+
+axios.defaults.baseURL = `${process.env.NODE_ENV === 'production' ? 'https' : 'http'}://${ip}:${
+  process.env.PORT || 3000
+}/api`
 
 interface IGetProducts {
   error: null | {
