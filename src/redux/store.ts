@@ -5,8 +5,7 @@ import { createStore, applyMiddleware, Action } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import reducer from './rootReducer'
-
-import type { IState } from '../interfaces'
+import { IState } from '../interfaces'
 
 const bindMiddleware = middleware => {
   if (process.env.NODE_ENV !== 'production') {

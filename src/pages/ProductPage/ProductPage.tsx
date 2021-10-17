@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import Layout from '../../components/Layout'
 import MainProduct from '../../components/MainProduct'
 import NotFoundProduct from '../../components/NotFoundProduct'
-import { IProduct, IState } from '../../interfaces'
 import { getProductById } from '../../redux/selectors'
+import { IProduct, IState } from '../../interfaces'
 
 export default function ProductPage() {
   const router = useRouter()

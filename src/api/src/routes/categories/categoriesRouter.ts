@@ -9,7 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break
 
     default:
-      await MethodNotAllowed(req, res)
+      MethodNotAllowed(req, res)
       break
   }
 }

@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux'
 import { getProductsByModel } from '../../../redux/selectors'
 import routes from '../../../routes'
 import s from './ProductCard.module.scss'
-
-import type { IProduct, IState } from '../../../interfaces'
+import { IProduct, IState } from '../../../interfaces'
 
 interface Props {
   width: number
@@ -14,7 +13,6 @@ interface Props {
 }
 
 export default function ProductCard({ width, height, product }: Props) {
-  // const { images, price, title, size, material, popularity, id, model } = product
   const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, product.getModel()))
 
   return (

@@ -15,9 +15,8 @@ import { useDevice, useSelectedProducts } from '../../customHook'
 import routes from '../../routes'
 import language from '../../language'
 import s from './MainProduct.module.scss'
-
-import type { IProduct, IState, Request } from '../../interfaces'
 import NotFoundProduct from '../NotFoundProduct'
+import { IProduct, IState, Request } from '../../interfaces'
 
 export default function MainProduct() {
   const router = useRouter()

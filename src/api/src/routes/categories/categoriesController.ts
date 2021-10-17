@@ -1,32 +1,26 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import httpStatusCodes from '../../httpStatusCodes'
 import { listCategories } from './categoriesModel'
+import getServerError from '../getServerError'
+import { Categories, IResponse } from '../../../../interfaces'
 
-export const getCategories = async (req: NextApiRequest, res: NextApiResponse) => {
+export const getCategories = async (
+  req?: NextApiRequest,
+  res?: NextApiResponse
+): Promise<IResponse<Categories>> => {
   try {
-    const categories = await listCategories()
-    const categoriesToFlatArr = categories.map(el => el.category)
-    res.status(200).json({ data: categoriesToFlatArr })
+    const categoriesResponse = await listCategories()
+    const categoriesToFlat = categoriesResponse.map(el => el.category)
+    const response = { status: httpStatusCodes.OK, data: categoriesToFlat, error: null }
+
+    if (res) res.status(httpStatusCodes.OK).json(response)
+
+    return response
   } catch (e) {
-    res.status(404).json({ error: e.message })
+    const response = getServerError(e)
+
+    if (res) res.status(response.status).json(response)
+
+    return response
   }
 }
-
-// export const createCategory = async (req, res) => {
-//   try {
-//     const newCategory = await addCategory(req.body)
-
-//     res.status(200).json({ data: newCategory })
-//   } catch (e) {
-//     res.status(400).json({ error: e.message })
-//   }
-// }
-
-// export const deleteCategory = async (req, res) => {
-//   try {
-//     const deletedCategory = await removeCategory(req.body.id)
-
-//     res.status(200).json({ data: deletedCategory })
-//   } catch (e) {
-//     res.status(404).json({ message: e.message })
-//   }
-// }

@@ -1,6 +1,6 @@
 import CategoryPage from '../src/pages/CategoryPage'
 import { wrapper } from '../src/redux/store'
-import { getProductsProps, getCategoriesProps } from '../src/api/staticProps'
+import { getProductsProps, getCategoriesProps } from '../src/api/getStaticProps'
 import { dispatchData } from '../src/helpers'
 import { REVALIDATE, CATEGORIES } from '../src/constants'
 

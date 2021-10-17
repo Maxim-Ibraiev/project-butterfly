@@ -5,8 +5,7 @@ import CustomSelector from '../../CustomSelector'
 import routes from '../../../routes'
 import s from './Filter.module.scss'
 import language from '../../../language'
-
-import type { FilterOption, InitialFilter } from '../../../interfaces'
+import { FilterOption, InitialFilter } from '../../../interfaces'
 
 type HandleFilter = (option: OptionsType<FilterOption>, type: string) => void
 

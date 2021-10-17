@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-// import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import Modal from 'react-modal'
 import queryString from 'query-string'
@@ -35,30 +34,26 @@ export default function Header() {
       <div className={s.nav}>
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
-            {categories.map(
-              category =>
-                category && (
-                  <li key={category}>
-                    <Link
-                      href={{
-                        pathname: routes.categories[category],
-                        query: params,
-                      }}
-                    >
-                      <a
-                        className={cn(s.link, {
-                          [s.active]: router.query.category === category,
-                        })}
-                      >
-                        <b>{language[category]}</b>
-                      </a>
-                    </Link>
-                  </li>
-                )
-            )}
+            {categories.map(category => (
+              <li key={category}>
+                <Link
+                  href={{
+                    pathname: routes.categories[category],
+                    query: params,
+                  }}
+                >
+                  <a
+                    className={cn(s.link, {
+                      [s.active]: router.query.category === category,
+                    })}
+                  >
+                    <b>{language[category]}</b>
+                  </a>
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
-
         <ul className={s.row}>
           <li>
             <Button

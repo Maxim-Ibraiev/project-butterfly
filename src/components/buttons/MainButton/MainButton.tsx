@@ -1,7 +1,6 @@
 import React, { MouseEvent } from 'react'
 import cn from 'classnames'
 import s from './MainButton.module.scss'
-
 import { Request } from '../../../interfaces'
 
 interface Props {

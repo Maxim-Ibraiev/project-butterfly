@@ -1,5 +1,5 @@
 import { ProductStructure } from '../helpers'
-import type { Categories, IProduct, IProductObject, IState } from '../interfaces'
+import { Categories, IProduct, IProductObject, IState } from '../interfaces'
 
 export const getState = (state: IState): IState => state
 export const getCategories = (state: IState): Categories => state.main.categories

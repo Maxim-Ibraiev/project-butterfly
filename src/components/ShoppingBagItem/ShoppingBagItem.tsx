@@ -7,8 +7,7 @@ import { imageLoader } from '../../constants'
 import { arrayWrapper, getOptionsFormatFromValue } from '../../helpers'
 import language from '../../language'
 import s from './ShoppingBagItem.module.scss'
-
-import type { IProduct, FilterOption } from '../../interfaces'
+import { IProduct, FilterOption } from '../../interfaces'
 
 interface Props {
   product: IProduct

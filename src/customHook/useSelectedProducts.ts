@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductById, getSelectedProducts } from '../redux/selectors'
 import * as actions from '../redux/main/mainActions'
-
 import { IProduct, IState } from '../interfaces'
 
 export default function useSelectedProducts(): [IProduct[], (newSelectedProducts: IProduct[]) => void] {

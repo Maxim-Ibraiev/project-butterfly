@@ -1,3 +1,4 @@
+import { Model, Schema } from 'mongoose'
 import { ProductStructure } from '../helpers'
 
 export type Categories = string[]
@@ -41,6 +42,15 @@ export interface IState {
 export interface IError {
   data: null | string | unknown
   message: string
+}
+
+export interface IResponse<T> {
+  status: number
+  data: T | null
+  error: {
+    data: unknown
+    message: string
+  } | null
 }
 
 export type FilterOption = { value: string; label: string }

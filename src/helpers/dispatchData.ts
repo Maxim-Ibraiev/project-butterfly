@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux'
 import * as mainActions from '../redux/main/mainActions'
-
-import type { ICategoriesProps, IProductsProps } from '../interfaces'
+import { ICategoriesProps, IProductsProps } from '../interfaces'
 
 export type IDataResponse = ICategoriesProps | IProductsProps
 

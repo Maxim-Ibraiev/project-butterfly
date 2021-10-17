@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import httpStatusCode from '../httpStatusCode'
+import httpStatusCode from '../httpStatusCodes'
 
 export default function MethodNotAllowed(req: NextApiRequest, res: NextApiResponse) {
   res.status(httpStatusCode.METHOD_NOT_ALLOWED).json({

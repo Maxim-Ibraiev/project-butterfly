@@ -1,21 +1,7 @@
 import connectToDatabase from '../../db/connectToDatabase'
 
-type T = { [key: string]: string }
-export const listCategories = async (): Promise<T[]> => {
-  const { models } = await connectToDatabase()
-  const categories: T[] = models.categories.find()
+export const listCategories = async (): Promise<{ category: string }[]> => {
+  const { db } = await connectToDatabase()
 
-  return categories
+  return db.collection('categories').find().toArray()
 }
-
-// export const addCategory = async newCategory => {
-//   await connectToDatabase()
-
-//   return categories.create(newCategory)
-// }
-
-// export const removeCategory = async categoryId => {
-//   await connectToDatabase()
-
-//   return categories.findByIdAndRemove({ _id: categoryId })
-// }

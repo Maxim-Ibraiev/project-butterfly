@@ -2,38 +2,10 @@ import { useSelector } from 'react-redux'
 import Select, { OptionsType } from 'react-select'
 import makeAnimated from 'react-select/animated'
 import { getOptionsFormatFromValue } from '../../helpers'
-import type { FilterOption, IProduct } from '../../interfaces'
 import l from '../../language'
 import { getProducts } from '../../redux/selectors'
 import s from './CustomSelector.module.scss'
-
-// const allOptions = {
-//   size: [
-//     { value: '45', label: '45' },
-//     { value: '48', label: '48' },
-//     { value: '50', label: '50' },
-//     { value: '52', label: '52' },
-//     { value: '55', label: '55' },
-//   ],
-//   sort: [
-//     { value: 'popularity', label: l.popularity },
-//     { value: 'highPrice', label: l.highPrice },
-//     { value: 'lowPrice', label: l.lowPrice },
-//   ],
-//   material: [
-//     { value: 'cotton', label: l.cotton },
-//     { value: 'silk', label: l.silk },
-//   ],
-//   color: [
-//     { value: 'red', label: l.red },
-//     { value: 'blue', label: l.blue },
-//     { value: 'black', label: l.black },
-//   ],
-//   season: [
-//     { value: 'winter', label: l.winter },
-//     { value: 'summer', label: l.summer },
-//   ],
-// }
+import { FilterOption, IProduct } from '../../interfaces'
 
 const getOptionsFromProducts = (products: IProduct[]) => {
   const initialOptions: { size: string[]; material: string[]; color: string[]; season: string[] } = {

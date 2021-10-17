@@ -8,8 +8,7 @@ import {
   setSelectedProducts,
 } from './mainActions'
 import { getCategories } from '../selectors'
-
-import type { Categories, IProductObject, IError, IState } from '../../interfaces'
+import { Categories, IProductObject, IError, IState } from '../../interfaces'
 
 const categories = createReducer<Categories>([], {
   [categoriesSuccess.type]: (_, { payload }) => payload,

@@ -9,4 +9,5 @@ export type {
   InitialFilter,
   Request,
   IProductObject,
+  IResponse,
 } from './interfaces'
