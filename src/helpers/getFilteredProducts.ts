@@ -47,6 +47,7 @@ function isMatchedProduct(product: IProduct, options: IOptions): boolean {
   const specialOptions = ['sort', 'size']
   const optionsKeys = Object.keys(options)
   const filteredOptions = optionsKeys.filter(element => !specialOptions.some(el => el === element))
+
   return filteredOptions.every(currentOption => {
     const fnName = `get${currentOption.slice(0, 1).toUpperCase()}${currentOption.slice(1)}`
     const currentOptionsOfProduct = arrayWrapper(product[fnName]())

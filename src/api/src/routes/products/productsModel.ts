@@ -5,10 +5,15 @@
 import connectToDatabase from '../../db/connectToDatabase'
 import { IProductObject } from '../../../../interfaces'
 
+interface IResponse extends IProductObject {
+  _id: unknown
+}
+
 export const listProducts = async (): Promise<IProductObject[]> => {
   const { db } = await connectToDatabase()
 
-  return (await db.collection('products').find().toArray()).map(el => {
+  const response = await db.collection<IResponse>('products').find().toArray()
+  const products: IProductObject[] = response.map(el => {
     el.id = String(el._id)
     delete el._id
     delete el.createdAt
@@ -24,4 +29,6 @@ export const listProducts = async (): Promise<IProductObject[]> => {
 
     return el
   })
+
+  return products
 }

@@ -1,15 +1,22 @@
 import { MongoClient } from 'mongodb'
 
-const uriDb = process.env.URL_DB
-const client = new MongoClient(uriDb, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+const urlDb = process.env.URL_DB
+const client = new MongoClient(urlDb)
+let cashedClient: MongoClient
 
 export default async function connectToDatabase() {
-  if (client.isConnected) await client.connect()
+  try {
+    if (!cashedClient) {
+      cashedClient = await client.connect()
+      console.log('Connected successful')
+    }
+  } catch {
+    throw new Error('Connected unsuccess')
+  }
 
-  const db = client.db('db-bf')
+  const db = cashedClient.db('db-bf')
 
   return { client, db }
 }
+
+if (!urlDb) throw new Error(`No access to url. url : ${urlDb}`)

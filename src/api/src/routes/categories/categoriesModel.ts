@@ -1,7 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 import connectToDatabase from '../../db/connectToDatabase'
 
-export const listCategories = async (): Promise<{ category: string }[]> => {
-  const { db } = await connectToDatabase()
+type IResponse = {
+  category: string
+  _id: unknown
+}
 
-  return db.collection('categories').find().toArray()
+export const listCategories = async () => {
+  const { db } = await connectToDatabase()
+  const response = await db.collection<IResponse>('categories').find().toArray()
+
+  return response
 }
