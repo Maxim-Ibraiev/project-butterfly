@@ -16,7 +16,7 @@ export default async function connectToDatabase() {
 
   const db = cashedClient.db('db-bf')
 
-  return { client, db }
+  return { db }
 }
 
 if (!urlDb) throw new Error(`No access to url. url : ${urlDb}`)
