@@ -1,4 +1,3 @@
-import { Model, Schema } from 'mongoose'
 import { ProductStructure } from '../helpers'
 
 export type Categories = string[]

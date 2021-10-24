@@ -1,10 +1,11 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import Link from 'next/link'
 import cn from 'classnames'
 import { isValidPhoneNumber, parsePhoneNumber } from 'react-phone-number-input'
+import { E164Number } from 'libphonenumber-js/core'
 import PhoneNumber from 'react-phone-number-input/input'
 import Gallery from '../Gallery'
 import MainButton from '../buttons/MainButton'
@@ -29,7 +30,7 @@ export default function MainProduct() {
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
   const [isProductsSelected, setIsProductsSelected] = useState(false)
   const [activeBtn, setActiveBtn] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('+380')
+  const [phoneNumber, setPhoneNumber] = useState<E164Number>('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
   const items = () =>
     product.getImages().map(el => {
@@ -42,9 +43,9 @@ export default function MainProduct() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    if (phoneNumber && isValidPhoneNumber(phoneNumber)) {
+    if (phoneNumber && isValidPhoneNumber(String(phoneNumber))) {
       console.log(phoneNumber)
-      console.log(parsePhoneNumber(phoneNumber))
+      console.log(parsePhoneNumber(String(phoneNumber)))
 
       setPhoneBtnStatus('Success')
       setTimeout(() => setPhoneBtnStatus(null), 1000)
@@ -54,13 +55,13 @@ export default function MainProduct() {
     }
   }
 
-  function handleSelectProduct() {
+  const handleSelectProduct = useCallback(() => {
     if (!selectedProducts.some(({ getId }) => getId() === product.getId())) {
       setSelectedProduct([...selectedProducts, product])
     }
 
     setIsProductsSelected(true)
-  }
+  }, [])
 
   useEffect(() => {
     setIsProductsSelected(!!product && selectedProducts.some(({ getId }) => getId() === product.getId()))

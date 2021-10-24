@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Image from 'next/image'
 import CustomSelector from '../CustomSelector'
 import Button from '../buttons/MainButton'
@@ -18,9 +18,9 @@ export default function ShoppingBagItem({ product, handleClose }: Props) {
   const [size, setSize] = useState<FilterOption[]>([])
   const options = getOptionsFormatFromValue(product.getAllSizeOptions())
 
-  function handleChangeSize(option) {
+  const handleChangeSize = useCallback(option => {
     setSize(arrayWrapper<FilterOption>(option))
-  }
+  }, [])
 
   return (
     <div className={s.wrapper}>

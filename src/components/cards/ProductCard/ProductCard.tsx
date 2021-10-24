@@ -5,6 +5,7 @@ import { getProductsByModel } from '../../../redux/selectors'
 import routes from '../../../routes'
 import s from './ProductCard.module.scss'
 import { IProduct, IState } from '../../../interfaces'
+import { imageLoader } from '../../../constants'
 
 interface Props {
   width: number
@@ -20,10 +21,10 @@ export default function ProductCard({ width, height, product }: Props) {
       <a className={s.wrapper}>
         <div className={s.image}>
           <Image
-            placeholder="blur"
+            // placeholder="blur"
             width={width}
             height={height}
-            loader={el => `/products/${el.src}`}
+            loader={imageLoader}
             src={product.getMainImageSrc()}
             alt={product.getTitle()}
           />

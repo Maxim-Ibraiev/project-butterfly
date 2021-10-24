@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
-import { Schema, model, models } from 'mongoose'
+import { Schema } from 'mongoose'
 
 const productSchema = new Schema(
   {

@@ -13,6 +13,9 @@ interface Props {
 export default function ShoppingBag({ isOpen }: Props) {
   const [selectedProducts, setSelectedProducts] = useSelectedProducts()
 
+  const handleClose = product => {
+    setSelectedProducts(selectedProducts.filter(el => el.getId() !== product.getId()))
+  }
   return (
     <section className={s.wrapper}>
       <Button handleClick={() => isOpen()} className={s.x}>
@@ -27,9 +30,7 @@ export default function ShoppingBag({ isOpen }: Props) {
             <ShoppingBagItem
               key={product.getId()}
               product={product}
-              handleClose={() => {
-                setSelectedProducts(selectedProducts.filter(el => el.getId() !== product.getId()))
-              }}
+              handleClose={() => handleClose(product)}
             />
           ))}
           <div className={s.footer}>
