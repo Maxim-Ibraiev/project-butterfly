@@ -6,6 +6,7 @@ import routes from '../../../routes'
 import s from './ProductCard.module.scss'
 import { IProduct, IState } from '../../../interfaces'
 import { imageLoader } from '../../../constants'
+import { getDataURL } from '../../../helpers'
 
 interface Props {
   width: number
@@ -21,10 +22,11 @@ export default function ProductCard({ width, height, product }: Props) {
       <a className={s.wrapper}>
         <div className={s.image}>
           <Image
-            // placeholder="blur"
             width={width}
             height={height}
             loader={imageLoader}
+            placeholder="blur"
+            blurDataURL={getDataURL(width, height)}
             src={product.getMainImageSrc()}
             alt={product.getTitle()}
           />

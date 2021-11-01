@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -12,8 +16,18 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "incremental": true
   },
-  "include": ["additional.d.ts", "**/*.ts", "**/*.tsx", "src/components/Header/Header.tsx", "src/components/CategoryGrid/index.ts", "src/components/CustomSelector/CustomSelector.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "additional.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/Header/Header.tsx",
+    "src/components/CategoryGrid/index.ts",
+    "src/components/CustomSelector/CustomSelector.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
