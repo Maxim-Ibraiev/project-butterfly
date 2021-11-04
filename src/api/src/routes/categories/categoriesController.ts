@@ -3,11 +3,16 @@ import httpStatusCodes from '../../httpStatusCodes'
 import { listCategories } from './categoriesModel'
 import getServerError from '../getServerError'
 import { Categories, IResponse } from '../../../../interfaces'
+import cashedCategories from '../../../../constants/categories'
 
 export const getCategories = async (
   req?: NextApiRequest,
   res?: NextApiResponse
 ): Promise<IResponse<Categories>> => {
+  if (process.env.NODE_ENV === 'development') {
+    return { status: httpStatusCodes.OK, data: cashedCategories, error: null }
+  }
+
   try {
     const categoriesResponse = await listCategories()
     const categoriesToFlat = categoriesResponse.map(el => el.category)

@@ -5,8 +5,7 @@ import { getProductsByModel } from '../../../redux/selectors'
 import routes from '../../../routes'
 import s from './ProductCard.module.scss'
 import { IProduct, IState } from '../../../interfaces'
-import { imageLoader } from '../../../constants'
-import { getDataURL } from '../../../helpers'
+import { getDataURL, imageLoader } from '../../../helpers'
 
 interface Props {
   width: number
@@ -50,9 +49,9 @@ export default function ProductCard({ width, height, product }: Props) {
               ))}
             </div>
           )}
-          <span>{product.getMaterial()}</span>
+          {/* <span>{product.getMaterial()}</span>
           <span>{product.getPopularity()}</span>
-          <span>{product.getAllSizeOptions().map(el => `${el} `)}</span>
+          <span>{product.getAllSizeOptions().map(el => `${el} `)}</span> */}
         </div>
       </a>
     </Link>
