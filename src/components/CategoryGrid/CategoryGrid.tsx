@@ -2,7 +2,7 @@ import CategoryItem from './CategoryGridItem'
 import routes from '../../routes'
 import s from './CategoryGrid.module.scss'
 import language from '../../language'
-import { mobileLesser, mobileUpper } from '../../constants'
+import { mobileUpper } from '../../constants'
 
 export default function Category() {
   const { categories } = routes

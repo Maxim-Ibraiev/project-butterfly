@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { getDataURL } from '../../helpers'
 import { Item } from './Gallery'
-import s from './Gallery.module.scss'
 
 interface IRenderItem {
   item: Item

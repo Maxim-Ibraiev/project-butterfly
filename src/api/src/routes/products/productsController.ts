@@ -3,7 +3,7 @@ import httpStatusCodes from '../../httpStatusCodes'
 import { listProducts } from './productsModel'
 import getServerError from '../getServerError'
 import { IResponse, IProductObject } from '../../../../interfaces'
-import cashedProducts from '../../../../constants/products'
+import cashedProducts from '../../../../constants/PRODUCTS'
 
 export async function getProducts(
   req?: NextApiRequest,

@@ -3,7 +3,7 @@ import httpStatusCodes from '../../httpStatusCodes'
 import { listCategories } from './categoriesModel'
 import getServerError from '../getServerError'
 import { Categories, IResponse } from '../../../../interfaces'
-import cashedCategories from '../../../../constants/categories'
+import cashedCategories from '../../../../constants/CATEGORIES'
 
 export const getCategories = async (
   req?: NextApiRequest,
