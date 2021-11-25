@@ -9,7 +9,7 @@ export const getCategories = async (
   req?: NextApiRequest,
   res?: NextApiResponse
 ): Promise<IResponse<Categories>> => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.CASH_DEV_MODE) {
     return { status: httpStatusCodes.OK, data: cashedCategories, error: null }
   }
 

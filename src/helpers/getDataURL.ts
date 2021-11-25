@@ -19,6 +19,6 @@ export const toBase64 = (str: string) =>
 // const PLASEHOLDER =
 //   'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mO88+zjfwYiAOOoQvoqBAA6kST/2gtiggAAAABJRU5ErkJggg=='
 
-export default function getDataURL(w: number, h: number) {
-  return `data:image/svg+xml;base64,${toBase64(shimmer(w, h))}`
+export default function getDataURL(width: number, height: number) {
+  return `data:image/svg+xml;base64,${toBase64(shimmer(width, height))}`
 }

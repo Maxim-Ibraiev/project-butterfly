@@ -12,7 +12,7 @@ import MainButton from '../buttons/MainButton'
 import Icon from '../icons/Bag'
 import { getProductsByModel, getProductById } from '../../redux/selectors'
 import { UAH } from '../../constants'
-import { imageLoader } from '../../helpers'
+import { getProductSrc } from '../../helpers'
 import { useDevice, useSelectedProducts } from '../../customHook'
 import routes from '../../routes'
 import language from '../../language'
@@ -33,7 +33,7 @@ export default function MainProduct() {
   const [activeBtn, setActiveBtn] = useState('')
   const [phoneNumber, setPhoneNumber] = useState<E164Number>('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
-  const items = () =>
+  const getItems = () =>
     product.getImages().map(el => {
       const original = `/products/${el.original}`
       const thumbnail = `/products/${el.original}`
@@ -62,7 +62,7 @@ export default function MainProduct() {
     }
 
     setIsProductsSelected(true)
-  }, [])
+  }, [selectedProducts, setSelectedProduct, product])
 
   useEffect(() => {
     setIsProductsSelected(!!product && selectedProducts.some(({ getId }) => getId() === product.getId()))
@@ -71,7 +71,7 @@ export default function MainProduct() {
   return product ? (
     <section className={s.container}>
       <div className={s.galleryWrapper}>
-        <Gallery items={items()} position={isDesktop ? 'left' : undefined} />
+        <Gallery items={getItems()} position={isDesktop ? 'left' : undefined} />
       </div>
       <div className={s.infoContainer}>
         <div className={s.infoSection}>
@@ -122,11 +122,10 @@ export default function MainProduct() {
                   <Link key={model.getId()} href={`${routes.product}/${model.getId()}`}>
                     <a className={s.colorImg}>
                       <Image
-                        src={model.getMainImageSrc()}
+                        src={getProductSrc(model.getMainImageSrc())}
                         key={model.getColor()}
                         width={70}
                         height={90}
-                        loader={imageLoader}
                         alt={model.getTitle()}
                       />
                     </a>

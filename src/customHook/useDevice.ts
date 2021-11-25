@@ -1,5 +1,6 @@
 import throttle from 'lodash.throttle'
 import { useEffect, useState } from 'react'
+import { mobileLesser, mobileUpper, tableLesser, tableUpper } from '../constants'
 
 export default function useDevice() {
   const [isMobile, setMobile] = useState(true)
@@ -9,9 +10,9 @@ export default function useDevice() {
   useEffect(() => {
     const width = () => document.body.clientWidth
     const setDevise = () => {
-      setMobile(width() < 767)
-      setTable(width() >= 767 && width() <= 1023)
-      setDesktop(width() >= 1024)
+      setMobile(width() <= mobileLesser)
+      setTable(width() >= mobileUpper && width() <= tableLesser)
+      setDesktop(width() >= tableUpper)
     }
 
     const handleResize = throttle(() => setDevise(), 1000)

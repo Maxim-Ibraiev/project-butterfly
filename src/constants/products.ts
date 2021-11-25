@@ -25,11 +25,6 @@ export default [
       },
       {
         color: ['yellow', 'white'],
-        original: 'd1.4.jpg',
-        thumbnail: 'd1.4s.jpg',
-      },
-      {
-        color: ['yellow', 'white'],
         original: 'd1.5.jpg',
         thumbnail: 'd1.5s.jpg',
       },
@@ -77,11 +72,6 @@ export default [
         color: ['yellow'],
         original: 'd1.3.jpg',
         thumbnail: 'd1.3s.jpg',
-      },
-      {
-        color: ['yellow', 'white'],
-        original: 'd1.4.jpg',
-        thumbnail: 'd1.4s.jpg',
       },
       {
         color: ['yellow', 'white'],

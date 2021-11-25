@@ -4,7 +4,6 @@ import s from './CategoryGridItem.module.scss'
 
 interface Props {
   text: string
-  layout: 'fixed' | 'intrinsic' | 'responsive'
 }
 
 export default function CategoryItem({

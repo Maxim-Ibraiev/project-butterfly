@@ -53,23 +53,3 @@ export default class ProductStructure {
     __v: 0,
   })
 }
-/*
-  price: number
-  popularity: number
-  material: string[]
-  color: string
-  images: { original: string; thumbnail: string; color: string[] }[]
-  id: string
-  category: string
-  description: string
-  title: string
-  model: string
-  season: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-  size: {
-    [key: string]: number
-  }
-}
-*/

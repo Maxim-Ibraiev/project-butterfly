@@ -3,7 +3,7 @@ import Image from 'next/image'
 import CustomSelector from '../CustomSelector'
 import Button from '../buttons/MainButton'
 import CloseSvg from '../icons/Close'
-import { arrayWrapper, getOptionsFormatFromValue, imageLoader } from '../../helpers'
+import { arrayWrapper, getOptionsFormatFromValue, getProductSrc } from '../../helpers'
 import language from '../../language'
 import s from './ShoppingBagItem.module.scss'
 import { IProduct, FilterOption } from '../../interfaces'
@@ -24,7 +24,7 @@ export default function ShoppingBagItem({ product, handleClose }: Props) {
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <Image src={product.getMainImageSrc()} width={80} height={110} loader={imageLoader} />
+        <Image src={getProductSrc(product.getMainImageSrc())} width={80} height={110} />
       </div>
       <div className={s.info}>
         <span>{product.getTitle()}</span>

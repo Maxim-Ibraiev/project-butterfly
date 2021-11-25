@@ -5,7 +5,7 @@ import { getProductsByModel } from '../../../redux/selectors'
 import routes from '../../../routes'
 import s from './ProductCard.module.scss'
 import { IProduct, IState } from '../../../interfaces'
-import { getDataURL, imageLoader } from '../../../helpers'
+import { getDataURL, getProductSrc } from '../../../helpers'
 
 interface Props {
   width: number
@@ -23,10 +23,12 @@ export default function ProductCard({ width, height, product }: Props) {
           <Image
             width={width}
             height={height}
-            loader={imageLoader}
+            sizes="(max-width: 765px) 364px,
+                   (max-width: 999px) 313px,
+                   282px"
             placeholder="blur"
             blurDataURL={getDataURL(width, height)}
-            src={product.getMainImageSrc()}
+            src={getProductSrc(product.getMainImageSrc())}
             alt={product.getTitle()}
           />
         </div>
@@ -49,9 +51,6 @@ export default function ProductCard({ width, height, product }: Props) {
               ))}
             </div>
           )}
-          {/* <span>{product.getMaterial()}</span>
-          <span>{product.getPopularity()}</span>
-          <span>{product.getAllSizeOptions().map(el => `${el} `)}</span> */}
         </div>
       </a>
     </Link>
