@@ -7,32 +7,34 @@ import s from './ShoppingBag.module.scss'
 import { UAH } from '../../constants'
 
 interface Props {
-  isOpen: () => void
+  handleClose: () => void
 }
 
-export default function ShoppingBag({ isOpen }: Props) {
+export default function ShoppingBag({ handleClose }: Props) {
   const [selectedProducts, setSelectedProducts] = useSelectedProducts()
 
-  const handleClose = product => {
+  const handleDelete = product => {
     setSelectedProducts(selectedProducts.filter(el => el.getId() !== product.getId()))
   }
   return (
     <section className={s.wrapper}>
-      <Button handleClick={() => isOpen()} className={s.x}>
+      <Button handleClick={() => handleClose()} className={s.x}>
         <CloseSvg />
       </Button>
 
       <p className={s.title}>{language.productsInBag}</p>
 
       {selectedProducts.length > 0 ? (
-        <div className={s.container}>
-          {selectedProducts.map(product => (
-            <ShoppingBagItem
-              key={product.getId()}
-              product={product}
-              handleClose={() => handleClose(product)}
-            />
-          ))}
+        <>
+          <div className={s.container}>
+            {selectedProducts.map(product => (
+              <ShoppingBagItem
+                key={product.getId()}
+                product={product}
+                handleDelete={() => handleDelete(product)}
+              />
+            ))}
+          </div>
           <div className={s.footer}>
             <div className={s.totalContainer}>
               <span className={s.totalTitle}>{language.orderResults}</span>
@@ -44,15 +46,15 @@ export default function ShoppingBag({ isOpen }: Props) {
               </div>
             </div>
             <div className={s.footerBottoms}>
-              <Button handleClick={() => isOpen()}>{language.continueShopping}</Button>
+              <Button handleClick={() => handleClose()}>{language.continueShopping}</Button>
               <Button>{language.orderProduct}</Button>
             </div>
           </div>
-        </div>
+        </>
       ) : (
         <>
           <p style={{ textAlign: 'center' }}>{language.emptyBag}</p>
-          <Button className={s.close} handleClick={() => isOpen()}>
+          <Button className={s.close} handleClick={() => handleClose()}>
             {language.close}
           </Button>
         </>

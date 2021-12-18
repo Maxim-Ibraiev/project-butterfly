@@ -10,10 +10,10 @@ import { IProduct, FilterOption } from '../../interfaces'
 
 interface Props {
   product: IProduct
-  handleClose: () => void
+  handleDelete: () => void
 }
 
-export default function ShoppingBagItem({ product, handleClose }: Props) {
+export default function ShoppingBagItem({ product, handleDelete }: Props) {
   const [size, setSize] = useState<FilterOption[]>([])
   const options = getOptionsFormatFromValue(product.getAllSizeOptions())
 
@@ -23,6 +23,9 @@ export default function ShoppingBagItem({ product, handleClose }: Props) {
 
   return (
     <div className={s.wrapper}>
+      <Button className={s.close} handleClick={handleDelete}>
+        <CloseSvg />
+      </Button>
       <div className={s.image}>
         <Image src={getProductSrc(product.getMainImageSrc())} width={80} height={110} />
       </div>
@@ -40,9 +43,6 @@ export default function ShoppingBagItem({ product, handleClose }: Props) {
           </div>
         </div>
       </div>
-      <Button className={s.close} handleClick={handleClose}>
-        <CloseSvg />
-      </Button>
     </div>
   )
 }

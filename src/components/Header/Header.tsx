@@ -18,13 +18,9 @@ Modal.setAppElement('#__next')
 export default function Header() {
   const router = useRouter()
   const categories = useSelector(getCategories)
-  const [modalIsOpen, setIsOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isOpenShoppingBag, setIsOpenShoppingBag] = useState(false)
   const params = queryString.parseUrl(router.asPath).query
-  const handleCloseShoppingBag = () => {
-    setIsOpenShoppingBag(false)
-    document.body.style.overflow = 'visible'
-  }
 
   return (
     <header className={s.header}>
@@ -59,7 +55,6 @@ export default function Header() {
             <Button
               handleClick={() => {
                 setIsOpenShoppingBag(true)
-                document.body.style.overflow = 'hidden'
               }}
               ariaLabel={language.save}
               src="/icons/bag.svg"
@@ -68,29 +63,29 @@ export default function Header() {
           <li className={s.menuBtn}>
             <Button
               ariaLabel={language.menu}
-              src={modalIsOpen ? '/icons/close.svg' : '/icons/menu.svg'}
-              handleClick={() => setIsOpen(!modalIsOpen)}
+              src={isMenuOpen ? '/icons/close.svg' : '/icons/menu.svg'}
+              handleClick={() => setIsMenuOpen(!isMenuOpen)}
             />
           </li>
         </ul>
       </div>
 
       <Modal
+        isOpen={isMenuOpen}
         className={s.modal}
         overlayClassName={s.overModal}
-        isOpen={modalIsOpen}
-        onRequestClose={() => setIsOpen(false)}
+        onRequestClose={() => setIsMenuOpen(false)}
       >
-        <Menu setIsOpen={() => setIsOpen(false)} />
+        <Menu setIsOpen={() => setIsMenuOpen(false)} />
       </Modal>
 
       <Modal
         isOpen={isOpenShoppingBag}
         className={cn(s.modal, s.shoppingBag)}
         overlayClassName={s.overModal}
-        onRequestClose={handleCloseShoppingBag}
+        onRequestClose={() => setIsOpenShoppingBag(false)}
       >
-        <ShoppingBag isOpen={handleCloseShoppingBag} />
+        <ShoppingBag handleClose={() => setIsOpenShoppingBag(false)} />
       </Modal>
     </header>
   )

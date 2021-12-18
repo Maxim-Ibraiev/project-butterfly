@@ -1,9 +1,15 @@
-.wrapper {
-  display: flex;
-  flex-direction: column;
+@import '../../styles/variables.scss';
 
+.wrapper {
+  position: relative;
+
+  height: min-content;
   padding-top: 20px;
-  margin-bottom: calc(140px + 10vh);
+  margin-bottom: 107px;
+
+  @media screen and (min-width: $tableUpper) {
+    margin-bottom: 0;
+  }
 }
 
 .container {
@@ -71,13 +77,20 @@
   position: fixed;
   bottom: 0;
   width: calc(100% - 40px);
-
-  padding: 15px 0;
+  height: 128px;
 
   background: var(--primary);
   border-top: 1px solid var(--border-palette);
   text-transform: uppercase;
+
+  @media screen and (min-width: $tableUpper) {
+    inset: unset;
+    position: unset;
+
+    width: inherit;
+  }
 }
+
 .footerBottoms {
   display: flex;
   justify-content: space-between;

@@ -107,6 +107,10 @@ body {
   padding: 0;
 }
 
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
 a,
 a:active,
 a:hover {
