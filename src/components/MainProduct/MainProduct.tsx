@@ -9,6 +9,7 @@ import { E164Number } from 'libphonenumber-js/core'
 import PhoneNumber from 'react-phone-number-input/input'
 import Gallery from '../Gallery'
 import MainButton from '../buttons/MainButton'
+import GridOfSizes from '../GridOfSizes'
 import Icon from '../icons/Bag'
 import { getProductsByModel, getProductById } from '../../redux/selectors'
 import { UAH } from '../../constants'
@@ -30,7 +31,6 @@ export default function MainProduct() {
   const { isDesktop } = useDevice()
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
   const [isProductsSelected, setIsProductsSelected] = useState(false)
-  const [activeBtn, setActiveBtn] = useState('')
   const [phoneNumber, setPhoneNumber] = useState<E164Number>('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
   const getItems = () =>
@@ -78,21 +78,7 @@ export default function MainProduct() {
           <h1 className={s.title}>{product.getTitle()}</h1>
           <b className={s.price}>{`${product.getPrice()} ${UAH}`} </b>
           <b className={s.title}>{language.size}</b>
-          <div className={s.sizeWrapper}>
-            {product.getAllSizeOptions().map(el => (
-              <button
-                type="button"
-                onClick={() => setActiveBtn(el)}
-                className={cn(s.baseBtn, {
-                  [s.activeBtn]: el === activeBtn,
-                  [s.disableBtn]: product.getAvailableSize()[el] === 0,
-                })}
-                key={el}
-              >
-                {el}
-              </button>
-            ))}
-          </div>
+          <GridOfSizes product={product} />
           <MainButton
             className={cn(s.buyBtn, { [s.productSelected]: isProductsSelected })}
             handleClick={handleSelectProduct}
