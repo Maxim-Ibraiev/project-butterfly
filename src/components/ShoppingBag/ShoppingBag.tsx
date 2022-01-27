@@ -18,11 +18,13 @@ export default function ShoppingBag({ handleClose }: Props) {
   }
   return (
     <section className={s.wrapper}>
-      <Button handleClick={() => handleClose()} className={s.x}>
-        <CloseSvg />
-      </Button>
+      <div className={s.header}>
+        <p className={s.title}>{language.productsInBag}</p>
 
-      <p className={s.title}>{language.productsInBag}</p>
+        <Button handleClick={() => handleClose()} className={s.x}>
+          <CloseSvg />
+        </Button>
+      </div>
 
       {selectedProducts.length > 0 ? (
         <>
