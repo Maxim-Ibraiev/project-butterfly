@@ -1,12 +1,15 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import type { IState, IProduct, IProductObject } from '../../interfaces'
+import type { IState, IProduct, IProductObject, ISelectedProductsFromStorage } from '../../interfaces'
 
 export const categoriesSuccess = createAction<string[]>('main/categoriesSuccess')
 export const categoriesError = createAction('main/categoriesError')
 
 export const productsSuccess = createAction<IProduct[]>('main/productsSuccess')
 export const productsError = createAction('main/productsError')
+export const setSelectedSizeOfProduct = createAction<ISelectedProductsFromStorage>(
+  'main/setSelectedSizeOfProduct'
+)
 
 export const setSelectedProducts = createAction<IProductObject[]>('main/selectedProducts')
 

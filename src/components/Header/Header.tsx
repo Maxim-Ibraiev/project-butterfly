@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import Modal from 'react-modal'
+import ReactModal from 'react-modal'
 import queryString from 'query-string'
 import cn from 'classnames'
 import ShoppingBag from '../ShoppingBag'
@@ -13,7 +13,7 @@ import routes from '../../routes'
 import language from '../../language'
 import s from './Header.module.scss'
 
-Modal.setAppElement('#__next')
+ReactModal.setAppElement('#__next')
 
 export default function Header() {
   const router = useRouter()
@@ -70,23 +70,23 @@ export default function Header() {
         </ul>
       </div>
 
-      <Modal
+      <ReactModal
         isOpen={isMenuOpen}
         className={s.modal}
         overlayClassName={s.overModal}
         onRequestClose={() => setIsMenuOpen(false)}
       >
         <Menu setIsOpen={() => setIsMenuOpen(false)} />
-      </Modal>
+      </ReactModal>
 
-      <Modal
+      <ReactModal
         isOpen={isOpenShoppingBag}
         className={cn(s.modal, s.shoppingBag)}
         overlayClassName={s.overModal}
         onRequestClose={() => setIsOpenShoppingBag(false)}
       >
         <ShoppingBag handleClose={() => setIsOpenShoppingBag(false)} />
-      </Modal>
+      </ReactModal>
     </header>
   )
 }

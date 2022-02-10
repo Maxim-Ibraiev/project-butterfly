@@ -48,7 +48,7 @@ const getOptionsFromProducts = (products: IProduct[]) => {
 
 interface Props {
   type: string
-  handleChange: (option: OptionsType<FilterOption>, type: string) => void
+  handleChange: (option: OptionsType<FilterOption> | FilterOption, type: string) => void
   value: string | string[]
   isMulti?: boolean
   label?: string

@@ -10,4 +10,5 @@ export type {
   Request,
   IProductObject,
   IResponse,
+  ISelectedProductsFromStorage,
 } from './interfaces'

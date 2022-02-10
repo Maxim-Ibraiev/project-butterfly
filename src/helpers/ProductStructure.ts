@@ -35,6 +35,8 @@ export default class ProductStructure {
 
   getSeason = () => this.#product.season
 
+  getSelectedSize = () => this.#product.selectedSize
+
   toObject = (): IProductObject => ({
     price: this.getPrice(),
     popularity: this.getPopularity(),
@@ -51,5 +53,6 @@ export default class ProductStructure {
     createdAt: '',
     updatedAt: '',
     __v: 0,
+    selectedSize: this.getSelectedSize(),
   })
 }
