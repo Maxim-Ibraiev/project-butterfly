@@ -21,7 +21,7 @@ export default function ShoppingBagItem({ product, handleDelete }: Props) {
   const handleChangeSize = (option: FilterOption) => {
     const payload = { id: product.getId(), selectedSize: Number(option.value) }
 
-    dispatch(actions.setSelectedSizeOfProduct(payload))
+    dispatch(actions.setSelectedSizeOfProduct([payload]))
   }
 
   return (

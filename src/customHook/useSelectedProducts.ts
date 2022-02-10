@@ -3,12 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProductById, getSelectedProducts } from '../redux/selectors'
 import * as actions from '../redux/main/mainActions'
 import { IProduct, IState } from '../interfaces'
+import { ISelectedProductsFromStorage } from '../interfaces/index'
 
-export interface ISelectedAndSavedProducts {
-  selectedSize: number
-  id: string
-}
-const getDataFromStorage = (): ISelectedAndSavedProducts[] =>
+const getDataFromStorage = (): ISelectedProductsFromStorage =>
   JSON.parse(localStorage.getItem('selectedProducts')) || []
 
 const isProductsFromReduxSame = (selectedProductFromRedux: IProduct[]) => {
@@ -70,7 +67,7 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
       const newSelectedProducts = getProductsFromLocalStorage().map(el => el.toObject())
 
       dispatch(actions.setSelectedProducts(newSelectedProducts))
-      getDataFromStorage().map(el => dispatch(actions.setSelectedSizeOfProduct(el)))
+      dispatch(actions.setSelectedSizeOfProduct(getDataFromStorage()))
     }
   })
 

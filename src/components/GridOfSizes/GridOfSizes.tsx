@@ -16,10 +16,10 @@ export default function GridOfSizes({ product }: Props) {
   function handleClick(size: number) {
     if (size === selectedSize) {
       setSelectedSize(0)
-      dispatch(setSelectedSizeOfProduct({ id: product.getId(), selectedSize: null }))
+      dispatch(setSelectedSizeOfProduct([{ id: product.getId(), selectedSize: null }]))
     } else {
       setSelectedSize(size)
-      dispatch(setSelectedSizeOfProduct({ id: product.getId(), selectedSize: size }))
+      dispatch(setSelectedSizeOfProduct([{ id: product.getId(), selectedSize: size }]))
     }
   }
 
