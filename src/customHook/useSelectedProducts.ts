@@ -53,7 +53,7 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
 
   const setProducts = (newSelectedProducts: IProduct[]) => {
     setProductsInLocalStorage(newSelectedProducts)
-    dispatch(actions.setSelectedProducts(newSelectedProducts.map(el => el.toObject())))
+    dispatch(actions.setSelectedProducts(newSelectedProducts))
   }
 
   useEffect(() => {
@@ -64,9 +64,7 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
 
   useEffect(() => {
     if (!isProductsFromLocalStorageSame(selectedProductFromRedux)) {
-      const newSelectedProducts = getProductsFromLocalStorage().map(el => el.toObject())
-
-      dispatch(actions.setSelectedProducts(newSelectedProducts))
+      dispatch(actions.setSelectedProducts(getProductsFromLocalStorage()))
       dispatch(actions.setSelectedSizeOfProduct(getDataFromStorage()))
     }
   })

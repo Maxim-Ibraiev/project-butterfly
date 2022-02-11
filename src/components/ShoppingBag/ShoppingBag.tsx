@@ -5,6 +5,7 @@ import ShoppingBagItem from '../ShoppingBagItem'
 import CloseSvg from '../icons/Close'
 import s from './ShoppingBag.module.scss'
 import { UAH } from '../../constants'
+import { IProduct } from '../../interfaces'
 
 interface Props {
   handleClose: () => void
@@ -13,9 +14,10 @@ interface Props {
 export default function ShoppingBag({ handleClose }: Props) {
   const [selectedProducts, setSelectedProducts] = useSelectedProducts()
 
-  const handleDelete = product => {
+  const handleDelete = (product: IProduct) => {
     setSelectedProducts(selectedProducts.filter(el => el.getId() !== product.getId()))
   }
+
   return (
     <section className={s.wrapper}>
       <div className={s.header}>

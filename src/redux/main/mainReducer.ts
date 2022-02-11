@@ -9,28 +9,40 @@ import {
   setSelectedProducts,
   setSelectedSizeOfProduct,
 } from './mainActions'
-import { getCategories } from '../selectors'
-import { Categories, IProductObject, IError, IState, ISelectedProductsFromStorage } from '../../interfaces'
+import { getProductsForRedux, getCategories, getError, getSelectedProducts } from '../selectors'
+import {
+  Categories,
+  IError,
+  IState,
+  ISelectedProductsFromStorage,
+  IProduct,
+  IProductObject,
+} from '../../interfaces'
+import { ProductStructure } from '../../helpers'
+
+interface IPayload<T> {
+  payload: T
+}
 
 const categories = createReducer<Categories>([], {
-  [HYDRATE]: (_, { payload }) => [...getCategories(payload)],
-  [categoriesSuccess.type]: (_, { payload }) => payload,
+  [HYDRATE]: (_, { payload }: IPayload<IState>) => getCategories(payload),
+  [categoriesSuccess.type]: (_, { payload }: IPayload<Categories>) => payload,
 })
 
-const products = createReducer<IProductObject[]>([], {
-  [HYDRATE]: (_, { payload }: { payload: IState }) => payload.main.products,
-  [productsSuccess.type]: (_, { payload }) => payload,
+const products = createReducer([], {
+  [HYDRATE]: (_, { payload }: IPayload<IState>) => getProductsForRedux(payload),
+  [productsSuccess.type]: (_, { payload }: IPayload<IProductObject[]>) => payload,
   [setSelectedSizeOfProduct.type]: handleSelectedSizeOfProduct,
 })
 
-const selectedProducts = createReducer<IProductObject[]>([], {
-  [HYDRATE]: (_, { payload }: { payload: IState }) => payload.main.selectedProducts,
-  [setSelectedProducts.type]: (_, { payload }) => payload,
+const selectedProducts = createReducer([], {
+  [HYDRATE]: (_, { payload }: { payload: IState }) => getSelectedProducts(payload),
+  [setSelectedProducts.type]: (_, { payload }: IPayload<IProduct[]>) => payload.map(el => el.toObject()),
   [setSelectedSizeOfProduct.type]: handleSelectedSizeOfProduct,
 })
 
 const error = createReducer<IError>(null, {
-  [HYDRATE]: (_, { payload }) => (payload.main.error ? { ...payload.main.error } : payload.main.error),
+  [HYDRATE]: (_, { payload }) => (getError(payload) ? { ...getError(payload) } : getError(payload)),
   [categoriesSuccess.type]: () => null,
   [productsSuccess.type]: () => null,
   [categoriesError.type]: (_, { payload }) => payload,
@@ -38,13 +50,14 @@ const error = createReducer<IError>(null, {
 })
 
 function handleSelectedSizeOfProduct(
-  productsOfRedux: WritableDraft<IProductObject>[],
-  { payload }: { payload: ISelectedProductsFromStorage }
+  productsOfRedux: WritableDraft<IProductObject[]>,
+  { payload }: IPayload<ISelectedProductsFromStorage>
 ) {
   return productsOfRedux.map(prd => {
-    const selectedSize = payload.find(el => el.id === prd.id)?.selectedSize
+    const product = new ProductStructure(prd)
+    const selectedSize = payload.find(el => el.id === product.getId())?.selectedSize
 
-    return selectedSize ? { ...prd, selectedSize } : prd
+    return selectedSize >= 0 ? { ...product.toObject(), selectedSize } : product.toObject()
   })
 }
 
