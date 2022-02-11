@@ -1,6 +1,8 @@
 @import '../../styles/variables.scss';
 
 .header {
+  position: relative;
+
   height: 50px;
   width: calc(100% + 30px);
   max-width: $desktop;
@@ -90,29 +92,37 @@
   top: 50px;
 
   width: 100%;
+  overflow: auto;
+
+  box-sizing: border-box;
+  padding: 20px;
+  outline: none;
 
   background: var(--secondary);
-  overflow: auto;
-  outline: none;
-  padding: 20px;
 }
 
 .overModal {
   position: absolute;
   inset: 0;
+  bottom: none;
   z-index: 5;
-
-  height: 110vh;
 
   background-color: var(--backdrop);
 }
 
 .shoppingBag {
-  top: auto;
-  bottom: 0;
-
-  height: 100vh;
+  height: calc(100vh - 50px);
 
   border-radius: 4px;
   background-color: var(--primary);
+
+  @media screen and (min-width: $tableUpper) {
+    width: 400px;
+    inset: unset;
+
+    top: 50px;
+    right: calc(((100vw - $tableUpper) / 2));
+    height: unset;
+    max-height: calc(100vh - 80px);
+  }
 }

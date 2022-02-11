@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
@@ -9,6 +9,7 @@ import { E164Number } from 'libphonenumber-js/core'
 import PhoneNumber from 'react-phone-number-input/input'
 import Gallery from '../Gallery'
 import MainButton from '../buttons/MainButton'
+import GridOfSizes from '../GridOfSizes'
 import Icon from '../icons/Bag'
 import { getProductsByModel, getProductById } from '../../redux/selectors'
 import { UAH } from '../../constants'
@@ -29,8 +30,7 @@ export default function MainProduct() {
   )
   const { isDesktop } = useDevice()
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
-  const [isProductsSelected, setIsProductsSelected] = useState(false)
-  const [activeBtn, setActiveBtn] = useState('')
+  const [isProductSelected, setIsProductSelected] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState<E164Number>('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
   const getItems = () =>
@@ -56,16 +56,17 @@ export default function MainProduct() {
     }
   }
 
-  const handleSelectProduct = useCallback(() => {
-    if (!selectedProducts.some(({ getId }) => getId() === product.getId())) {
-      setSelectedProduct([...selectedProducts, product])
-    }
+  const handleSelectProduct = () => {
+    const isNeedToAdd = !selectedProducts.some(({ getId }) => getId() === product.getId())
 
-    setIsProductsSelected(true)
-  }, [selectedProducts, setSelectedProduct, product])
+    if (isNeedToAdd) {
+      setSelectedProduct([...selectedProducts, product])
+      setIsProductSelected(true)
+    }
+  }
 
   useEffect(() => {
-    setIsProductsSelected(!!product && selectedProducts.some(({ getId }) => getId() === product.getId()))
+    setIsProductSelected(!!product && selectedProducts.some(({ getId }) => getId() === product.getId()))
   }, [selectedProducts])
 
   return product ? (
@@ -78,27 +79,13 @@ export default function MainProduct() {
           <h1 className={s.title}>{product.getTitle()}</h1>
           <b className={s.price}>{`${product.getPrice()} ${UAH}`} </b>
           <b className={s.title}>{language.size}</b>
-          <div className={s.sizeWrapper}>
-            {product.getAllSizeOptions().map(el => (
-              <button
-                type="button"
-                onClick={() => setActiveBtn(el)}
-                className={cn(s.baseBtn, {
-                  [s.activeBtn]: el === activeBtn,
-                  [s.disableBtn]: product.getAvailableSize()[el] === 0,
-                })}
-                key={el}
-              >
-                {el}
-              </button>
-            ))}
-          </div>
+          <GridOfSizes product={product} />
           <MainButton
-            className={cn(s.buyBtn, { [s.productSelected]: isProductsSelected })}
+            className={cn(s.buyBtn, { [s.productSelected]: isProductSelected })}
             handleClick={handleSelectProduct}
           >
-            {!isProductsSelected && <Icon width="24px" height="24px" />}
-            <span>{isProductsSelected ? language.orderProduct : language.toCart}</span>
+            {!isProductSelected && <Icon width="24px" height="24px" />}
+            <span>{isProductSelected ? language.orderProduct : language.toCart}</span>
           </MainButton>
           <form className={s.phoneWrapper} onSubmit={handleSubmit}>
             <PhoneNumber

@@ -1,28 +1,34 @@
-import React, { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 import CustomSelector from '../CustomSelector'
 import Button from '../buttons/MainButton'
 import CloseSvg from '../icons/Close'
-import { arrayWrapper, getOptionsFormatFromValue, getProductSrc } from '../../helpers'
+import * as actions from '../../redux/main/mainActions'
+import { getOptionsFormatFromValue, getProductSrc } from '../../helpers'
 import language from '../../language'
 import s from './ShoppingBagItem.module.scss'
 import { IProduct, FilterOption } from '../../interfaces'
 
 interface Props {
   product: IProduct
-  handleClose: () => void
+  handleDelete: () => void
 }
 
-export default function ShoppingBagItem({ product, handleClose }: Props) {
-  const [size, setSize] = useState<FilterOption[]>([])
+export default function ShoppingBagItem({ product, handleDelete }: Props) {
+  const dispatch = useDispatch()
   const options = getOptionsFormatFromValue(product.getAllSizeOptions())
 
-  const handleChangeSize = useCallback(option => {
-    setSize(arrayWrapper<FilterOption>(option))
-  }, [])
+  const handleChangeSize = (option: FilterOption) => {
+    const payload = { id: product.getId(), selectedSize: Number(option.value) }
+
+    dispatch(actions.setSelectedSizeOfProduct([payload]))
+  }
 
   return (
     <div className={s.wrapper}>
+      <Button className={s.close} handleClick={handleDelete}>
+        <CloseSvg />
+      </Button>
       <div className={s.image}>
         <Image src={getProductSrc(product.getMainImageSrc())} width={80} height={110} />
       </div>
@@ -34,15 +40,12 @@ export default function ShoppingBagItem({ product, handleClose }: Props) {
             <CustomSelector
               handleChange={handleChangeSize}
               options={options}
+              value={product.getSelectedSize() && String(product.getSelectedSize())}
               type="size"
-              value={size.map(el => el.value)}
             />
           </div>
         </div>
       </div>
-      <Button className={s.close} handleClick={handleClose}>
-        <CloseSvg />
-      </Button>
     </div>
   )
 }

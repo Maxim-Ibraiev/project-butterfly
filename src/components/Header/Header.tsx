@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import Modal from 'react-modal'
+import ReactModal from 'react-modal'
 import queryString from 'query-string'
 import cn from 'classnames'
 import ShoppingBag from '../ShoppingBag'
@@ -13,18 +13,14 @@ import routes from '../../routes'
 import language from '../../language'
 import s from './Header.module.scss'
 
-Modal.setAppElement('#__next')
+ReactModal.setAppElement('#__next')
 
 export default function Header() {
   const router = useRouter()
   const categories = useSelector(getCategories)
-  const [modalIsOpen, setIsOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isOpenShoppingBag, setIsOpenShoppingBag] = useState(false)
   const params = queryString.parseUrl(router.asPath).query
-  const handleCloseShoppingBag = () => {
-    setIsOpenShoppingBag(false)
-    document.body.style.overflow = 'visible'
-  }
 
   return (
     <header className={s.header}>
@@ -59,7 +55,6 @@ export default function Header() {
             <Button
               handleClick={() => {
                 setIsOpenShoppingBag(true)
-                document.body.style.overflow = 'hidden'
               }}
               ariaLabel={language.save}
               src="/icons/bag.svg"
@@ -68,30 +63,30 @@ export default function Header() {
           <li className={s.menuBtn}>
             <Button
               ariaLabel={language.menu}
-              src={modalIsOpen ? '/icons/close.svg' : '/icons/menu.svg'}
-              handleClick={() => setIsOpen(!modalIsOpen)}
+              src={isMenuOpen ? '/icons/close.svg' : '/icons/menu.svg'}
+              handleClick={() => setIsMenuOpen(!isMenuOpen)}
             />
           </li>
         </ul>
       </div>
 
-      <Modal
+      <ReactModal
+        isOpen={isMenuOpen}
         className={s.modal}
         overlayClassName={s.overModal}
-        isOpen={modalIsOpen}
-        onRequestClose={() => setIsOpen(false)}
+        onRequestClose={() => setIsMenuOpen(false)}
       >
-        <Menu setIsOpen={() => setIsOpen(false)} />
-      </Modal>
+        <Menu setIsOpen={() => setIsMenuOpen(false)} />
+      </ReactModal>
 
-      <Modal
+      <ReactModal
         isOpen={isOpenShoppingBag}
         className={cn(s.modal, s.shoppingBag)}
         overlayClassName={s.overModal}
-        onRequestClose={handleCloseShoppingBag}
+        onRequestClose={() => setIsOpenShoppingBag(false)}
       >
-        <ShoppingBag isOpen={handleCloseShoppingBag} />
-      </Modal>
+        <ShoppingBag handleClose={() => setIsOpenShoppingBag(false)} />
+      </ReactModal>
     </header>
   )
 }

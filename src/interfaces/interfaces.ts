@@ -21,7 +21,13 @@ export interface IProductObject {
   size: {
     [key: string]: number
   }
+  selectedSize?: null | number
 }
+
+export type ISelectedProductsFromStorage = {
+  selectedSize: IProductObject['selectedSize']
+  id: string
+}[]
 
 export interface IDataResponse {
   error: Error | null

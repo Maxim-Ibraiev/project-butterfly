@@ -1,9 +1,25 @@
-.wrapper {
-  display: flex;
-  flex-direction: column;
+@import '../../styles/variables.scss';
 
-  padding-top: 20px;
-  margin-bottom: calc(140px + 10vh);
+.wrapper {
+  position: relative;
+
+  height: min-content;
+  margin-bottom: 107px;
+
+  @media screen and (min-width: $tableUpper) {
+    margin-bottom: 0;
+  }
+}
+
+.header {
+  display: flex;
+}
+
+.x {
+  width: 50px;
+  height: 50px;
+
+  background-color: transparent;
 }
 
 .container {
@@ -18,17 +34,6 @@
   }
 }
 
-.x {
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  width: 50px;
-  height: 50px;
-
-  background-color: transparent;
-}
-
 .close {
   max-width: 200px;
 
@@ -39,6 +44,9 @@
 
 .title {
   width: 100%;
+
+  margin-top: auto;
+  margin-bottom: auto;
 
   text-align: center;
   font-size: 18px;
@@ -71,13 +79,20 @@
   position: fixed;
   bottom: 0;
   width: calc(100% - 40px);
-
-  padding: 15px 0;
+  height: 128px;
 
   background: var(--primary);
   border-top: 1px solid var(--border-palette);
   text-transform: uppercase;
+
+  @media screen and (min-width: $tableUpper) {
+    inset: unset;
+    position: unset;
+
+    width: inherit;
+  }
 }
+
 .footerBottoms {
   display: flex;
   justify-content: space-between;
