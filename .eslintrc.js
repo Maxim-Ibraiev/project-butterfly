@@ -43,12 +43,18 @@ module.exports = {
   overrides: [
     {
       files: ['./**/*.{js,jsx}'],
-      extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
+      extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'plugin:@next/next/recommended'],
       rules: rulesBasic,
     },
     {
       files: ['./**/*.{ts,tsx}'],
-      extends: ['plugin:@typescript-eslint/recommended', 'plugin:react/recommended', 'airbnb', 'prettier'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react/recommended',
+        'airbnb',
+        'prettier',
+        'plugin:@next/next/recommended',
+      ],
       excludedFiles: '*.d.ts',
       rules: {
         ...rulesBasic,

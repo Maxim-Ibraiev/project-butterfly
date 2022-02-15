@@ -1,4 +1,3 @@
-/* eslint-disable import/named */
 /* eslint-disable react/jsx-props-no-spreading */
 import { CSSTransition } from 'react-transition-group'
 import { TIMEOUT } from '../../constants'
