@@ -5,8 +5,22 @@ import * as actions from '../redux/main/mainActions'
 import { IProduct, IState } from '../interfaces'
 import { ISelectedProductsFromStorage } from '../interfaces/index'
 
-const getDataFromStorage = (): ISelectedProductsFromStorage =>
-  JSON.parse(localStorage.getItem('selectedProducts')) || []
+const setProductsInLocalStorage = (newSelectedProducts: IProduct[]) =>
+  localStorage.setItem(
+    'selectedProducts',
+    JSON.stringify(newSelectedProducts.map(el => ({ selectedSize: el.getSelectedSize(), id: el.getId() })))
+  )
+
+const getDataFromStorage = (): ISelectedProductsFromStorage => {
+  const data = JSON.parse(localStorage.getItem('selectedProducts'))
+  const isDataContainId = data && data.every(({ id }) => id)
+
+  if (isDataContainId && data) return data
+
+  setProductsInLocalStorage([])
+
+  return []
+}
 
 const isProductsFromReduxSame = (selectedProductFromRedux: IProduct[]) => {
   if (selectedProductFromRedux.length > 0 || selectedProductFromRedux.length === getDataFromStorage.length)
@@ -35,12 +49,6 @@ const isProductsFromLocalStorageSame = (selectedProductFromRedux: IProduct[]) =>
 
   return false
 }
-
-const setProductsInLocalStorage = (newSelectedProducts: IProduct[]) =>
-  localStorage.setItem(
-    'selectedProducts',
-    JSON.stringify(newSelectedProducts.map(el => ({ selectedSize: el.getSelectedSize(), id: el.getId() })))
-  )
 
 export default function useSelectedProducts(): [IProduct[], (newSelectedProducts: IProduct[]) => void] {
   if (!process.browser) return [[], () => null]
