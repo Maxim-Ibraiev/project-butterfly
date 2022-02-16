@@ -1,17 +1,15 @@
-import throttle from 'lodash.throttle'
+import debounce from 'lodash.debounce'
 import { useEffect, useState } from 'react'
 import { mobileLesser, mobileUpper, tableLesser, tableUpper } from '../constants'
-
-const handleResize = throttle(fn => fn, 1000)
 
 export default function useDevice() {
   const [devices, setDevise] = useState({ isMobile: true, isTable: false, isDesktop: false })
 
+  const handleResize = debounce(() => setDevise(getScreenSize()), 100)
+
   useEffect(() => {
-    window.addEventListener(
-      'resize',
-      handleResize(() => setDevise(getScreenSize()))
-    )
+    window.addEventListener('resize', handleResize)
+    handleResize()
 
     return () => window.removeEventListener('resize', handleResize)
   }, [])

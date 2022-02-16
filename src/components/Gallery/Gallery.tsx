@@ -12,12 +12,11 @@ export type Item = {
 type Props = {
   items: Item[]
   additionalClass?: string
-  position?: 'top' | 'right' | 'bottom' | 'left'
 }
 
-export default function Gallery({ items, position, additionalClass }: Props) {
+export default function Gallery({ items, additionalClass }: Props) {
   const { isDesktop } = useDevice()
-
+  const position = isDesktop ? 'left' : undefined
   const handleRenderItem = (item: Item) => {
     const priority = items[0].original === item.original
 

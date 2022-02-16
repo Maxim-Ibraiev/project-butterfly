@@ -28,7 +28,6 @@ export default function MainProduct() {
   const allModels = useSelector<IState, IProduct[]>(
     state => product && getProductsByModel(state, product.getModel())
   )
-  const { isDesktop } = useDevice()
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
   const [isProductSelected, setIsProductSelected] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState<E164Number>('+380')
@@ -72,7 +71,7 @@ export default function MainProduct() {
   return product ? (
     <section className={s.container}>
       <div className={s.galleryWrapper}>
-        <Gallery items={getItems()} position={isDesktop ? 'left' : undefined} />
+        <Gallery items={getItems()} />
       </div>
       <div className={s.infoContainer}>
         <div className={s.infoSection}>
