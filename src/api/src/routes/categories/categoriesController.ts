@@ -3,15 +3,15 @@ import httpStatusCodes from '../../httpStatusCodes'
 import { listCategories } from './categoriesModel'
 import getServerError from '../getServerError'
 import { Categories, IResponse } from '../../../../interfaces'
-// import cashedCategories from '../../../../constants/CATEGORIES'
+import cashedCategories from '../../../../constants/CATEGORIES'
 
 export const getCategories = async (
   req?: NextApiRequest,
   res?: NextApiResponse
 ): Promise<IResponse<Categories>> => {
-  // if (process.env.CASH_DEV_MODE) {
-  // return { status: httpStatusCodes.OK, data: cashedCategories, error: null }
-  // }
+  if (process.env.CASH_DEV_MODE) {
+    return { status: httpStatusCodes.OK, data: cashedCategories, error: null }
+  }
 
   try {
     const categoriesResponse = await listCategories()
