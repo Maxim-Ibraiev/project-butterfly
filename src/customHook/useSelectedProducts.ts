@@ -23,7 +23,7 @@ const getDataFromStorage = (): ISelectedProductsFromStorage => {
 }
 
 const isProductsFromReduxSame = (selectedProductFromRedux: IProduct[]) => {
-  if (selectedProductFromRedux.length > 0 || selectedProductFromRedux.length === getDataFromStorage.length)
+  if (selectedProductFromRedux.length > 0 || selectedProductFromRedux.length === getDataFromStorage().length)
     return selectedProductFromRedux.every(productFromRedux =>
       getDataFromStorage().some(
         productFromLocalStorage =>
@@ -51,7 +51,7 @@ const isProductsFromLocalStorageSame = (selectedProductFromRedux: IProduct[]) =>
 }
 
 export default function useSelectedProducts(): [IProduct[], (newSelectedProducts: IProduct[]) => void] {
-  if (!process.browser) return [[], () => null]
+  if (typeof window === 'undefined') return [[], () => null]
 
   const dispatch = useDispatch()
   const state = useSelector<IState, IState>(s => s)
@@ -75,7 +75,7 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
       dispatch(actions.setSelectedProducts(getProductsFromLocalStorage()))
       dispatch(actions.setSelectedSizeOfProduct(getDataFromStorage()))
     }
-  })
+  }, [])
 
   return [selectedProductFromRedux, setProducts]
 }
