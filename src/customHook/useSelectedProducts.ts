@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductById, getSelectedProducts } from '../redux/selectors'
 import * as actions from '../redux/main/mainActions'
@@ -11,53 +11,21 @@ const setProductsInLocalStorage = (newSelectedProducts: IProduct[]) =>
     JSON.stringify(newSelectedProducts.map(el => ({ selectedSize: el.getSelectedSize(), id: el.getId() })))
   )
 
-const getDataFromStorage = (): ISelectedProductsFromStorage => {
-  const data = JSON.parse(localStorage.getItem('selectedProducts'))
-  const isDataContainId = data && data.every(({ id }) => id)
-
-  if (isDataContainId && data) return data
-
-  setProductsInLocalStorage([])
-
-  return []
-}
-
-const isProductsFromReduxSame = (selectedProductFromRedux: IProduct[]) => {
-  if (selectedProductFromRedux.length > 0 || selectedProductFromRedux.length === getDataFromStorage().length)
-    return selectedProductFromRedux.every(productFromRedux =>
-      getDataFromStorage().some(
-        productFromLocalStorage =>
-          productFromLocalStorage?.id === productFromRedux?.getId() &&
-          productFromLocalStorage?.selectedSize === productFromRedux?.getSelectedSize()
-      )
-    )
-
-  return false
-}
-
-const isProductsFromLocalStorageSame = (selectedProductFromRedux: IProduct[]) => {
-  const dataFromStorage = getDataFromStorage()
-
-  if (dataFromStorage.length > 0)
-    return dataFromStorage.every(productFromLocalStorage =>
-      selectedProductFromRedux.some(
-        productFromRedux =>
-          productFromLocalStorage?.id === productFromRedux?.getId() &&
-          productFromLocalStorage?.selectedSize === productFromRedux?.getSelectedSize()
-      )
-    )
-
-  return false
-}
-
 export default function useSelectedProducts(): [IProduct[], (newSelectedProducts: IProduct[]) => void] {
   if (typeof window === 'undefined') return [[], () => null]
 
   const dispatch = useDispatch()
   const state = useSelector<IState, IState>(s => s)
+  const [firstRender, setFirstRender] = useState(true)
   const selectedProductFromRedux = useSelector(getSelectedProducts)
+
   const getProductsFromLocalStorage = () =>
-    getDataFromStorage() ? getDataFromStorage().map(({ id }) => id && getProductById(state, id)) : []
+    getDataFromStorage().map(({ id }) => id && getProductById(state, id))
+
+  const dispatchProducts = () => {
+    dispatch(actions.setSelectedProducts(getProductsFromLocalStorage()))
+    dispatch(actions.setSelectedSizeOfProduct(getDataFromStorage()))
+  }
 
   const setProducts = (newSelectedProducts: IProduct[]) => {
     setProductsInLocalStorage(newSelectedProducts)
@@ -65,17 +33,53 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
   }
 
   useEffect(() => {
-    if (!isProductsFromReduxSame(selectedProductFromRedux)) {
-      setProductsInLocalStorage(selectedProductFromRedux)
-    }
-  }, [selectedProductFromRedux])
-
-  useEffect(() => {
     if (!isProductsFromLocalStorageSame(selectedProductFromRedux)) {
-      dispatch(actions.setSelectedProducts(getProductsFromLocalStorage()))
-      dispatch(actions.setSelectedSizeOfProduct(getDataFromStorage()))
+      dispatchProducts()
     }
+    setFirstRender(false)
   }, [])
 
+  useEffect(() => {
+    const isNeedToDispatch =
+      selectedProductFromRedux.length === 0 && getDataFromStorage().length > 0 && !firstRender
+
+    if (!isProductsFromReduxSame(selectedProductFromRedux))
+      setProductsInLocalStorage(selectedProductFromRedux)
+    else if (isNeedToDispatch) dispatchProducts()
+  }, [selectedProductFromRedux])
+
   return [selectedProductFromRedux, setProducts]
+}
+
+function getDataFromStorage(): ISelectedProductsFromStorage {
+  const data = JSON.parse(localStorage.getItem('selectedProducts'))
+
+  const isDataContainId = data && data.length > 0 && data.every(({ id }) => id)
+  if (isDataContainId && data) return data
+
+  setProductsInLocalStorage([])
+
+  return []
+}
+
+function isProductsFromReduxSame(selectedProductFromRedux: IProduct[]) {
+  return selectedProductFromRedux.every(productFromRedux =>
+    getDataFromStorage().some(
+      productFromLocalStorage =>
+        productFromLocalStorage?.id === productFromRedux?.getId() &&
+        productFromLocalStorage?.selectedSize === productFromRedux?.getSelectedSize()
+    )
+  )
+}
+
+function isProductsFromLocalStorageSame(selectedProductFromRedux: IProduct[]) {
+  const dataFromStorage = getDataFromStorage()
+
+  return dataFromStorage.every(productFromLocalStorage =>
+    selectedProductFromRedux.some(
+      productFromRedux =>
+        productFromLocalStorage?.id === productFromRedux?.getId() &&
+        productFromLocalStorage?.selectedSize === productFromRedux?.getSelectedSize()
+    )
+  )
 }

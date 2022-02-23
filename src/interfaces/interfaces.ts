@@ -25,7 +25,7 @@ export interface IProductObject {
 }
 
 export type ISelectedProductsFromStorage = {
-  selectedSize: IProductObject['selectedSize']
+  selectedSize?: IProductObject['selectedSize']
   id: string
 }[]
 
