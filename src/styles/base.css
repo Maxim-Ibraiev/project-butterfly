@@ -130,6 +130,12 @@ button {
   border: none;
 }
 
+.ReactModal__Body--open {
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
