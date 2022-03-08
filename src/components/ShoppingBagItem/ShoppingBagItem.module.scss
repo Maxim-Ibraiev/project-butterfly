@@ -7,6 +7,20 @@
 .image {
   min-width: 82px;
 }
+
+.imageLink {
+  display: block;
+
+  box-sizing: content-box;
+  border: 2px solid transparent;
+  outline: none;
+
+  &:focus {
+    border: 2px solid var(--blue);
+    outline: none;
+  }
+}
+
 .info {
   width: calc(100% - 120px);
 

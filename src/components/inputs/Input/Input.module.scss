@@ -1,0 +1,76 @@
+// Colors
+$accent: rgb(0, 0, 180);
+$accentFocus: rgb(0, 0, 120);
+
+$btnDelete: rgb(255, 0, 0);
+$btnDeleteFocus: rgb(150, 0, 0);
+
+$placeholder: rgb(177, 177, 177);
+
+$boxShadow: 1px 1px 5px #303030;
+$boxShadowFocus: 2px 2px 9px #303030;
+
+// Animation
+$animation: 250ms;
+$animationLonger: 500ms;
+$animationPlaceholder: 500ms;
+$cubic: linear;
+@keyframes placeholder {
+  0% {
+    transform: translate(20px, 0.5rem);
+  }
+  50% {
+    transform: translate(20px, -1.2rem);
+  }
+  100% {
+    transform: translate(0, -1.2rem);
+    color: black;
+  }
+}
+
+@keyframes placeholderReverse {
+  0% {
+    transform: translate(0, -1.2rem);
+    color: black;
+  }
+  50% {
+    transform: translate(20px, -1.2rem);
+  }
+  100% {
+    transform: translate(20px, 0.5rem);
+  }
+}
+
+.container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  position: absolute;
+
+  transform: translate(20px, 0.5rem);
+
+  color: $placeholder;
+}
+
+.input {
+  padding-left: 15px;
+  height: 35px;
+
+  &:focus {
+    outline: none;
+    border: 3px solid $accent;
+  }
+
+  &:placeholder-shown ~ .label:not(.focusOut) {
+    animation: placeholderReverse 250ms ease forwards;
+  }
+
+  &:not(:placeholder-shown) ~ .label:not(.block),
+  &:focus ~ .label:not(.block) {
+    animation: placeholder 500ms ease forwards;
+  }
+}

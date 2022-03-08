@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 import CustomSelector from '../CustomSelector'
@@ -8,13 +11,15 @@ import { getOptionsFormatFromValue, getProductSrc } from '../../helpers'
 import language from '../../language'
 import s from './ShoppingBagItem.module.scss'
 import { IProduct, FilterOption } from '../../interfaces'
+import routes from '../../routes'
 
 interface Props {
   product: IProduct
   handleDelete: () => void
+  handleClose?: () => void
 }
 
-export default function ShoppingBagItem({ product, handleDelete }: Props) {
+export default function ShoppingBagItem({ product, handleDelete, handleClose }: Props) {
   const dispatch = useDispatch()
   const options = getOptionsFormatFromValue(product.getAllSizeOptions())
 
@@ -26,11 +31,12 @@ export default function ShoppingBagItem({ product, handleDelete }: Props) {
 
   return (
     <div className={s.wrapper}>
-      <Button className={s.close} handleClick={handleDelete}>
-        <CloseSvg />
-      </Button>
       <div className={s.image}>
-        <Image src={getProductSrc(product.getMainImageSrc())} width={80} height={110} />
+        <Link href={`${routes.product}/${product.getId()}`}>
+          <a onClick={handleClose} className={s.imageLink} style={{ width: '80px', height: '110px' }}>
+            <Image src={getProductSrc(product.getMainImageSrc())} width={80} height={110} />
+          </a>
+        </Link>
       </div>
       <div className={s.info}>
         <span>{product.getTitle()}</span>
@@ -46,6 +52,9 @@ export default function ShoppingBagItem({ product, handleDelete }: Props) {
           </div>
         </div>
       </div>
+      <Button className={s.close} handleClick={handleDelete}>
+        <CloseSvg />
+      </Button>
     </div>
   )
 }

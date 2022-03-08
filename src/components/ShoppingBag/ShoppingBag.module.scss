@@ -76,14 +76,16 @@
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
   width: calc(100% - 40px);
-  height: 128px;
 
   background: var(--primary);
   border-top: 1px solid var(--border-palette);
   text-transform: uppercase;
+
+  @media screen and (max-width: $tableLesser) {
+    position: fixed;
+    bottom: 0;
+  }
 
   @media screen and (min-width: $tableUpper) {
     inset: unset;
@@ -96,6 +98,8 @@
 .footerBottoms {
   display: flex;
   justify-content: space-between;
+
+  margin-bottom: 10px;
 
   & > * {
     flex-basis: 48%;

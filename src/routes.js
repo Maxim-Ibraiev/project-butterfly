@@ -10,6 +10,7 @@ const routes = {
     tShirt: '/t-shirt',
   },
   product: '/product',
+  checkout: '/checkout',
 }
 
 export default routes

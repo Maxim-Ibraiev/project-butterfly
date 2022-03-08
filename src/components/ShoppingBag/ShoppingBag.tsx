@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useSelectedProducts } from '../../customHook'
 import language from '../../language'
 import Button from '../buttons/MainButton'
@@ -6,12 +7,14 @@ import CloseSvg from '../icons/Close'
 import s from './ShoppingBag.module.scss'
 import { UAH } from '../../constants'
 import { IProduct } from '../../interfaces'
+import routes from '../../routes'
 
 interface Props {
-  handleClose: () => void
+  handleCloseModal?: () => void
 }
 
-export default function ShoppingBag({ handleClose }: Props) {
+export default function ShoppingBag({ handleCloseModal }: Props) {
+  const router = useRouter()
   const [selectedProducts, setSelectedProducts] = useSelectedProducts()
 
   const handleDelete = (product: IProduct) => {
@@ -23,9 +26,11 @@ export default function ShoppingBag({ handleClose }: Props) {
       <div className={s.header}>
         <p className={s.title}>{language.productsInBag}</p>
 
-        <Button handleClick={() => handleClose()} className={s.x}>
-          <CloseSvg />
-        </Button>
+        {handleCloseModal && (
+          <Button handleClick={() => handleCloseModal()} className={s.x}>
+            <CloseSvg />
+          </Button>
+        )}
       </div>
 
       {selectedProducts.length > 0 ? (
@@ -36,6 +41,7 @@ export default function ShoppingBag({ handleClose }: Props) {
                 key={product.getId()}
                 product={product}
                 handleDelete={() => handleDelete(product)}
+                handleClose={handleCloseModal}
               />
             ))}
           </div>
@@ -49,17 +55,29 @@ export default function ShoppingBag({ handleClose }: Props) {
                 </span>
               </div>
             </div>
-            <div className={s.footerBottoms}>
-              <Button handleClick={() => handleClose()}>{language.continueShopping}</Button>
-              <Button>{language.orderProduct}</Button>
-            </div>
+            {handleCloseModal && (
+              <div className={s.footerBottoms}>
+                <Button handleClick={() => handleCloseModal()}>{language.continueShopping}</Button>
+                <Button
+                  handleClick={() => {
+                    handleCloseModal()
+                    router.push(routes.checkout)
+                  }}
+                >
+                  {language.orderProduct}
+                </Button>
+              </div>
+            )}
           </div>
         </>
       ) : (
         <>
           <p style={{ textAlign: 'center' }}>{language.emptyBag}</p>
-          <Button className={s.close} handleClick={() => handleClose()}>
-            {language.close}
+          <Button
+            className={s.close}
+            handleClick={() => (handleCloseModal ? handleCloseModal() : router.push(routes.home))}
+          >
+            {handleCloseModal ? language.close : language.toHomePage}
           </Button>
         </>
       )}

@@ -85,7 +85,7 @@ export default function Header() {
         overlayClassName={s.overModal}
         onRequestClose={() => setIsOpenShoppingBag(false)}
       >
-        <ShoppingBag handleClose={() => setIsOpenShoppingBag(false)} />
+        <ShoppingBag handleCloseModal={() => setIsOpenShoppingBag(false)} />
       </ReactModal>
     </header>
   )

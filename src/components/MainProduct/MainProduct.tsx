@@ -14,7 +14,7 @@ import Icon from '../icons/Bag'
 import { getProductsByModel, getProductById } from '../../redux/selectors'
 import { UAH } from '../../constants'
 import { getProductSrc } from '../../helpers'
-import { useDevice, useSelectedProducts } from '../../customHook'
+import { useSelectedProducts } from '../../customHook'
 import routes from '../../routes'
 import language from '../../language'
 import s from './MainProduct.module.scss'
@@ -81,7 +81,7 @@ export default function MainProduct() {
           <GridOfSizes product={product} />
           <MainButton
             className={cn(s.buyBtn, { [s.productSelected]: isProductSelected })}
-            handleClick={handleSelectProduct}
+            handleClick={isProductSelected ? () => router.push(routes.checkout) : handleSelectProduct}
           >
             {!isProductSelected && <Icon width="24px" height="24px" />}
             <span>{isProductSelected ? language.orderProduct : language.toCart}</span>
