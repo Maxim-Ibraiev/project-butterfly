@@ -1,12 +1,13 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import cn from 'classnames'
 import React, { useState } from 'react'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import s from './Input.module.scss'
 
 interface IProp {
   label: string
-  value?: string
-  onChange: React.ChangeEventHandler<HTMLInputElement>
-
+  register: UseFormRegister<FieldValues>
+  required?: boolean
   name?: string
   type?: React.HTMLInputTypeAttribute
   autoComplete?: string
@@ -14,36 +15,33 @@ interface IProp {
 
 export default function Input({
   label,
-  onChange,
-  value = '',
+  register,
+  required = false,
   name = label,
-  autoComplete = 'on',
   type = 'text',
+  autoComplete = 'on',
 }: IProp) {
-  const [blockAnimation, setBlockAnimation] = useState(true)
-  const [focusOut, setFocusOut] = useState(true)
+  const [firstRender, setFirstRender] = useState(true)
+
+  const handleBlur = () => {
+    if (firstRender) setFirstRender(false)
+  }
 
   return (
     <div className={s.container}>
       <input
         className={s.input}
-        onFocus={() => setBlockAnimation(false)}
-        onBlur={() => setFocusOut(false)}
-        id={label}
-        type={type}
+        {...register(name, { onBlur: handleBlur, required })}
+        id={name}
         name={name}
-        value={value}
-        onChange={onChange}
+        type={type}
         autoComplete={autoComplete}
         placeholder=" "
-        // ref={ref}
-        // {...props}/
       />
       <label
         htmlFor={label}
         className={cn(s.label, {
-          [s.block]: blockAnimation,
-          [s.focusOut]: focusOut,
+          [s.notFirstRender]: !firstRender,
         })}
       >
         {label}

@@ -3,7 +3,7 @@ import cn from 'classnames'
 import s from './MainButton.module.scss'
 import { Request } from '../../../interfaces'
 
-interface Props {
+interface IProps {
   isSubmit?: boolean
   status?: Request
   className?: string
@@ -11,7 +11,7 @@ interface Props {
   handleClick?: (event: MouseEvent) => void
 }
 
-const Button: React.FC<Props> = ({ children, className, handleClick, isSubmit, status, width }) => (
+const Button: React.FC<IProps> = ({ children, className, handleClick, isSubmit, status, width }) => (
   <button
     className={cn(
       s.btn,

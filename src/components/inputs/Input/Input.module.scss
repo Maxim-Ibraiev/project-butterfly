@@ -1,20 +1,3 @@
-// Colors
-$accent: rgb(0, 0, 180);
-$accentFocus: rgb(0, 0, 120);
-
-$btnDelete: rgb(255, 0, 0);
-$btnDeleteFocus: rgb(150, 0, 0);
-
-$placeholder: rgb(177, 177, 177);
-
-$boxShadow: 1px 1px 5px #303030;
-$boxShadowFocus: 2px 2px 9px #303030;
-
-// Animation
-$animation: 250ms;
-$animationLonger: 500ms;
-$animationPlaceholder: 500ms;
-$cubic: linear;
 @keyframes placeholder {
   0% {
     transform: translate(20px, 0.5rem);
@@ -53,7 +36,7 @@ $cubic: linear;
 
   transform: translate(20px, 0.5rem);
 
-  color: $placeholder;
+  color: var(--gray);
 }
 
 .input {
@@ -62,15 +45,17 @@ $cubic: linear;
 
   &:focus {
     outline: none;
-    border: 3px solid $accent;
+    border: 3px solid var(--blue);
   }
 
-  &:placeholder-shown ~ .label:not(.focusOut) {
+  &:placeholder-shown ~ .label.notFirstRender {
     animation: placeholderReverse 250ms ease forwards;
   }
 
-  &:not(:placeholder-shown) ~ .label:not(.block),
-  &:focus ~ .label:not(.block) {
+  &:not(:placeholder-shown) ~ .label,
+  &:not(:placeholder-shown) ~ .label.notFirstRender,
+  &:focus ~ .label.notFirstRender,
+  &:focus ~ .label {
     animation: placeholder 500ms ease forwards;
   }
 }

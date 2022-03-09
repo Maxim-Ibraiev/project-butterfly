@@ -49,8 +49,14 @@ export default {
   orderResults: 'Итог заказа',
   total: 'Сумма',
   continueShopping: 'Продолжить покупки',
+  MakingAnOrder: 'Оформление заказа',
 
   // ru - navigation
   toHomePage: 'на главную страницу',
   noProducts: 'Товар не найден!',
+
+  // ru - form
+  firstName: 'Имя',
+  lastName: 'Фамилия',
+  confirmOrder: 'Подтвердить заказ',
 }
