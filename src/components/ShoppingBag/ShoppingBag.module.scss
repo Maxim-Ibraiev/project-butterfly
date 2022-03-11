@@ -5,6 +5,9 @@
 
   height: min-content;
   margin-bottom: 107px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
 
   @media screen and (min-width: $tableUpper) {
     margin-bottom: 0;

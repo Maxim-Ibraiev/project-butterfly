@@ -1,9 +1,13 @@
-.wrapper {
-  display: flex;
-  justify-content: space-between;
+@import '../../styles/variables.scss';
 
-  margin: -15px;
-  margin-top: 30px;
+.wrapper {
+  @media screen and (min-width: $tableUpper) {
+    display: flex;
+    justify-content: space-between;
+
+    margin: -15px;
+    margin-top: 30px;
+  }
 
   & > * {
     margin: 15px;
