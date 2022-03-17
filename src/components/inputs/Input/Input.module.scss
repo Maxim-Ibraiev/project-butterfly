@@ -35,6 +35,7 @@
   position: absolute;
 
   transform: translate(20px, 0.5rem);
+  pointer-events: none;
 
   color: var(--gray);
 }

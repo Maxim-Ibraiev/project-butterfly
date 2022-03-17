@@ -1,6 +1,9 @@
 @import '../../styles/variables.scss';
 
 .wrapper {
+  margin-top: 30px;
+
+  font-size: 18px;
   @media screen and (min-width: $tableUpper) {
     display: flex;
     justify-content: space-between;
@@ -8,15 +11,12 @@
     margin: -15px;
     margin-top: 30px;
   }
+}
 
+.productList {
   & > * {
-    margin: 15px;
-
-    border: 1px solid var(--border-palette);
-    border-radius: 4px;
-    padding: 30px 10px 10px;
-  }
-  & > *:first-child {
-    width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-bottom: 1px solid var(--gray);
   }
 }

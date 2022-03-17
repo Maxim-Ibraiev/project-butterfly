@@ -1,0 +1,56 @@
+@import '../../styles/variables.scss';
+
+.wrapper {
+  height: max-content;
+}
+
+.header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  border: 1px solid var(--gray);
+
+  text-align: left;
+
+  transition: fill $animation $cubic;
+
+  &:hover,
+  &:focus {
+    fill: var(--blue);
+  }
+}
+
+.toggleIcon {
+  transition: transform $animation $cubic;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.title {
+  padding-left: 10px;
+}
+
+.content {
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition-property: max-height, visibility;
+  transition-duration: $animation;
+  transition-timing-function: ease-out;
+
+  border: 1px solid var(--gray);
+  border-top: none;
+
+  &.isOpen {
+    visibility: visible;
+    pointer-events: unset;
+  }
+}
