@@ -61,4 +61,5 @@ export default {
   email: 'Email',
   phoneNumber: 'Номер телефона',
   confirmOrder: 'Подтвердить заказ',
+  orderIsConfirmed: 'Заказ подтвержден',
 }

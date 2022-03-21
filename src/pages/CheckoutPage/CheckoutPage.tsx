@@ -1,4 +1,3 @@
-import React, { useEffect, useRef, useState } from 'react'
 import Checkout from '../../components/Checkout'
 import Layout from '../../components/Layout'
 import ToggleList from '../../components/ToggleList'

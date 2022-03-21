@@ -22,6 +22,7 @@ const Button: React.FC<IProps> = ({ children, className, handleClick, isSubmit, 
       },
       className
     )}
+    disabled={status === 'Request' || status === 'Success'}
     type={isSubmit ? 'submit' : 'button'}
     onClick={handleClick}
     style={{ width }}

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import cn from 'classnames'
 import React, { useState } from 'react'
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form'
 import s from './Input.module.scss'
 
 interface IProp {
@@ -11,6 +11,7 @@ interface IProp {
   name?: string
   type?: React.HTMLInputTypeAttribute
   autoComplete?: string
+  options?: RegisterOptions
 }
 
 export default function Input({
@@ -20,6 +21,7 @@ export default function Input({
   name = label,
   type = 'text',
   autoComplete = 'on',
+  options,
 }: IProp) {
   const [firstRender, setFirstRender] = useState(true)
 
@@ -31,7 +33,7 @@ export default function Input({
     <div className={s.container}>
       <input
         className={s.input}
-        {...register(name, { onBlur: handleBlur, required })}
+        {...register(name, { onBlur: handleBlur, required, ...options })}
         id={name}
         name={name}
         type={type}
