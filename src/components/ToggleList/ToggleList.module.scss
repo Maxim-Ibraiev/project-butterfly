@@ -52,5 +52,6 @@
   &.isOpen {
     visibility: visible;
     pointer-events: unset;
+    overflow-y: scroll;
   }
 }

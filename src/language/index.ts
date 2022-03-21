@@ -58,5 +58,7 @@ export default {
   // ru - form
   firstName: 'Имя',
   lastName: 'Фамилия',
+  email: 'Email',
+  phoneNumber: 'Номер телефона',
   confirmOrder: 'Подтвердить заказ',
 }

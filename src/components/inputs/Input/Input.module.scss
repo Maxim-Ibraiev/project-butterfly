@@ -1,26 +1,26 @@
 @keyframes placeholder {
   0% {
-    transform: translate(20px, 0.5rem);
+    transform: translate(20px, 0.3rem);
   }
   50% {
-    transform: translate(20px, -1.2rem);
+    transform: translate(20px, -1.5rem);
   }
   100% {
-    transform: translate(0, -1.2rem);
+    transform: translate(0, -1.5rem);
     color: black;
   }
 }
 
 @keyframes placeholderReverse {
   0% {
-    transform: translate(0, -1.2rem);
+    transform: translate(0, -1.5rem);
     color: black;
   }
   50% {
-    transform: translate(20px, -1.2rem);
+    transform: translate(20px, -1.5rem);
   }
   100% {
-    transform: translate(20px, 0.5rem);
+    transform: translate(20px, 0.3rem);
   }
 }
 
@@ -34,7 +34,7 @@
 .label {
   position: absolute;
 
-  transform: translate(20px, 0.5rem);
+  transform: translate(20px, 0.3rem);
   pointer-events: none;
 
   color: var(--gray);

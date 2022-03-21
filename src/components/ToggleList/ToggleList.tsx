@@ -1,17 +1,23 @@
 import cn from 'classnames'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ToggleSvg from '../icons/ToggleSvg'
 import s from './ToggleList.module.scss'
 
 interface IProps {
   title: string
-  contentHight?: number
   classList?: string
   classHeader?: string
 }
 
-const ToggleList: React.FC<IProps> = ({ title, contentHight = 1000, classList, classHeader, children }) => {
+const ToggleList: React.FC<IProps> = ({ title, classList, classHeader, children }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const contentBox = useRef<HTMLDivElement>()
+  const [contentHight, setContentHight] = useState(1000)
+
+  useEffect(() => {
+    if (contentBox.current.clientHeight && contentHight === 1000)
+      setContentHight(contentBox.current.clientHeight)
+  })
 
   return (
     <div className={s.wrapper}>
@@ -27,7 +33,8 @@ const ToggleList: React.FC<IProps> = ({ title, contentHight = 1000, classList, c
       </button>
       <div
         className={cn(s.content, { [s.isOpen]: isOpen, [classList]: classList })}
-        style={{ maxHeight: isOpen ? `${contentHight}px` : 0 }}
+        style={isOpen ? { maxHeight: `${contentHight}px` } : { maxHeight: 0 }}
+        ref={contentBox}
       >
         {children}
       </div>
