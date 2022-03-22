@@ -1,9 +1,21 @@
 .wrapper {
-  margin-top: 30px;
+  padding: 15px;
+
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.header {
+  text-align: center;
 }
 
 .form {
   & > * {
     margin-top: 25px;
   }
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }

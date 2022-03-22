@@ -1,7 +1,7 @@
 :root {
   --primary: #ffffff;
   /* --primary-2: #f1f3f5; */
-  --secondary: #000000;
+  --secondary: #2c2c2c;
   /* --secondary-2: #111; */
   /* --selection: var(--cyan); */
 
@@ -46,6 +46,7 @@
   --font-sans: Roboto, -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', sans-serif;
   --time-out: 250ms;
   --cubic: linear;
+  --shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 
 [data-theme='dark'] {

@@ -58,32 +58,8 @@
   text-transform: uppercase;
 }
 
-.totalContainer {
-  padding-bottom: 10px;
-}
-
-.totalTitle {
-  height: 16px;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 3.5px;
-  text-align: left;
-  text-transform: uppercase;
-  color: #000;
-  margin: 7px 0 10px;
-}
-
-.totalItem {
-  display: flex;
-  justify-content: space-between;
-}
-
 .footer {
   width: calc(100% - 40px);
-
-  background: var(--primary);
-  border-top: 1px solid var(--border-palette);
-  text-transform: uppercase;
 
   @media screen and (max-width: $tableLesser) {
     position: fixed;
@@ -95,22 +71,5 @@
     position: unset;
 
     width: inherit;
-  }
-}
-
-.footerBottoms {
-  display: flex;
-  justify-content: space-between;
-
-  margin-bottom: 10px;
-
-  & > * {
-    flex-basis: 48%;
-  }
-
-  & > *:first-child {
-    color: inherit;
-    background: var(--primary);
-    border: 1px solid var(--accent);
   }
 }

@@ -5,19 +5,23 @@ import s from './ToggleList.module.scss'
 
 interface IProps {
   title: string
+  isDefaultOpen?: boolean
   classList?: string
   classHeader?: string
 }
 
-const ToggleList: React.FC<IProps> = ({ title, classList, classHeader, children }) => {
-  const [isOpen, setIsOpen] = useState(false)
+const ToggleList: React.FC<IProps> = ({ title, isDefaultOpen, classList, classHeader, children }) => {
+  const [isOpen, setIsOpen] = useState(isDefaultOpen)
   const contentBox = useRef<HTMLDivElement>()
-  const [contentHight, setContentHight] = useState(1000)
+  const [contentHight, setContentHight] = useState(620)
 
   useEffect(() => {
-    if (contentBox.current.clientHeight && contentHight === 1000)
+    if (contentBox.current.clientHeight && contentHight === 620)
       setContentHight(contentBox.current.clientHeight)
   })
+  useEffect(() => {
+    if (isDefaultOpen) setIsOpen(true)
+  }, [isDefaultOpen])
 
   return (
     <div className={s.wrapper}>

@@ -49,7 +49,7 @@ export default {
   orderResults: 'Итог заказа',
   total: 'Сумма',
   continueShopping: 'Продолжить покупки',
-  MakingAnOrder: 'Оформление заказа',
+  makingAnOrder: 'Оформление заказа',
 
   // ru - navigation
   toHomePage: 'на главную страницу',

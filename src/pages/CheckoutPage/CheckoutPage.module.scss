@@ -1,22 +1,55 @@
 @import '../../styles/variables.scss';
 
 .wrapper {
+  width: 100%;
   margin-top: 30px;
 
   font-size: 18px;
+
   @media screen and (min-width: $tableUpper) {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: flex-start;
 
-    margin: -15px;
     margin-top: 30px;
   }
 }
 
+.checkout {
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (max-width: $tableLesser) {
+    margin-top: 30px;
+  }
+}
+
+.productsContainer {
+  padding: 15px;
+
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+
+  @media screen and (min-width: $tableUpper) {
+    width: 500px;
+  }
+}
+
 .productList {
+  visibility: scroll;
+
   & > * {
     margin-left: 15px;
     margin-right: 15px;
     border-bottom: 1px solid var(--gray);
   }
+}
+
+.totalSum {
+  margin-top: 15px;
+}
+
+.close {
+  margin-left: auto;
+  margin-right: auto;
 }

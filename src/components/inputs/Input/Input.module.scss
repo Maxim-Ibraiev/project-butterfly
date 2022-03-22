@@ -43,10 +43,14 @@
 .input {
   padding-left: 15px;
   height: 35px;
+  outline: none;
+  border: 3px solid var(--gray);
 
+  &:not(:placeholder-shown) {
+    border-color: var(--secondary);
+  }
   &:focus {
-    outline: none;
-    border: 3px solid var(--blue);
+    border-color: var(--blue);
   }
 
   &:placeholder-shown ~ .label.notFirstRender {
