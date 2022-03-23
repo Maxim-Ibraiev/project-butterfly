@@ -76,7 +76,9 @@ export default function MainProduct() {
       <div className={s.infoContainer}>
         <div className={s.infoSection}>
           <h1 className={s.title}>{product.getTitle()}</h1>
-          <b className={s.price}>{`${product.getPrice()} ${UAH}`} </b>
+          <span className={s.price}>
+            {product.getPrice()} <span className={s.priceValuta}>{UAH}</span>
+          </span>
           <b className={s.title}>{language.size}</b>
           <GridOfSizes product={product} />
           <MainButton

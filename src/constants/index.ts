@@ -1,4 +1,4 @@
-export const UAH = 'Грн'
+export const UAH = 'грн'
 
 export const TIMEOUT = 250
 export const REVALIDATE = 200000
