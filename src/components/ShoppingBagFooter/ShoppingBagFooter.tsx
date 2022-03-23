@@ -19,7 +19,8 @@ const ShoppingBagFooter: React.FC<IProps> = ({ className, children }) => {
         <div className={s.totalItem}>
           <span>{language.total}</span>
           <span>
-            {selectedProducts.reduce((acc, el) => acc + el.getPrice(), 0)} {UAH}
+            {selectedProducts.reduce((acc, el) => acc + el.getPrice(), 0)}{' '}
+            <span className={s.priceValuta}>{UAH}</span>
           </span>
         </div>
       </div>
