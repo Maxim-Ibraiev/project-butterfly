@@ -41,7 +41,10 @@
   & > * {
     margin-left: 15px;
     margin-right: 15px;
-    border-bottom: 1px solid var(--gray);
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--gray);
+    }
   }
 }
 

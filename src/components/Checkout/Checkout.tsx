@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 // import { useRouter } from 'next/router'
 import Input from '../inputs/Input'
@@ -11,7 +11,7 @@ import { useSelectedProducts } from '../../customHook'
 export default function Checkout() {
   const { register, handleSubmit } = useForm()
   const [submitStatus, setSubmitStatus] = useState<Request>()
-  const [selectedProducts] = useSelectedProducts()
+  const [selectedProducts, setSelectedProducts] = useSelectedProducts()
   const isEmptyShoppingBag = selectedProducts.length === 0
 
   const onSubmit = data => {
@@ -21,9 +21,16 @@ export default function Checkout() {
 
     setTimeout(() => {
       setSubmitStatus('Success')
-      console.log(data)
+      console.log(Object.assign(data, { selectedProducts }))
+      setSelectedProducts([])
     }, 1000)
   }
+
+  useEffect(() => {
+    if (submitStatus === 'Success') return
+    if (selectedProducts.length === 0) setSubmitStatus('Error')
+    else if (!submitStatus || submitStatus === 'Error') setSubmitStatus(null)
+  }, [selectedProducts])
 
   return (
     <div className={s.wrapper}>
@@ -33,12 +40,10 @@ export default function Checkout() {
         <Input label={language.lastName} name="lastName" register={register} />
         <Input label={language.email} name="email" type="email" register={register} />
         <Input label={language.phoneNumber} name="phoneNumber" type="tel" register={register} required />
-        <MainButton isSubmit status={isEmptyShoppingBag ? 'Error' : submitStatus} className={s.center}>
-          {isEmptyShoppingBag ? (
-            language.emptyBag
-          ) : (
-            <span>{submitStatus === 'Success' ? language.orderIsConfirmed : language.confirmOrder}</span>
-          )}
+        <MainButton isSubmit status={submitStatus} className={s.center}>
+          {(submitStatus === 'Request' || !submitStatus) && <span>{language.confirmOrder}</span>}
+          {submitStatus === 'Success' && <span>{language.orderIsConfirmed}</span>}
+          {submitStatus === 'Error' && <span>{language.emptyBag}</span>}
         </MainButton>
       </form>
     </div>

@@ -1,9 +1,5 @@
 @import '../../styles/variables.scss';
 
-.wrapper {
-  height: max-content;
-}
-
 .header {
   width: 100%;
 
@@ -38,7 +34,7 @@
 }
 
 .content {
-  overflow: hidden;
+  overflow-y: scroll;
   visibility: hidden;
   pointer-events: none;
 
@@ -52,6 +48,5 @@
   &.isOpen {
     visibility: visible;
     pointer-events: unset;
-    overflow-y: scroll;
   }
 }

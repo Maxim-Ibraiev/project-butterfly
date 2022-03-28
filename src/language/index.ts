@@ -27,7 +27,7 @@ export default {
   pink: 'Розовый',
   brown: 'Коричневый',
   green: 'Зелёный',
-  beige: 'бежевый',
+  beige: 'Бежевый',
   summer: 'Лето',
   'autumn/spring': 'Осень/Лето',
   costumeFabric: 'Костюмная ткань',

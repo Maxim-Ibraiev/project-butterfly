@@ -19,12 +19,13 @@ const ToggleList: React.FC<IProps> = ({ title, isDefaultOpen, classList, classHe
     if (contentBox.current.clientHeight && contentHight === 620)
       setContentHight(contentBox.current.clientHeight)
   })
+
   useEffect(() => {
     if (isDefaultOpen) setIsOpen(true)
   }, [isDefaultOpen])
 
   return (
-    <div className={s.wrapper}>
+    <div>
       <button
         type="button"
         className={cn(s.header, { [classHeader]: classHeader })}
