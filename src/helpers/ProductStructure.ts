@@ -35,7 +35,7 @@ export default class ProductStructure {
 
   getSeason = () => this.#product.season
 
-  getSelectedSize = () => this.#product.selectedSize
+  getSelectedSize = () => this.#product.selectedSize || null
 
   toObject = (): IProductObject => ({
     price: this.getPrice(),

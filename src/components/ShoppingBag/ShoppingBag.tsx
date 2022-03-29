@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSelectedProducts } from '../../customHook'
 import language from '../../language'
@@ -45,14 +46,11 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
           </div>
           <ShoppingBagFooter className={s.footer}>
             <Button handleClick={() => handleCloseModal()}>{language.continueShopping}</Button>
-            <Button
-              handleClick={() => {
-                handleCloseModal()
-                router.push(routes.checkout)
-              }}
-            >
-              {language.orderProduct}
-            </Button>
+            <Link href={routes.checkout}>
+              <a>
+                <Button handleClick={() => handleCloseModal()}>{language.orderProduct}</Button>
+              </a>
+            </Link>
           </ShoppingBagFooter>
         </>
       ) : (
