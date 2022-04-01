@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import httpStatusCodes from '../../httpStatusCodes'
 import { listCategories } from './categoriesModel'
-import getServerError from '../getServerError'
+import Responser from '../Responser'
 import { Categories, IResponse } from '../../../../interfaces'
 import cashedCategories from '../../../../constants/CATEGORIES'
 
@@ -22,7 +22,7 @@ export const getCategories = async (
 
     return response
   } catch (e) {
-    const response = getServerError(e)
+    const response = Responser.getServerError(e)
 
     if (res) res.status(response.status).json(response)
 

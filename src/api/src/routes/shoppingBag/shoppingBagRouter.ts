@@ -1,11 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Responser from '../Responser'
-import { getCategories } from './categoriesController'
+import { getShoppingBag, addShoppingBag } from './shoppingBagController'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
-      await getCategories(req, res)
+      await getShoppingBag(req, res)
+      break
+
+    case 'POST':
+      await addShoppingBag(req, res)
       break
 
     default: {

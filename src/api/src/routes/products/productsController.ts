@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import httpStatusCodes from '../../httpStatusCodes'
 import { listProducts } from './productsModel'
-import getServerError from '../getServerError'
+import Responser from '../Responser'
 import { IResponse, IProductObject } from '../../../../interfaces'
 import cashedProducts from '../../../../constants/PRODUCTS'
 
@@ -25,7 +25,7 @@ export async function getProducts(
 
     return response
   } catch (e) {
-    const response = getServerError(e)
+    const response = Responser.getServerError(e)
 
     if (res) res.status(response.status).json(response)
 

@@ -19,7 +19,7 @@ export const getCategoriesProps = async (): Promise<ICategoriesProps> => {
 
   if (!dataCategories.data)
     throw new Error(
-      `getCategoriesProps categories : ${JSON.stringify(dataCategories.data)} message: ${
+      `getCategoriesProps, categories: ${JSON.stringify(dataCategories.data)}. Message: ${
         dataCategories.error.message
       }`
     )

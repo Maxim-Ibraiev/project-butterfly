@@ -24,6 +24,11 @@ export interface IProductObject {
   selectedSize?: null | number
 }
 
+export interface IShoppingBag {
+  userId: string
+  selectedProducts: ISelectedProductsFromStorage
+}
+
 export type ISelectedProductsFromStorage = {
   selectedSize?: IProductObject['selectedSize']
   id: string

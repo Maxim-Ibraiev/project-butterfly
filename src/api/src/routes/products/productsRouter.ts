@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import MethodNotAllowed from '../MethodNotAllowed'
+import Responser from '../Responser'
 import { getProducts } from './productsController'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,9 +8,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       await getProducts(req, res)
       break
 
-    default:
-      await MethodNotAllowed(req, res)
+    default: {
+      const response = Responser.getMethodNotAllowed(req.method)
+
+      res.status(response.status).json(response)
       break
+    }
   }
 }
 export default handler

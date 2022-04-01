@@ -20,3 +20,12 @@ export default async function connectToDatabase() {
 }
 
 if (!urlDb) throw new Error(`No access to url. url : ${urlDb}`)
+
+process.addListener('SIGINT', () => {
+  try {
+    cashedClient.close()
+    console.log('Connection is closed.')
+  } catch (error) {
+    console.log(error)
+  }
+})

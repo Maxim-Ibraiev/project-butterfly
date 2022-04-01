@@ -11,4 +11,5 @@ export type {
   IProductObject,
   IResponse,
   ISelectedProductsFromStorage,
+  IShoppingBag,
 } from './interfaces'
