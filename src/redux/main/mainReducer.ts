@@ -9,15 +9,8 @@ import {
   setSelectedProducts,
   setSelectedSizeOfProduct,
 } from './mainActions'
-import { getProductsForRedux, getCategories, getError, getSelectedProducts } from '../selectors'
-import {
-  Categories,
-  IError,
-  IState,
-  ISelectedProductsFromStorage,
-  IProduct,
-  IProductObject,
-} from '../../interfaces'
+import { getProductsForRedux, getCategories, getError, getSelectedProductsForRedux } from '../selectors'
+import { Categories, IError, IState, IShotSelectedProducts, IProduct, IProductObject } from '../../interfaces'
 import { ProductStructure } from '../../helpers'
 
 interface IPayload<T> {
@@ -36,7 +29,7 @@ const products = createReducer([], {
 })
 
 const selectedProducts = createReducer([], {
-  [HYDRATE]: (_, { payload }: { payload: IState }) => getSelectedProducts(payload),
+  [HYDRATE]: (_, { payload }: IPayload<IState>) => getSelectedProductsForRedux(payload),
   [setSelectedProducts.type]: (_, { payload }: IPayload<IProduct[]>) => payload.map(el => el.toObject()),
   [setSelectedSizeOfProduct.type]: handleSelectedSizeOfProduct,
 })
@@ -51,7 +44,7 @@ const error = createReducer<IError>(null, {
 
 function handleSelectedSizeOfProduct(
   productsOfRedux: WritableDraft<IProductObject[]>,
-  { payload }: IPayload<ISelectedProductsFromStorage>
+  { payload }: IPayload<IShotSelectedProducts>
 ) {
   return productsOfRedux.map(prd => {
     const product = new ProductStructure(prd)

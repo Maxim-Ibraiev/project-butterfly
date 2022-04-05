@@ -10,6 +10,6 @@ export type {
   Request,
   IProductObject,
   IResponse,
-  ISelectedProductsFromStorage,
+  IShotSelectedProducts,
   IShoppingBag,
 } from './interfaces'

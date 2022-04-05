@@ -1,10 +1,17 @@
-import * as categoriesController from './src/routes/categories/categoriesController'
-import * as productsController from './src/routes/products/productsController'
-import { Categories, IProductObject, IResponse } from '../interfaces'
+import axios, { AxiosResponse } from 'axios'
+import { IProduct, IResponse, IShoppingBag } from '../interfaces'
+import routes from '../routes'
+import { getShotSelectedProducts } from '../helpers'
 
 const api = {
-  getCategories: async (): Promise<IResponse<Categories>> => categoriesController.getCategories(),
-  getProducts: async (): Promise<IResponse<IProductObject[]>> => productsController.getProducts(),
+  getShoppingBag: (id: string) => axios.get(routes.api.getShoppingBag(id)),
+  setShoppingBag: (
+    id: string,
+    selectedProducts: IProduct[]
+  ): Promise<AxiosResponse<IResponse<IShoppingBag>>> =>
+    axios.post(routes.api.getShoppingBag(id), {
+      selectedProducts: getShotSelectedProducts(selectedProducts),
+    }),
 }
 
 export default api

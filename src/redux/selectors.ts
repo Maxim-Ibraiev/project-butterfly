@@ -5,6 +5,7 @@ export const getState = (state: IState): IState => state
 export const getCategories = (state: IState): Categories => state.main.categories
 export const getProducts = (state: IState): IProduct[] => getProductStructure(state.main.products)
 export const getProductsForRedux = (state: IState): IProductObject[] => state.main.products
+export const getSelectedProductsForRedux = (state: IState): IProductObject[] => state.main.selectedProducts
 export const getError = (state: IState): IError => state.main.error
 
 export const getSelectedProducts = (state: IState): IProduct[] =>

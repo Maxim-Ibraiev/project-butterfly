@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-// import { useRouter } from 'next/router'
 import Input from '../inputs/Input'
 import language from '../../language'
 import MainButton from '../buttons/MainButton'

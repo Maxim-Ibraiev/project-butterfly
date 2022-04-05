@@ -2,18 +2,30 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductById, getSelectedProducts } from '../redux/selectors'
 import * as actions from '../redux/main/mainActions'
-import { IProduct, IState } from '../interfaces'
-import { ISelectedProductsFromStorage } from '../interfaces/index'
+import { IProduct, IState, IShotSelectedProducts } from '../interfaces'
+import { getShotSelectedProducts } from '../helpers'
+import { SHOPPING_ID } from '../constants'
+import api from '../api/api'
 
-const setProductsInLocalStorage = (newSelectedProducts: IProduct[]) =>
-  localStorage.setItem(
-    'selectedProducts',
-    JSON.stringify(newSelectedProducts.map(el => ({ selectedSize: el.getSelectedSize(), id: el.getId() })))
-  )
+const setLocalStorage = {
+  id: (id: string) => localStorage.setItem(SHOPPING_ID, id),
+  shotSelectedProducts: (selectedProducts: IShotSelectedProducts) =>
+    localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts)),
+}
+
+const setProductsInLocalStorage = async (newSelectedProducts: IProduct[]) => {
+  const isClient = typeof window !== 'undefined'
+  const shotSelectedProducts = getShotSelectedProducts(newSelectedProducts)
+  const userId = isClient && localStorage.getItem(SHOPPING_ID)
+  const {
+    data: { data },
+  } = await api.setShoppingBag(userId, newSelectedProducts)
+
+  if (isClient && !userId) setLocalStorage.id(data.id)
+  if (isClient) setLocalStorage.shotSelectedProducts(shotSelectedProducts)
+}
 
 export default function useSelectedProducts(): [IProduct[], (newSelectedProducts: IProduct[]) => void] {
-  if (typeof window === 'undefined') return [[], () => null]
-
   const dispatch = useDispatch()
   const state = useSelector<IState, IState>(s => s)
   const [firstRender, setFirstRender] = useState(true)
@@ -51,7 +63,7 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
   return [selectedProductFromRedux, setProducts]
 }
 
-function getDataFromStorage(): ISelectedProductsFromStorage {
+function getDataFromStorage(): IShotSelectedProducts {
   const data = JSON.parse(localStorage.getItem('selectedProducts'))
 
   const isDataContainId = data && data.length > 0 && data.every(({ id }) => id)

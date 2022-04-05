@@ -5,7 +5,7 @@ import { IResponse, IShoppingBag } from '../../../../interfaces'
 import RequestValidator from '../RequestValidator'
 
 export async function getShoppingBag(
-  req?: NextApiRequest,
+  req: NextApiRequest | { query: { id: string } },
   res?: NextApiResponse
 ): Promise<IResponse<IShoppingBag>> {
   try {
@@ -33,14 +33,15 @@ export async function getShoppingBag(
 }
 
 export async function addShoppingBag(
-  req?: NextApiRequest,
+  req: NextApiRequest,
   res?: NextApiResponse
 ): Promise<IResponse<IShoppingBag>> {
   try {
     let response = null
-    const { body } = req
+    const { body, query } = req
+    const id = typeof query.id === 'string' ? query.id : null
     const { error } = RequestValidator.shoppingBag(body)
-    const shoppingBag = !error ? await setShoppingBag(body) : null
+    const shoppingBag = !error ? await setShoppingBag(body, id) : null
 
     response = error ? Responser.getBadRequest(error) : Responser.getOK({ data: shoppingBag })
 

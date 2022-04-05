@@ -14,10 +14,20 @@ export const getShoppingBagFromDB = async (id: string | ObjectId): Promise<IShop
   return result
 }
 
-export const setShoppingBag = async (body: IShoppingBag): Promise<IShoppingBag> => {
+export const setShoppingBag = async (body: IShoppingBag, id: string = null): Promise<IShoppingBag> => {
   const collection = await getCollection<IResponse>('shopping-bags')
-  const response = await collection.insertOne(body)
-  const result = await getShoppingBagFromDB(response.insertedId)
+  const objectId = new ObjectId(id)
+  const responseInsert = !id && (await collection.insertOne(body))
+
+  if (id)
+    await collection.findOneAndUpdate(
+      { _id: objectId },
+      { $set: { selectedProducts: body.selectedProducts } }
+    )
+
+  const result = await getShoppingBagFromDB(responseInsert?.insertedId || id)
+
+  Object.assign(result, { id: id || responseInsert.insertedId.toString() })
 
   return result
 }

@@ -25,11 +25,11 @@ export interface IProductObject {
 }
 
 export interface IShoppingBag {
-  userId: string
-  selectedProducts: ISelectedProductsFromStorage
+  id: string
+  selectedProducts: IShotSelectedProducts
 }
 
-export type ISelectedProductsFromStorage = {
+export type IShotSelectedProducts = {
   selectedSize?: IProductObject['selectedSize']
   id: string
 }[]
