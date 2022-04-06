@@ -12,7 +12,7 @@ import MainButton from '../buttons/MainButton'
 import GridOfSizes from '../GridOfSizes'
 import Icon from '../icons/Bag'
 import { getProductsByModel, getProductById } from '../../redux/selectors'
-import { UAH } from '../../constants'
+import { SHOPPING_ID, UAH } from '../../constants'
 import { getProductSrc } from '../../helpers'
 import { useSelectedProducts } from '../../customHook'
 import routes from '../../routes'
@@ -30,6 +30,7 @@ export default function MainProduct() {
   )
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
   const [isProductSelected, setIsProductSelected] = useState(false)
+  const [shoppingId, setShoppingId] = useState('')
   const [phoneNumber, setPhoneNumber] = useState<E164Number>('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
   const getItems = () =>
@@ -66,6 +67,7 @@ export default function MainProduct() {
 
   useEffect(() => {
     setIsProductSelected(!!product && selectedProducts.some(({ getId }) => getId() === product.getId()))
+    if (!shoppingId) setShoppingId(localStorage.getItem(SHOPPING_ID))
   }, [selectedProducts])
 
   return product ? (
@@ -83,7 +85,9 @@ export default function MainProduct() {
           <GridOfSizes product={product} />
           <MainButton
             className={cn(s.buyBtn, { [s.productSelected]: isProductSelected })}
-            handleClick={isProductSelected ? () => router.push(routes.checkout) : handleSelectProduct}
+            handleClick={
+              isProductSelected ? () => router.push(routes.getCheckout(shoppingId)) : handleSelectProduct
+            }
           >
             {!isProductSelected && <Icon width="24px" height="24px" />}
             <span>{isProductSelected ? language.orderProduct : language.toCart}</span>

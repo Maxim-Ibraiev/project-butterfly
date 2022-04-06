@@ -14,10 +14,10 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ q
   const productsResponse = await getProductsProps()
 
   dispatchData(store.dispatch, categoriesResponse, productsResponse)
-  const userId = typeof query.userId === 'string' ? query.userId : null
-  const shoppingBagResponse = userId && (await getShoppingProps(userId))
+  const shoppingId = typeof query.shoppingId === 'string' ? query.shoppingId : null
+  const shoppingBagResponse = shoppingId && (await getShoppingProps(shoppingId))
 
-  const isRequestSuccess = userId && shoppingBagResponse.data
+  const isRequestSuccess = shoppingId && shoppingBagResponse.data
   const selectedProducts =
     isRequestSuccess &&
     shoppingBagResponse.data.selectedProducts.map(el => getProductById(store.getState(), el.id))

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSelectedProducts } from '../../customHook'
@@ -9,6 +10,7 @@ import s from './ShoppingBag.module.scss'
 import { IProduct } from '../../interfaces'
 import routes from '../../routes'
 import ShoppingBagFooter from '../ShoppingBagFooter'
+import { SHOPPING_ID } from '../../constants'
 
 interface Props {
   handleCloseModal?: () => void
@@ -17,10 +19,15 @@ interface Props {
 export default function ShoppingBag({ handleCloseModal }: Props) {
   const router = useRouter()
   const [selectedProducts, setSelectedProducts] = useSelectedProducts()
+  const [shoppingId, setShoppingId] = useState('')
 
   const handleDelete = (product: IProduct) => {
     setSelectedProducts(selectedProducts.filter(el => el.getId() !== product.getId()))
   }
+
+  useEffect(() => {
+    setShoppingId(localStorage.getItem(SHOPPING_ID))
+  }, [])
 
   return (
     <section className={s.wrapper}>
@@ -46,7 +53,7 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
           </div>
           <ShoppingBagFooter className={s.footer}>
             <Button handleClick={() => handleCloseModal()}>{language.continueShopping}</Button>
-            <Link href={routes.checkout}>
+            <Link href={routes.getCheckout(shoppingId)}>
               <a>
                 <Button handleClick={() => handleCloseModal()}>{language.orderProduct}</Button>
               </a>

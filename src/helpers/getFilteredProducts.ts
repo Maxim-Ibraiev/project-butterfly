@@ -1,3 +1,4 @@
+import { SHOPPING_ID } from '../constants'
 import { IProduct } from '../interfaces'
 
 interface IOptions {
@@ -44,7 +45,7 @@ const isSizeMatchedProduct = (product: IProduct, option: string | string[]): boo
 }
 
 function isMatchedProduct(product: IProduct, options: IOptions): boolean {
-  const specialOptions = ['sort', 'size']
+  const specialOptions = ['sort', 'size', SHOPPING_ID]
   const optionsKeys = Object.keys(options)
   const filteredOptions = optionsKeys.filter(element => !specialOptions.some(el => el === element))
 

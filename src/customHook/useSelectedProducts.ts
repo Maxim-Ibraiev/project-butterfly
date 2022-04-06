@@ -16,13 +16,15 @@ const setLocalStorage = {
 const setProductsInLocalStorage = async (newSelectedProducts: IProduct[]) => {
   const isClient = typeof window !== 'undefined'
   const shotSelectedProducts = getShotSelectedProducts(newSelectedProducts)
+
+  if (isClient) setLocalStorage.shotSelectedProducts(shotSelectedProducts)
+
   const userId = isClient && localStorage.getItem(SHOPPING_ID)
   const {
     data: { data },
   } = await api.setShoppingBag(userId, newSelectedProducts)
 
   if (isClient && !userId) setLocalStorage.id(data.id)
-  if (isClient) setLocalStorage.shotSelectedProducts(shotSelectedProducts)
 }
 
 export default function useSelectedProducts(): [IProduct[], (newSelectedProducts: IProduct[]) => void] {
@@ -40,8 +42,8 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
   }
 
   const setProducts = (newSelectedProducts: IProduct[]) => {
-    setProductsInLocalStorage(newSelectedProducts)
     dispatch(actions.setSelectedProducts(newSelectedProducts))
+    setProductsInLocalStorage(newSelectedProducts)
   }
 
   useEffect(() => {
