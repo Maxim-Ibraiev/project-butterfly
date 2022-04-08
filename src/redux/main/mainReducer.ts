@@ -8,6 +8,7 @@ import {
   productsError,
   setSelectedProducts,
   setSelectedSizeOfProduct,
+  selectedProductsSuccess,
 } from './mainActions'
 import { getProductsForRedux, getCategories, getError, getSelectedProductsForRedux } from '../selectors'
 import { Categories, IError, IState, IShotSelectedProducts, IProduct, IProductObject } from '../../interfaces'
@@ -28,8 +29,9 @@ const products = createReducer([], {
   [setSelectedSizeOfProduct.type]: handleSelectedSizeOfProduct,
 })
 
-const selectedProducts = createReducer([], {
+const selectedProducts = createReducer<IProductObject[]>([], {
   [HYDRATE]: (_, { payload }: IPayload<IState>) => getSelectedProductsForRedux(payload),
+  [selectedProductsSuccess.type]: (_, { payload }: IPayload<IProduct[]>) => payload.map(el => el.toObject()),
   [setSelectedProducts.type]: (_, { payload }: IPayload<IProduct[]>) => payload.map(el => el.toObject()),
   [setSelectedSizeOfProduct.type]: handleSelectedSizeOfProduct,
 })

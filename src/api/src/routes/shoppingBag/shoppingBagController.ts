@@ -5,7 +5,7 @@ import { IResponse, IShoppingBag } from '../../../../interfaces'
 import RequestValidator from '../RequestValidator'
 
 export async function getShoppingBag(
-  req: NextApiRequest | { query: { id: string } },
+  req: NextApiRequest | { query: { id: string | string[] } },
   res?: NextApiResponse
 ): Promise<IResponse<IShoppingBag>> {
   try {

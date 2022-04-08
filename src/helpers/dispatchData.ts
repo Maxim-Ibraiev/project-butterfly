@@ -1,22 +1,40 @@
 import { Dispatch } from 'redux'
 import * as actions from '../redux/main/mainActions'
-import { ICategoriesProps, IProductsProps } from '../interfaces'
+import { Categories, IProductObject, IResponse, IShoppingBag } from '../interfaces'
+import { getProductStructure } from '../redux/selectors'
 
-export type IDataResponse = ICategoriesProps | IProductsProps
+interface IDispatchData {
+  products: IResponse<IProductObject[]>
+  categories: IResponse<Categories>
+  shoppingBag?: IResponse<IShoppingBag>
+}
 
-const getDataName = (response: IDataResponse): string =>
-  Object.entries(response).filter(([key]) => key !== 'error')[0][0]
+export default async function dispatchData(
+  dispatch: Dispatch,
+  { shoppingBag, categories, products }: IDispatchData
+) {
+  const isNeedToHandleError =
+    (products.error || categories.error || shoppingBag?.error) && process.env.NODE_ENV === 'development'
 
-export default function dispatchData(dispatch: Dispatch, ...responses: IDataResponse[]): void {
-  responses.forEach(data => {
-    if (!data) return
+  if (isNeedToHandleError) {
+    dispatch(actions.productsError(products.error))
+    dispatch(actions.categoriesError(categories.error))
 
-    const dataName = getDataName(data)
-    const errorName = `${dataName}Error`
-    const actionSuccess = `${dataName}Success`
-    const actionError = `${dataName}Error`
+    throw new Error(
+      `DispatchData error. products: ${products}, category: ${categories}, shoppingBag: ${shoppingBag}`
+    )
+  }
 
-    if (!data[errorName]) dispatch(actions[actionSuccess](data[dataName]))
-    if (data[errorName]) dispatch(actions[actionError](data[actionError]))
-  })
+  dispatch(actions.productsSuccess(products.data))
+  dispatch(actions.categoriesSuccess(categories.data))
+
+  if (shoppingBag) {
+    const productList = getProductStructure(products.data)
+    const selectedProducts = shoppingBag.data.selectedProducts.map(el =>
+      productList.find(prd => prd.getId() === el.id)
+    )
+
+    dispatch(actions.selectedProductsSuccess(selectedProducts))
+    dispatch(actions.setSelectedSizeOfProduct(shoppingBag.data.selectedProducts))
+  }
 }

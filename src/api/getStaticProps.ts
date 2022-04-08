@@ -1,4 +1,4 @@
-import api from './apiServer'
+import api from './serverApi'
 import { ICategoriesProps, IProductsProps } from '../interfaces'
 
 export const getProductsProps = async (): Promise<IProductsProps> => {

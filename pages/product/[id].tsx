@@ -4,16 +4,19 @@ import { getCategoriesProps, getProductsProps } from '../../src/api/getStaticPro
 import { getProductStructure } from '../../src/redux/selectors'
 import { dispatchData } from '../../src/helpers'
 import { REVALIDATE } from '../../src/constants'
+import api from '../../src/api'
 
 export default function Product() {
   return <ProductPage />
 }
 
 export const getStaticProps = wrapper.getStaticProps(store => async () => {
-  const categoriesResponse = await getCategoriesProps()
-  const productsResponse = await getProductsProps()
+  const data = {
+    categories: await api.getCategories(),
+    products: await api.getProducts(),
+  }
 
-  dispatchData(store.dispatch, categoriesResponse, productsResponse)
+  dispatchData(store.dispatch, data)
 
   return {
     props: {},
@@ -22,11 +25,10 @@ export const getStaticProps = wrapper.getStaticProps(store => async () => {
 })
 
 export async function getStaticPaths() {
-  const { products } = await getProductsProps()
+  const { data } = await api.getProducts()
+  const productsStructure = getProductStructure(data)
 
-  const productsStructure = getProductStructure(products)
-
-  const paths = products
+  const paths = data
     ? productsStructure.map(product => ({
         params: { id: product.getId() },
       }))

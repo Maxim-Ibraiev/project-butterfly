@@ -16,9 +16,9 @@ export const getCategories = async (
   try {
     const categoriesResponse = await listCategories()
     const categoriesToFlat = categoriesResponse.map(el => el.category)
-    const response = { status: httpStatusCodes.OK, data: categoriesToFlat, error: null }
+    const response = Responser.getOK({ data: categoriesToFlat })
 
-    if (res) res.status(httpStatusCodes.OK).json(response)
+    if (res) res.status(response.status).json(response)
 
     return response
   } catch (e) {

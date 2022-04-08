@@ -3,16 +3,19 @@ import { wrapper } from '../src/redux/store'
 import { getProductsProps, getCategoriesProps } from '../src/api/getStaticProps'
 import { dispatchData } from '../src/helpers'
 import { REVALIDATE, CATEGORIES } from '../src/constants'
+import api from '../src/api'
 
 export default function Category() {
   return <CategoryPage />
 }
 
 export const getStaticProps = wrapper.getStaticProps(store => async () => {
-  const categoriesResponse = await getCategoriesProps()
-  const productsResponse = await getProductsProps()
+  const data = {
+    categories: await api.getCategories(),
+    products: await api.getProducts(),
+  }
 
-  dispatchData(store.dispatch, categoriesResponse, productsResponse)
+  dispatchData(store.dispatch, data)
 
   return {
     props: {},
@@ -21,10 +24,10 @@ export const getStaticProps = wrapper.getStaticProps(store => async () => {
 })
 
 export async function getStaticPaths() {
-  const { categories, categoriesError } = await getCategoriesProps()
+  const { data, error } = await api.getCategories()
 
-  const paths = !categoriesError
-    ? categories.map(category => ({
+  const paths = !error
+    ? data.map(category => ({
         params: { category },
       }))
     : CATEGORIES.map(category => ({

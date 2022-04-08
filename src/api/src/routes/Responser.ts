@@ -1,10 +1,10 @@
 import httpStatusCodes from '../httpStatusCodes'
 
 class Responser {
-  static getBaseResponse = ({ error, status, data, message = error?.message }) => ({
+  static getBaseResponse = ({ status, data, error = null, message = error?.message || null }) => ({
     status,
     data,
-    error: { message, data: error || JSON.stringify(error) || true },
+    error: message ? { message, data: error || JSON.stringify(error) || true } : error,
   })
 
   static getOK({ data, error = null }) {
@@ -16,7 +16,7 @@ class Responser {
   }
 
   static getNotFound({ error, data }) {
-    return this.getBaseResponse({ data, status: httpStatusCodes.NOT_FOUND, error: error || null })
+    return this.getBaseResponse({ data, status: httpStatusCodes.NOT_FOUND, error })
   }
 
   static getMethodNotAllowed(method: string) {
