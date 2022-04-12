@@ -1,6 +1,5 @@
 import ProductPage from '../../src/pages/ProductPage'
 import { wrapper } from '../../src/redux/store'
-import { getCategoriesProps, getProductsProps } from '../../src/api/getStaticProps'
 import { getProductStructure } from '../../src/redux/selectors'
 import { dispatchData } from '../../src/helpers'
 import { REVALIDATE } from '../../src/constants'
