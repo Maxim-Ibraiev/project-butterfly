@@ -24,10 +24,10 @@ export const getStaticProps = wrapper.getStaticProps(store => async () => {
 })
 
 export async function getStaticPaths() {
-  const { data } = await api.getProducts()
-  const productsStructure = getProductStructure(data)
-
-  const paths = data
+  const { data, error } = await api.getProducts()
+  const isSuccess = !error && !!data
+  const productsStructure = isSuccess && getProductStructure(data)
+  const paths = isSuccess
     ? productsStructure.map(product => ({
         params: { id: product.getId() },
       }))

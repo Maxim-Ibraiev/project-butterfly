@@ -1,8 +1,10 @@
 import { Document } from 'mongodb'
 import connectToDatabase from './connectToDatabase'
 
-export default async function getCollection<T = Document>(CollectionName: string) {
+type CollectionList = 'categories' | 'products' | 'shopping-bags'
+
+export default async function getCollection<T = Document>(collectionName: CollectionList) {
   const { db } = await connectToDatabase()
 
-  return db.collection<T>(CollectionName)
+  return db.collection<T>(collectionName)
 }

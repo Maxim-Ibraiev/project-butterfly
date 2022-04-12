@@ -1,14 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import connectToDatabase from '../../db/connectToDatabase'
-
-type IResponse = {
-  category: string
-  _id: unknown
-}
+import getCollection from '../../db/getCollection'
 
 export const listCategories = async () => {
-  const { db } = await connectToDatabase()
-  const response = await db.collection<IResponse>('categories').find().toArray()
+  const collection = await getCollection('categories')
+  const response = collection.find().toArray()
 
   return response
 }

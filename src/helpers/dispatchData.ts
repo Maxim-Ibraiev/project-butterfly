@@ -20,9 +20,13 @@ export default async function dispatchData(
     dispatch(actions.productsError(products.error))
     dispatch(actions.categoriesError(categories.error))
 
-    throw new Error(
-      `DispatchData error. products: ${products}, category: ${categories}, shoppingBag: ${shoppingBag}`
-    )
+    console.warn({
+      products: JSON.stringify(products),
+      categories: JSON.stringify(categories),
+      shoppingBag: JSON.stringify(shoppingBag),
+    })
+
+    throw new Error(`DispatchData error.`)
   }
 
   dispatch(actions.productsSuccess(products.data))

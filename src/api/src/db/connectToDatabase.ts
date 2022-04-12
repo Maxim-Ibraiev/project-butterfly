@@ -1,31 +1,28 @@
 import { MongoClient } from 'mongodb'
+import { memoDb } from '../../../helpers'
 
 const urlDb = process.env.URL_DB
-const client = new MongoClient(urlDb)
-let cashedClient: MongoClient
 
-export default async function connectToDatabase() {
+if (!urlDb) throw new Error(`No access to url. url : ${urlDb}`)
+
+async function connection() {
+  const client = new MongoClient(urlDb)
+  let mongoClient: MongoClient = null
+
   try {
-    if (!cashedClient) {
-      cashedClient = await client.connect()
+    if (!mongoClient) {
+      mongoClient = await client.connect()
       console.log('Connected successful')
     }
   } catch {
     throw new Error('Connected unsuccess')
   }
 
-  const db = cashedClient.db('db-bf')
+  const db = mongoClient.db('db-bf')
 
   return { db }
 }
 
-if (!urlDb) throw new Error(`No access to url. url : ${urlDb}`)
+const connectToDatabase = async () => memoDb(connection)
 
-process.addListener('SIGINT', () => {
-  try {
-    cashedClient.close()
-    console.log('Connection is closed.')
-  } catch (error) {
-    console.log(error)
-  }
-})
+export default connectToDatabase
