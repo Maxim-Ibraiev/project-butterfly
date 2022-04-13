@@ -1,7 +1,7 @@
 export const UAH = 'грн'
 
 export const TIMEOUT = 250
-export const REVALIDATE = 200000
+export const REVALIDATE = 600000
 
 export const mobileLesser = 767
 export const mobileUpper = 768
