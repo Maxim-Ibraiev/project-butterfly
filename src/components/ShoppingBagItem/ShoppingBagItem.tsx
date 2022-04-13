@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 import CustomSelector from '../CustomSelector'
 import Button from '../buttons/MainButton'
-import CloseSvg from '../icons/Close'
+import { CloseIcon } from '../icons'
 import * as actions from '../../redux/main/mainActions'
 import { getOptionsFormatFromValue, getProductSrc } from '../../helpers'
 import language from '../../language'
@@ -53,7 +53,7 @@ export default function ShoppingBagItem({ product, handleDelete, handleClose }: 
         </div>
       </div>
       <Button className={s.close} handleClick={handleDelete}>
-        <CloseSvg />
+        <CloseIcon />
       </Button>
     </div>
   )

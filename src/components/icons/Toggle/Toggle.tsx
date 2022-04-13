@@ -5,7 +5,7 @@ interface IProps {
   fill?: string
 }
 
-export default function ToggleSvg({ fill }: IProps) {
+export default function Toggle({ fill }: IProps) {
   return (
     <BaseIcon
       fill={fill}

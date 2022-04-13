@@ -1,6 +1,6 @@
 import cn from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
-import ToggleSvg from '../icons/ToggleSvg'
+import { ToggleIcon } from '../icons'
 import s from './ToggleList.module.scss'
 
 interface IProps {
@@ -32,7 +32,7 @@ const ToggleList: React.FC<IProps> = ({ title, isDefaultOpen, classList, classHe
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className={cn(s.toggleIcon, { [s.rotate]: isOpen })}>
-          <ToggleSvg />
+          <ToggleIcon />
         </div>
         <span className={s.title}>{title}</span>
       </button>

@@ -5,7 +5,7 @@ import { useSelectedProducts } from '../../customHook'
 import language from '../../language'
 import Button from '../buttons/MainButton'
 import ShoppingBagItem from '../ShoppingBagItem'
-import CloseSvg from '../icons/Close'
+import { CloseIcon, LoadingIcon } from '../icons'
 import s from './ShoppingBag.module.scss'
 import { IProduct } from '../../interfaces'
 import routes from '../../routes'
@@ -20,9 +20,15 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
   const router = useRouter()
   const [selectedProducts, setSelectedProducts] = useSelectedProducts()
   const [shoppingId, setShoppingId] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleDelete = (product: IProduct) => {
     setSelectedProducts(selectedProducts.filter(el => el.getId() !== product.getId()))
+  }
+
+  const handleOrder = () => {
+    if (routes.getCheckout(shoppingId) === router.asPath) handleCloseModal()
+    else setIsLoading(true)
   }
 
   useEffect(() => {
@@ -35,7 +41,7 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
         <p className={s.title}>{language.productsInBag}</p>
 
         <Button handleClick={() => handleCloseModal()} className={s.x}>
-          <CloseSvg />
+          <CloseIcon />
         </Button>
       </div>
 
@@ -57,7 +63,9 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
             </Button>
             <Link href={routes.getCheckout(shoppingId)}>
               <a className={s.primaryBottom}>
-                <Button handleClick={() => handleCloseModal()}>{language.orderProduct}</Button>
+                <Button handleClick={handleOrder}>
+                  {isLoading ? <LoadingIcon /> : language.orderProduct}
+                </Button>
               </a>
             </Link>
           </ShoppingBagFooter>

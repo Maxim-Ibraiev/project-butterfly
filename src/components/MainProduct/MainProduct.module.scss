@@ -76,29 +76,8 @@
   margin-bottom: 5px;
 }
 
-.baseBtn {
-  margin-top: 5px;
-  margin-bottom: 5px;
-
-  font-weight: 500;
-  font-size: 12px;
-}
-
-.activeBtn {
-  color: var(--primary);
-  background: var(--accent);
-}
-
-.disableBtn {
-  color: var(--disabledText);
-  background: var(--disabledBg);
-
-  &.activeBtn {
-    border-color: black;
-  }
-}
-
 .buyBtn {
+  width: 100%;
   margin-top: 5px;
   margin-bottom: 15px;
 }

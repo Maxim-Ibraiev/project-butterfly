@@ -1,0 +1,5 @@
+export { default as BagIcon } from './Bag'
+export { default as CloseIcon } from './Close'
+export { default as LoadingIcon } from './Loading'
+export { default as SearchIcon } from './Search'
+export { default as ToggleIcon } from './Toggle'

@@ -10,7 +10,7 @@ import PhoneNumber from 'react-phone-number-input/input'
 import Gallery from '../Gallery'
 import MainButton from '../buttons/MainButton'
 import GridOfSizes from '../GridOfSizes'
-import Icon from '../icons/Bag'
+import { BagIcon, LoadingIcon } from '../icons'
 import { getProductsByModel, getProductById } from '../../redux/selectors'
 import { SHOPPING_ID, UAH } from '../../constants'
 import { getProductSrc } from '../../helpers'
@@ -30,6 +30,7 @@ export default function MainProduct() {
   )
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
   const [isProductSelected, setIsProductSelected] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [shoppingId, setShoppingId] = useState('')
   const [phoneNumber, setPhoneNumber] = useState<E164Number>('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
@@ -83,15 +84,23 @@ export default function MainProduct() {
           </span>
           <b className={s.title}>{language.size}</b>
           <GridOfSizes product={product} />
-          <MainButton
-            className={cn(s.buyBtn, { [s.productSelected]: isProductSelected })}
-            handleClick={
-              isProductSelected ? () => router.push(routes.getCheckout(shoppingId)) : handleSelectProduct
-            }
-          >
-            {!isProductSelected && <Icon width="24px" height="24px" />}
-            <span>{isProductSelected ? language.orderProduct : language.toCart}</span>
-          </MainButton>
+          {isProductSelected ? (
+            <Link href={routes.getCheckout(shoppingId)}>
+              <a>
+                <MainButton
+                  className={cn(s.buyBtn, s.productSelected)}
+                  handleClick={() => setIsLoading(true)}
+                >
+                  {isLoading ? <LoadingIcon /> : <span>{language.orderProduct}</span>}
+                </MainButton>
+              </a>
+            </Link>
+          ) : (
+            <MainButton className={s.buyBtn} handleClick={handleSelectProduct}>
+              <BagIcon fill="#fff" height="24px" />
+              <span>{language.orderProduct}</span>
+            </MainButton>
+          )}
           <form className={s.phoneWrapper} onSubmit={handleSubmit}>
             <PhoneNumber
               className={s.phoneInput}

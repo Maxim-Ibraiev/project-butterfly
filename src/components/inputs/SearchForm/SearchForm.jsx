@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import SearchIcon from '../../icons/Search'
+import { SearchIcon } from '../../icons'
 import s from './SearchForm.module.scss'
 
 export default function InputsSearch({ handleSubmit, name, className }) {
