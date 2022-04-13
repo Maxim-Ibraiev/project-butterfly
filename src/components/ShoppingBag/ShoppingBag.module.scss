@@ -73,3 +73,18 @@
     width: inherit;
   }
 }
+
+.secondaryBottom {
+  flex-basis: 48%;
+  color: inherit;
+  background: var(--primary);
+  border: 1px solid var(--accent);
+}
+
+.primaryBottom {
+  flex-basis: 48%;
+
+  & > * {
+    width: 100%;
+  }
+}

@@ -52,9 +52,11 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
             ))}
           </div>
           <ShoppingBagFooter className={s.footer}>
-            <Button handleClick={() => handleCloseModal()}>{language.continueShopping}</Button>
+            <Button className={s.secondaryBottom} handleClick={() => handleCloseModal()}>
+              {language.continueShopping}
+            </Button>
             <Link href={routes.getCheckout(shoppingId)}>
-              <a>
+              <a className={s.primaryBottom}>
                 <Button handleClick={() => handleCloseModal()}>{language.orderProduct}</Button>
               </a>
             </Link>
