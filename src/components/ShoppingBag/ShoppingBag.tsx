@@ -41,7 +41,7 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
         <p className={s.title}>{language.productsInBag}</p>
 
         <Button handleClick={() => handleCloseModal()} className={s.x}>
-          <CloseIcon />
+          <CloseIcon height="20px" />
         </Button>
       </div>
 
@@ -63,8 +63,8 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
             </Button>
             <Link href={routes.getCheckout(shoppingId)}>
               <a className={s.primaryBottom}>
-                <Button handleClick={handleOrder}>
-                  {isLoading ? <LoadingIcon /> : language.orderProduct}
+                <Button handleClick={handleOrder} isLoading={isLoading}>
+                  {language.orderProduct}
                 </Button>
               </a>
             </Link>

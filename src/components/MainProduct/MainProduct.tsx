@@ -90,14 +90,15 @@ export default function MainProduct() {
                 <MainButton
                   className={cn(s.buyBtn, s.productSelected)}
                   handleClick={() => setIsLoading(true)}
+                  isLoading={isLoading}
                 >
-                  {isLoading ? <LoadingIcon /> : <span>{language.orderProduct}</span>}
+                  {language.orderProduct}
                 </MainButton>
               </a>
             </Link>
           ) : (
             <MainButton className={s.buyBtn} handleClick={handleSelectProduct}>
-              <BagIcon fill="#fff" height="24px" />
+              <BagIcon height="24px" />
               <span>{language.orderProduct}</span>
             </MainButton>
           )}

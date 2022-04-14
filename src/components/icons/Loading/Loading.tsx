@@ -1,9 +1,10 @@
 import React from 'react'
 import BaseIcon from '../BaseIcon'
+import IBaseProps from '../IBaseProps'
 
-export default function Loading() {
+export default function Loading({ className }: IBaseProps) {
   return (
-    <BaseIcon title="Loading" viewBox="0 0 100 100">
+    <BaseIcon title="Loading" viewBox="0 0 100 100" className={className}>
       <circle cx="18" cy="50" r="4" fill="#c5523f">
         <animate
           attributeName="cy"
