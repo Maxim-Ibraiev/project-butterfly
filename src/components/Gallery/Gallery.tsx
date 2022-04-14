@@ -2,7 +2,6 @@ import Image from 'next/image'
 import ImageGallery from 'react-image-gallery'
 import cn from 'classnames'
 import RenderItem from './RenderItem'
-import { useDevice } from '../../customHook'
 import s from './Gallery.module.scss'
 
 export type Item = {
@@ -15,8 +14,6 @@ type Props = {
 }
 
 export default function Gallery({ items, additionalClass }: Props) {
-  const { isDesktop } = useDevice()
-  const position = isDesktop ? 'left' : undefined
   const handleRenderItem = (item: Item) => {
     const priority = items[0].original === item.original
 
@@ -26,9 +23,8 @@ export default function Gallery({ items, additionalClass }: Props) {
   return (
     <ImageGallery
       additionalClass={cn(s.wrapper, additionalClass)}
-      showThumbnails={isDesktop}
       items={items}
-      thumbnailPosition={position}
+      thumbnailPosition="left"
       showPlayButton={false}
       disableKeyDown
       showBullets

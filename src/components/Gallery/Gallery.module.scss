@@ -8,4 +8,14 @@
   [class~='image-gallery-left-nav'] {
     height: 100%;
   }
+  [class~='image-gallery-thumbnails-wrapper'] {
+    @media screen and (max-width: $tableLesser) {
+      display: none;
+      visibility: hidden;
+
+      & ~ [class='image-gallery-slide-wrapper left'] {
+        width: 100%;
+      }
+    }
+  }
 }
