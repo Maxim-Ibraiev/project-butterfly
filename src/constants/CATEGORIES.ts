@@ -1,1 +1,5 @@
-export default ['dress', 'suit', 'jeans', 'largeSizes', 'shirts']
+import { Categories } from '../interfaces'
+
+const categories: Categories = ['dress', 'suit', 'jeans', 'largeSizes', 'shirts']
+
+export default categories

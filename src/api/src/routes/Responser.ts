@@ -1,35 +1,51 @@
+import { IError, IResponse } from '../../../interfaces'
 import httpStatusCodes from '../httpStatusCodes'
 
+type InputData<Type> = {
+  status: number
+  data?: Type
+  error?: IError
+  message?: string
+}
+
 class Responser {
-  static getBaseResponse = ({ status, data, error = null, message = error?.message || null }) => ({
+  static getBaseResponse<T = null>({
     status,
-    data,
-    error: message ? { message, data: error || JSON.stringify(error) || true } : error,
-  })
-
-  static getOK({ data, error = null }) {
-    return this.getBaseResponse({ data, status: httpStatusCodes.OK, error })
+    data = null,
+    error = null,
+    message = error?.message || null,
+  }: InputData<T>): IResponse<T> {
+    return {
+      status,
+      data,
+      error: message ? { message, data: error || JSON.stringify(error) || true } : error,
+    }
   }
 
-  static getBadRequest(error) {
-    return this.getBaseResponse({ status: httpStatusCodes.BAD_REQUEST, data: null, error })
+  static getOK<T>(data: T) {
+    return this.getBaseResponse({ data, status: httpStatusCodes.OK })
   }
 
-  static getNotFound({ error, data }) {
+  static getBadRequest(error: IError) {
+    return this.getBaseResponse({ status: httpStatusCodes.BAD_REQUEST, error })
+  }
+
+  static getNotFound<T>(error: IError, data?: T) {
     return this.getBaseResponse({ data, status: httpStatusCodes.NOT_FOUND, error })
   }
 
   static getMethodNotAllowed(method: string) {
     return this.getBaseResponse({
       status: httpStatusCodes.METHOD_NOT_ALLOWED,
-      data: null,
-      error: true,
-      message: `Method "${method}" not allowed`,
+      error: {
+        message: `Method "${method}" not allowed`,
+        data: null,
+      },
     })
   }
 
-  static getServerError(error) {
-    return this.getBaseResponse({ status: httpStatusCodes.INTERNAL_SERVER_ERROR, data: null, error })
+  static getServerError(error: IError) {
+    return this.getBaseResponse({ status: httpStatusCodes.INTERNAL_SERVER_ERROR, error })
   }
 }
 

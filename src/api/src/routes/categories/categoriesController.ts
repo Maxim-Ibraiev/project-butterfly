@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import httpStatusCodes from '../../httpStatusCodes'
 import { listCategories } from './categoriesModel'
 import Responser from '../Responser'
 import { Categories, IResponse } from '../../../../interfaces'
@@ -10,13 +9,13 @@ export const getCategories = async (
   res?: NextApiResponse
 ): Promise<IResponse<Categories>> => {
   if (process.env.CASH_DEV_MODE) {
-    return { status: httpStatusCodes.OK, data: cashedCategories, error: null }
+    return Responser.getOK(cashedCategories)
   }
 
   try {
     const categoriesResponse = await listCategories()
-    const categoriesToFlat = categoriesResponse.map(el => el.category)
-    const response = Responser.getOK({ data: categoriesToFlat })
+    const categoriesToFlat = categoriesResponse.map<string>(el => el.category)
+    const response = Responser.getOK(categoriesToFlat)
 
     if (res) res.status(response.status).json(response)
 

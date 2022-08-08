@@ -57,10 +57,7 @@ export interface IError {
 export interface IResponse<T> {
   status: number
   data: T | null
-  error: {
-    data: unknown
-    message: string
-  } | null
+  error: IError
 }
 
 export type FilterOption = { value: string; label: string }

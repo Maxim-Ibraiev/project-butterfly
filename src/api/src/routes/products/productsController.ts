@@ -15,7 +15,8 @@ export async function getProducts(
 
   try {
     const products = await listProducts()
-    const response = Responser.getOK({ data: products })
+
+    const response = Responser.getOK(products)
 
     if (res) res.status(response.status).json(response)
 
