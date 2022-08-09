@@ -12,13 +12,10 @@ export async function getShoppingBag(
     let response = null
     const { id } = req.query
     const isSingleId = typeof id === 'string'
-    const shoppingBag = isSingleId && (await getShoppingBagFromDB(id))
+    const { error } = RequestValidator.id(id)
+    const shoppingBag = !error && isSingleId && (await getShoppingBagFromDB(id))
 
-    response = isSingleId
-      ? Responser.getOK({
-          data: shoppingBag,
-        })
-      : Responser.getBadRequest(RequestValidator.id(id).error)
+    response = error ? Responser.getBadRequest(error) : Responser.getOK(shoppingBag)
 
     if (res) res.status(response.status).json(response)
 
@@ -43,7 +40,7 @@ export async function addShoppingBag(
     const { error } = RequestValidator.shoppingBag(body)
     const shoppingBag = !error ? await setShoppingBag(body, id) : null
 
-    response = error ? Responser.getBadRequest(error) : Responser.getOK({ data: shoppingBag })
+    response = error ? Responser.getBadRequest(error) : Responser.getOK(shoppingBag)
 
     if (res) res.status(response.status).json(response)
 

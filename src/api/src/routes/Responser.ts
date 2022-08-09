@@ -1,4 +1,5 @@
-import { IError, IResponse } from '../../../interfaces'
+import Joi from 'joi'
+import { Categories, IError, IProductObject, IResponse, IShoppingBag } from '../../../interfaces'
 import httpStatusCodes from '../httpStatusCodes'
 
 type InputData<Type> = {
@@ -7,9 +8,10 @@ type InputData<Type> = {
   error?: IError
   message?: string
 }
+type Data = Categories | IProductObject[] | IShoppingBag
 
 class Responser {
-  static getBaseResponse<T = null>({
+  static getBaseResponse<T extends Data = null>({
     status,
     data = null,
     error = null,
@@ -18,19 +20,22 @@ class Responser {
     return {
       status,
       data,
-      error: message ? { message, data: error || JSON.stringify(error) || true } : error,
+      error: error ? { message, data: error.data || JSON.stringify(error) } : error,
     }
   }
 
-  static getOK<T>(data: T) {
+  static getOK<T extends Data>(data: T) {
     return this.getBaseResponse({ data, status: httpStatusCodes.OK })
   }
 
-  static getBadRequest(error: IError) {
-    return this.getBaseResponse({ status: httpStatusCodes.BAD_REQUEST, error })
+  static getBadRequest(error: Joi.ValidationError) {
+    return this.getBaseResponse({
+      status: httpStatusCodes.BAD_REQUEST,
+      error: { message: error.message, data: error },
+    })
   }
 
-  static getNotFound<T>(error: IError, data?: T) {
+  static getNotFound<T extends Data>(error: IError, data?: T) {
     return this.getBaseResponse({ data, status: httpStatusCodes.NOT_FOUND, error })
   }
 
