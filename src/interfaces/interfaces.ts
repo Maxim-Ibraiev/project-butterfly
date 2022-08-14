@@ -63,12 +63,12 @@ export interface IResponse<T> {
 export type FilterOption = { value: string; label: string }
 
 export type InitialFilter = {
-  category?: string
+  category?: string | string[]
   size?: string | string[]
   material?: string | string[]
   color?: string | string[]
   season?: string | string[]
-  sort?: string
+  sort?: string | string[]
 }
 
 export type Request = 'Error' | 'Request' | 'Success' | undefined | null

@@ -5,7 +5,7 @@ import { getOptionsFormatFromValue } from '../../helpers'
 import l from '../../language'
 import { getProducts } from '../../redux/selectors'
 import s from './CustomSelector.module.scss'
-import { FilterOption, IProduct } from '../../interfaces'
+import { FilterOption, InitialFilter, IProduct } from '../../interfaces'
 
 const getOptionsFromProducts = (products: IProduct[]) => {
   const initialOptions: { size: string[]; material: string[]; color: string[]; season: string[] } = {
@@ -46,41 +46,37 @@ const getOptionsFromProducts = (products: IProduct[]) => {
   }
 }
 
+type HandleChange = (type: keyof InitialFilter, optionValue: FilterOption['value'][]) => void
+
 interface Props {
-  type: string
-  handleChange: (option: OptionsType<FilterOption> | FilterOption, type: string) => void
+  type: keyof InitialFilter
   value: string | string[]
+  handleChange: HandleChange
   isMulti?: boolean
-  label?: string
-  options?: FilterOption[]
 }
 
-export default function CustomSelector({
-  type,
-  handleChange,
-  options,
-  label = '',
-  isMulti = false,
-  value,
-}: Props) {
+export default function CustomSelector({ type, value, handleChange, isMulti = false }: Props) {
   const products = useSelector(getProducts)
-  const animatedComponents = makeAnimated()
   const allOptions = getOptionsFromProducts(products)
 
   return (
     <Select
       value={getOptionsFormatFromValue(value)}
-      onChange={(option: OptionsType<FilterOption>) => handleChange(option, type)}
-      placeholder={label || l[type]}
-      label={label || l[type]}
-      options={options || allOptions[type]}
-      inputId={label || l[type]}
+      onChange={(option: FilterOption & OptionsType<FilterOption>) => {
+        handleChange(
+          type,
+          option.map(el => el.value)
+        )
+      }}
+      placeholder={l[type] || type}
+      label={l[type] || type}
+      options={allOptions[type]}
+      inputId={l[type] || type}
       closeMenuOnSelect={!isMulti}
       isMulti={isMulti}
       key={type}
       isSearchable={false}
       hideSelectedOptions={false}
-      components={animatedComponents}
       className={s.selector}
     />
   )
