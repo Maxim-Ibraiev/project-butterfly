@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux'
 import Select, { OptionsType } from 'react-select'
-import makeAnimated from 'react-select/animated'
-import { getOptionsFormatFromValue } from '../../helpers'
+import { arrayWrapper, getOptionsFormatFromValue } from '../../helpers'
 import l from '../../language'
 import { getProducts } from '../../redux/selectors'
 import s from './CustomSelector.module.scss'
@@ -65,7 +64,7 @@ export default function CustomSelector({ type, value, handleChange, isMulti = fa
       onChange={(option: FilterOption & OptionsType<FilterOption>) => {
         handleChange(
           type,
-          option.map(el => el.value)
+          arrayWrapper(option).map(el => el.value)
         )
       }}
       placeholder={l[type] || type}

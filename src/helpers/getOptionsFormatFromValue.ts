@@ -1,3 +1,4 @@
+import { DEFAULT_SORT_FOR_PRODUCTS } from '../constants'
 import language from '../language'
 
 export default function getOptionsFormatFromValue(valueOption: string | string[]) {
@@ -10,7 +11,7 @@ export default function getOptionsFormatFromValue(valueOption: string | string[]
       }))
     : [
         {
-          value: valueOption || 'popularity',
+          value: valueOption || DEFAULT_SORT_FOR_PRODUCTS,
           label: language[valueOption] || valueOption,
         },
       ]

@@ -1,6 +1,7 @@
+import useFilter from '../../../customHook/useFilter'
+import Chip from '../../buttons/Chip'
 import CustomSelector from '../../CustomSelector'
 import s from './Filter.module.scss'
-import useFilter from '../../../customHook/useFilter'
 
 // interface IProps {}
 
@@ -14,12 +15,8 @@ export default function Filter() {
       <CustomSelector type="material" value={filter.query.material} handleChange={filter.define} isMulti />
       <CustomSelector type="color" value={filter.query.color} handleChange={filter.define} isMulti />
       <CustomSelector type="season" value={filter.query.season} handleChange={filter.define} isMulti />
-      <button type="button" onClick={() => filter.reset()}>
-        reset
-      </button>
-      <button type="button" onClick={() => filter.updateURL()}>
-        search
-      </button>
+      <Chip onClick={() => filter.reset()}>reset</Chip>
+      <Chip onClick={() => filter.updateURL()}>search</Chip>
     </div>
   )
 }

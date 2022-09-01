@@ -71,4 +71,8 @@ export type InitialFilter = {
   sort?: string | string[]
 }
 
+export type FilterQuery = {
+  [Property in keyof InitialFilter]: string[]
+}
+
 export type Request = 'Error' | 'Request' | 'Success' | undefined | null

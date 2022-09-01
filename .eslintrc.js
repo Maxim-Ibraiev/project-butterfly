@@ -15,6 +15,7 @@ const rulesBasic = {
   'linebreak-style': 0,
   'global-require': 0,
   'eslint linebreak-style': [0, 'error', 'windows'],
+  'react/jsx-props-no-spreading': 0,
 }
 
 const rulesTS = {

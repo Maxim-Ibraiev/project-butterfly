@@ -1,7 +1,9 @@
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { arrayWrapper, HandlerError } from '../helpers'
-import { InitialFilter } from '../interfaces'
+import { useRouter } from 'next/router'
+import { DEFAULT_SORT_FOR_PRODUCTS } from '../constants'
+import { arrayWrapper, HandlerError, getFilteredProducts } from '../helpers'
+
+import { InitialFilter, FilterQuery, IProduct } from '../interfaces'
 
 export default function useFilter() {
   const router = useRouter()
@@ -32,21 +34,22 @@ export default function useFilter() {
 
     Object.defineProperties(copyQuery, {
       category: { value: arrayWrapper(router.query.category) },
-      sort: { value: ['popularity'] },
+      sort: { value: [DEFAULT_SORT_FOR_PRODUCTS] },
     })
 
-    setQuery(copyQuery)
     updateURL(copyQuery)
   }
+
+  const getQueryProducts = (products: IProduct[]) => getFilteredProducts(products, query)
 
   useEffect(() => {
     setQuery(filterChecker(router.query))
   }, [router.query])
 
-  return { query, define, reset, updateURL }
+  return { query, define, reset, updateURL, getQueryProducts }
 }
 
-function filterChecker(filter: InitialFilter) {
+function filterChecker(filter: InitialFilter): FilterQuery {
   if (
     (Array.isArray(filter.category) && filter.category.length > 0) ||
     (Array.isArray(filter.sort) && filter.sort.length > 0)
@@ -54,8 +57,16 @@ function filterChecker(filter: InitialFilter) {
     console.warn(`Category and sort have to be single.`)
   }
 
-  const category = arrayWrapper(filter.category) || []
-  const sort = arrayWrapper(filter.sort).length === 0 ? ['popularity'] : arrayWrapper(filter.sort) || []
+  const reducedFilter = Object.entries(filter).reduce((acc, [key, value]) => {
+    if (key === 'sort') {
+      acc[key] =
+        arrayWrapper(filter.sort).length === 0 ? [DEFAULT_SORT_FOR_PRODUCTS] : arrayWrapper(filter.sort || [])
+    } else {
+      acc[key] = arrayWrapper(value)
+    }
 
-  return { ...filter, category, sort }
+    return acc
+  }, {})
+
+  return reducedFilter
 }

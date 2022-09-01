@@ -12,4 +12,5 @@ export type {
   IResponse,
   IShotSelectedProducts,
   IShoppingBag,
+  FilterQuery,
 } from './interfaces'

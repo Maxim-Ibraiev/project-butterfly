@@ -1,21 +1,17 @@
-import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import throttle from 'lodash.throttle'
+import { getImgSize } from '../../helpers'
 import ProductCard from '../cards/ProductCard'
-import { getProducts } from '../../redux/selectors'
-import { getImgSize, getFilteredProducts } from '../../helpers'
+
 import s from './CardList.module.scss'
+import { IProduct } from '../../interfaces'
 
-export default function CardList() {
-  const products = useSelector(getProducts)
-  const router = useRouter()
+interface IProps {
+  products: IProduct[]
+}
+
+export default function CardList({ products }: IProps) {
   const [imgSize, setImgSize] = useState({ width: 170, height: 220 })
-  const [filteredProducts, setFilteredProducts] = useState(getFilteredProducts(products, router.query))
-
-  useEffect(() => {
-    setFilteredProducts(getFilteredProducts(products, router.query))
-  }, [router.query])
 
   useEffect(() => {
     const handleResize = throttle(() => setImgSize(getImgSize()), 1000)
@@ -28,7 +24,7 @@ export default function CardList() {
 
   return (
     <section className={s.cards}>
-      {filteredProducts.map(el => (
+      {products.map(el => (
         <ProductCard key={el.getId()} width={imgSize.width} height={imgSize.height} product={el} />
       ))}
     </section>
