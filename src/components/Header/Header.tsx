@@ -1,19 +1,17 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { useSelector } from 'react-redux'
-import ReactModal from 'react-modal'
-import queryString from 'query-string'
 import cn from 'classnames'
-import ShoppingBag from '../ShoppingBag'
-import Menu from '../MenuMob'
-import Button from '../buttons/HederBtn'
-import { getCategories } from '../../redux/selectors'
-import routes from '../../routes'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import queryString from 'query-string'
+import ReactModal from 'react-modal'
+import { useSelector } from 'react-redux'
 import language from '../../language'
+import { getCategories } from '../../redux/selectors'
+import Button from '../buttons/HederBtn'
+import Menu from '../MenuMob'
+import ShoppingBag from '../ShoppingBag'
+import routes from '../../routes'
 import s from './Header.module.scss'
-
-ReactModal.setAppElement('#__next')
 
 export default function Header() {
   const router = useRouter()

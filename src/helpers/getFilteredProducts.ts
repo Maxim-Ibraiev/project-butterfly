@@ -18,7 +18,16 @@ export default function getFilteredProducts(products: readonly IProduct[], optio
 }
 
 function OptionChecker(options?: IOptions) {
-  const supportedOptions = ['category', 'color', 'material', 'season', 'size', 'category', SHOPPING_ID]
+  const supportedOptions = [
+    'sort',
+    'category',
+    'color',
+    'material',
+    'season',
+    'size',
+    'category',
+    SHOPPING_ID,
+  ]
 
   Object.keys(options).forEach(option => {
     if (!supportedOptions.includes(option)) console.warn(`Option '${option}' do not support for sorting.`)

@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux'
-import Select, { OptionsType } from 'react-select'
+import Select, { GroupTypeBase, OptionsType, Styles, defaultTheme, Props as selectProps } from 'react-select'
 import { arrayWrapper, getOptionsFormatFromValue } from '../../helpers'
+import { FilterOption, InitialFilter, IProduct } from '../../interfaces'
 import l from '../../language'
 import { getProducts } from '../../redux/selectors'
 import s from './CustomSelector.module.scss'
-import { FilterOption, InitialFilter, IProduct } from '../../interfaces'
 
 const getOptionsFromProducts = (products: IProduct[]) => {
   const initialOptions: { size: string[]; material: string[]; color: string[]; season: string[] } = {
@@ -45,16 +45,42 @@ const getOptionsFromProducts = (products: IProduct[]) => {
   }
 }
 
-type HandleChange = (type: keyof InitialFilter, optionValue: FilterOption['value'][]) => void
+export type HandleChange = (type: keyof InitialFilter, optionValue: FilterOption['value'][]) => void
 
 interface Props {
   type: keyof InitialFilter
   value: string | string[]
   handleChange: HandleChange
+  menuPosition?: selectProps['menuPosition']
   isMulti?: boolean
 }
 
-export default function CustomSelector({ type, value, handleChange, isMulti = false }: Props) {
+const styles: Partial<Styles<FilterOption, boolean, GroupTypeBase<FilterOption>>> = {
+  placeholder: pre => ({ ...pre, position: 'static', transform: 'none', width: 'auto', margin: 0 }),
+  menu: pre => ({ ...pre, minWidth: 'max-content' }),
+  multiValue: pre => ({ ...pre, marginLeft: 2, marginRight: 2 }),
+  control: (pre, state) => ({
+    ...pre,
+    borderColor: state.hasValue ? 'black' : defaultTheme.colors.neutral20,
+    maxHeight: '100%',
+  }),
+  singleValue: pre => ({ ...pre, position: 'static', transform: 'none', maxWidth: 'auto' }),
+  valueContainer: (pre, state) => ({
+    ...pre,
+    paddingRight: state.hasValue && state.isMulti ? 0 : 8,
+    flexWrap: 'nowrap',
+    whiteSpace: 'nowrap',
+    height: 30,
+  }),
+}
+
+export default function CustomSelector({
+  type,
+  value,
+  handleChange,
+  menuPosition = 'absolute',
+  isMulti = false,
+}: Props) {
   const products = useSelector(getProducts)
   const allOptions = getOptionsFromProducts(products)
 
@@ -67,16 +93,25 @@ export default function CustomSelector({ type, value, handleChange, isMulti = fa
           arrayWrapper(option).map(el => el.value)
         )
       }}
+      components={{
+        MultiValueContainer: () => ValueContainer({ text: l[type] || type }),
+        SingleValue: () => ValueContainer({ text: l[arrayWrapper(value)[0]] || arrayWrapper(value) }),
+      }}
+      styles={styles}
       placeholder={l[type] || type}
       label={l[type] || type}
       options={allOptions[type]}
       inputId={l[type] || type}
       closeMenuOnSelect={!isMulti}
       isMulti={isMulti}
-      key={type}
       isSearchable={false}
       hideSelectedOptions={false}
       className={s.selector}
+      menuPosition={menuPosition}
     />
   )
+}
+
+function ValueContainer({ text }: { text: string }) {
+  return <b className={s.multiValue}>{text}</b>
 }

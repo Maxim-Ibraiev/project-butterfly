@@ -1,18 +1,16 @@
 @import '../../styles/variables.scss';
 
 .selector {
-  [class$='-ValueContainer'] {
-    padding-right: 0;
-  }
-  [class$='-placeholder'] {
-    width: calc(100% - 5px);
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .multiValue {
+    overflow: 'hidden';
+    text-overflow: 'ellipsis';
   }
 
-  @media screen and (max-width: $mobileLesser) {
+  .multiValue:not(:first-child) {
+    @extend .hidden;
+  }
+
+  @media screen and (max-width: $tableLesser) {
     [class$='-control'] {
       box-shadow: none;
       border: none;

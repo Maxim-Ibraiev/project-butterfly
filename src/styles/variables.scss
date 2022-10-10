@@ -7,3 +7,10 @@ $desktop: 1200px;
 $animation: 250ms;
 $cubic: linear;
 $imageCofHeightFromWidth: calc(1600 / 1200);
+
+.hidden {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+}

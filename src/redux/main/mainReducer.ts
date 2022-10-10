@@ -1,6 +1,6 @@
-import { createReducer, combineReducers } from '@reduxjs/toolkit'
 import { WritableDraft } from 'immer/dist/internal'
 import { HYDRATE } from 'next-redux-wrapper'
+import { createReducer, combineReducers } from '@reduxjs/toolkit'
 import {
   categoriesSuccess,
   categoriesError,
@@ -10,9 +10,9 @@ import {
   setSelectedSizeOfProduct,
   selectedProductsSuccess,
 } from './mainActions'
-import { getProductsForRedux, getCategories, getError, getSelectedProductsForRedux } from '../selectors'
-import { Categories, IError, IState, IShotSelectedProducts, IProduct, IProductObject } from '../../interfaces'
 import { ProductStructure } from '../../helpers'
+import { Categories, IError, IState, IShotSelectedProducts, IProduct, IProductObject } from '../../interfaces'
+import { getProductsForRedux, getCategories, getError, getSelectedProductsForRedux } from '../selectors'
 
 interface IPayload<T> {
   payload: T

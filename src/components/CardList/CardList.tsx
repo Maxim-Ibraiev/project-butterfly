@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import throttle from 'lodash.throttle'
 import { getImgSize } from '../../helpers'
-import ProductCard from '../cards/ProductCard'
-
-import s from './CardList.module.scss'
 import { IProduct } from '../../interfaces'
+import ProductCard from '../cards/ProductCard'
+import s from './CardList.module.scss'
 
 interface IProps {
   products: IProduct[]

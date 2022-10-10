@@ -13,7 +13,6 @@
   --hover-1: rgba(0, 0, 0, 0.15);
   --hover-2: rgba(0, 0, 0, 0.25); */
   --backdrop: rgba(0, 0, 0, 0.521);
-  /* --modal: #eee; */
   --blue: #0070f3;
   --gray: #cccccc;
   --border-palette: #dadada;
@@ -33,6 +32,7 @@
   --violet-light: #7048e8;
   */
   --bg: #f5f5f5;
+  --backdrop: rgba(100, 100, 100, 0.5);
   --accents-0: #f8f9fa;
   --accents-1: #f1f3f5;
   --accents-2: #e9ecef;
@@ -43,10 +43,20 @@
   --accents-7: #495057;
   --accents-8: #343a40;
   --accents-9: #212529;
+
   --font-sans: Roboto, -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', sans-serif;
+
   --time-out: 250ms;
   --cubic: linear;
   --shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+
+  --headerHeight: 50px;
+}
+
+@media screen and (min-width: 900px) {
+  :root {
+    --headerHeight: 60px;
+  }
 }
 
 [data-theme='dark'] {
@@ -122,6 +132,7 @@ a:hover {
 
 ul {
   list-style: none;
+  margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
 }

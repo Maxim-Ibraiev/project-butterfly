@@ -3,7 +3,7 @@
 .header {
   position: relative;
 
-  height: 50px;
+  height: var(--headerHeight);
   width: calc(100% + 30px);
   max-width: $desktop;
   min-width: 300px;
@@ -16,10 +16,6 @@
   margin-left: -15px;
 
   background-color: rgb(45, 45, 45);
-
-  @media screen and (min-width: $mobileLesser) {
-    height: 60px;
-  }
 
   .logo {
     font-family: Playball, serif;

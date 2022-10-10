@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
+import { getDataURL, getProductSrc } from '../../../helpers'
+import { IProduct, IState } from '../../../interfaces'
 import { getProductsByModel } from '../../../redux/selectors'
 import routes from '../../../routes'
 import s from './ProductCard.module.scss'
-import { IProduct, IState } from '../../../interfaces'
-import { getDataURL, getProductSrc } from '../../../helpers'
 
 interface Props {
   width: number

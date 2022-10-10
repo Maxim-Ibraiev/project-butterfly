@@ -1,17 +1,17 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+import Image from 'next/image'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
-import Image from 'next/image'
-import CustomSelector from '../CustomSelector'
-import Button from '../buttons/MainButton'
-import { CloseIcon } from '../icons'
-import * as actions from '../../redux/main/mainActions'
-import { getOptionsFormatFromValue, getProductSrc } from '../../helpers'
+import { getProductSrc } from '../../helpers'
+import { IProduct } from '../../interfaces'
 import language from '../../language'
-import s from './ShoppingBagItem.module.scss'
-import { IProduct, FilterOption } from '../../interfaces'
+import * as actions from '../../redux/main/mainActions'
+import Button from '../buttons/MainButton'
+import CustomSelector, { HandleChange } from '../CustomSelector'
+import { CloseIcon } from '../icons'
 import routes from '../../routes'
+import s from './ShoppingBagItem.module.scss'
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 
 interface Props {
   product: IProduct
@@ -21,10 +21,9 @@ interface Props {
 
 export default function ShoppingBagItem({ product, handleDelete, handleClose }: Props) {
   const dispatch = useDispatch()
-  const options = getOptionsFormatFromValue(product.getAllSizeOptions())
 
-  const handleChangeSize = (option: FilterOption) => {
-    const payload = { id: product.getId(), selectedSize: Number(option.value) }
+  const handleChangeSize: HandleChange = (_, option) => {
+    const payload = { id: product.getId(), selectedSize: Number(option) }
 
     dispatch(actions.setSelectedSizeOfProduct([payload]))
   }
@@ -45,9 +44,9 @@ export default function ShoppingBagItem({ product, handleDelete, handleClose }: 
           <div className={s.select}>
             <CustomSelector
               handleChange={handleChangeSize}
-              options={options}
               value={product.getSelectedSize() && String(product.getSelectedSize())}
               type="size"
+              menuPosition="fixed"
             />
           </div>
         </div>

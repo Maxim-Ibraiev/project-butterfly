@@ -1,9 +1,15 @@
 import { ButtonHTMLAttributes } from 'react'
+import cn from 'classnames'
 import s from './Chip.module.scss'
 
-function Chip({ children, ...buttonAttributes }: ButtonHTMLAttributes<HTMLElement>) {
+function Chip({ children, disabled, className, ...buttonAttributes }: ButtonHTMLAttributes<HTMLElement>) {
   return (
-    <button type="button" className={s.chip} {...buttonAttributes}>
+    <button
+      type="button"
+      disabled={disabled}
+      className={cn(s.chip, className, { [s.disabled]: disabled })}
+      {...buttonAttributes}
+    >
       {children}
     </button>
   )

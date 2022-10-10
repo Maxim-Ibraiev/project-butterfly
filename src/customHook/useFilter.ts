@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react'
+import isEqual from 'lodash.isequal'
 import { useRouter } from 'next/router'
-import { DEFAULT_SORT_FOR_PRODUCTS } from '../constants'
+import { DEFAULT_SORT_FOR_PRODUCTS, SHOPPING_ID } from '../constants'
 import { arrayWrapper, HandlerError, getFilteredProducts } from '../helpers'
-
 import { InitialFilter, FilterQuery, IProduct } from '../interfaces'
 
 export default function useFilter() {
   const router = useRouter()
   const [query, setQuery] = useState(filterChecker(router.query))
+  const [isQueryEquallyURL, setIsQueryEquallyURL] = useState(true)
 
   const define = (option: keyof InitialFilter, values: string[]) => {
     HandlerError.stringType({ option })
     HandlerError.arrOfStringsType({ values })
 
-    setQuery({ ...query, [option]: values })
+    const newQuery = { ...query, [option]: values }
 
-    return { ...query, [option]: values }
+    if (values.length === 0) delete newQuery[option]
+
+    setQuery(newQuery)
+    setIsQueryEquallyURL(isEqual(newQuery, filterChecker(router.query)))
+
+    return newQuery
   }
 
   const updateURL = (newQuery?: typeof query) => {
@@ -33,6 +39,7 @@ export default function useFilter() {
     })
 
     Object.defineProperties(copyQuery, {
+      [SHOPPING_ID]: { value: arrayWrapper(router.query[SHOPPING_ID]) },
       category: { value: arrayWrapper(router.query.category) },
       sort: { value: [DEFAULT_SORT_FOR_PRODUCTS] },
     })
@@ -44,9 +51,10 @@ export default function useFilter() {
 
   useEffect(() => {
     setQuery(filterChecker(router.query))
+    setIsQueryEquallyURL(true)
   }, [router.query])
 
-  return { query, define, reset, updateURL, getQueryProducts }
+  return { query, isQueryEquallyURL, define, reset, updateURL, getQueryProducts }
 }
 
 function filterChecker(filter: InitialFilter): FilterQuery {
@@ -57,7 +65,7 @@ function filterChecker(filter: InitialFilter): FilterQuery {
     console.warn(`Category and sort have to be single.`)
   }
 
-  const reducedFilter = Object.entries(filter).reduce((acc, [key, value]) => {
+  const reducedFilter: FilterQuery = Object.entries(filter).reduce((acc, [key, value]) => {
     if (key === 'sort') {
       acc[key] =
         arrayWrapper(filter.sort).length === 0 ? [DEFAULT_SORT_FOR_PRODUCTS] : arrayWrapper(filter.sort || [])
@@ -67,6 +75,10 @@ function filterChecker(filter: InitialFilter): FilterQuery {
 
     return acc
   }, {})
+
+  if (!reducedFilter.sort) {
+    reducedFilter.sort = [DEFAULT_SORT_FOR_PRODUCTS]
+  }
 
   return reducedFilter
 }

@@ -36,6 +36,11 @@ export default {
   soft: 'Soft',
   staple: 'Штапель',
 
+  allFilters: 'Все фильтры',
+  hideFilters: 'Скрыть все фильтры',
+  reset: 'Сбросить',
+  search: 'Поиск',
+
   menu: 'Меню',
   save: 'Сохранить',
 

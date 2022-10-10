@@ -7,8 +7,6 @@ import NotFoundProduct from '../../components/NotFoundProduct'
 import useFilter from '../../customHook/useFilter'
 import { getCategories, getProducts } from '../../redux/selectors'
 
-import s from './CategoryPage.module.scss'
-
 export default function CategoryPage() {
   const router = useRouter()
   const filter = useFilter()
@@ -20,7 +18,7 @@ export default function CategoryPage() {
   )
 
   return (
-    <Layout className={s.layout}>
+    <Layout>
       {isValidCategory ? (
         <>
           <Filter />
