@@ -2,13 +2,11 @@
   max-width: 1200px;
   min-width: 300px;
 
-  padding-left: 15px;
-  padding-right: 15px;
-
   margin-left: auto;
   margin-right: auto;
 }
-// .root {
-//   @apply h-full bg-primary mx-auto transition-colors duration-150;
-//   max-width: 2460px;
-// }
+
+.main {
+  padding-left: 15px;
+  padding-right: 15px;
+}

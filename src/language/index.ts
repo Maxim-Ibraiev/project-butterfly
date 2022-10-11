@@ -67,4 +67,9 @@ export default {
   phoneNumber: 'Номер телефона',
   confirmOrder: 'Подтвердить заказ',
   orderIsConfirmed: 'Заказ подтвержден',
+
+  // foter
+  aboutOurCompany: 'О нашей компании',
+  adressOfCompany: 'Улица Лермотова №3',
+  cityOfCompany: 'Кривой рог, Украина',
 }

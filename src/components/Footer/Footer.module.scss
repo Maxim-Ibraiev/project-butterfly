@@ -1,0 +1,53 @@
+@import '../../styles/variables.scss';
+
+.container {
+  display: grid;
+
+  margin-top: 30px;
+
+  background: var(--bgContrast);
+  color: var(--accents-3);
+
+  @media screen and (min-width: $mobileUpper) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contacts {
+  margin-top: 20px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+}
+
+.link {
+  width: max-content;
+  display: block;
+  width: max-content;
+}
+
+.adress {
+  display: inline-flex;
+  flex-direction: column;
+
+  width: max-content;
+
+  vertical-align: middle;
+}
+
+.street {
+  font-size: 14px;
+  color: var(--accents-6);
+}
+
+.about {
+  width: calc(100% - 100px);
+
+  margin-top: 30px;
+  margin-left: 50px;
+  text-align: center;
+}
+
+.icon {
+  margin: 15px;
+}

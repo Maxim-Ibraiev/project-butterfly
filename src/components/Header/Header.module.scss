@@ -4,7 +4,6 @@
   position: relative;
 
   height: var(--headerHeight);
-  width: calc(100% + 30px);
   max-width: $desktop;
   min-width: 300px;
 
@@ -12,10 +11,10 @@
   align-items: center;
   justify-content: space-between;
 
+  margin-bottom: 30px;
   padding-left: 15px;
-  margin-left: -15px;
 
-  background-color: rgb(45, 45, 45);
+  background-color: var(--bgContrast);
 
   .logo {
     font-family: Playball, serif;

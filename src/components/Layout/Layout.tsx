@@ -1,6 +1,8 @@
 import React from 'react'
-import Header from '../Header'
+import cn from 'classnames'
 import s from './Layout.module.scss'
+import Footer from '../Footer'
+import Header from '../Header'
 
 interface Props {
   className?: string
@@ -9,10 +11,8 @@ interface Props {
 const Layout: React.FC<Props> = ({ className, children }) => (
   <div className={s.container}>
     <Header />
-
-    <main className={className}>{children}</main>
-
-    <footer />
+    <main className={cn(s.main, className)}>{children}</main>
+    <Footer />
   </div>
 )
 
