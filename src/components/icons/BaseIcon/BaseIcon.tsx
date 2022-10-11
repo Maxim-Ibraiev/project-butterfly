@@ -3,7 +3,7 @@ import IBaseProps from '../IBaseProps'
 
 interface IProps extends IBaseProps {
   title: string
-  pathD: string
+  pathD?: string
   width?: string
   viewBox?: string
 }
