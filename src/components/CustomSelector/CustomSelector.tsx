@@ -6,7 +6,11 @@ import l from '../../language'
 import { getProducts } from '../../redux/selectors'
 import s from './CustomSelector.module.scss'
 
-const getOptionsFromProducts = (products: IProduct[]) => {
+type IOptionsFromProduct = {
+  [Property in keyof InitialFilter]: OptionsType<FilterOption>
+}
+
+const getOptionsFromProducts = (products: IProduct[]): IOptionsFromProduct => {
   const initialOptions: { size: string[]; material: string[]; color: string[]; season: string[] } = {
     size: [],
     material: [],
