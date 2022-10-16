@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import { getDataURL, getProductSrc } from '../../../helpers'
+import { getProductSrc } from '../../../helpers'
 import { IProduct, IState } from '../../../interfaces'
 import { getProductsByModel } from '../../../redux/selectors'
 import routes from '../../../routes'
@@ -27,7 +27,7 @@ export default function ProductCard({ width, height, product }: Props) {
                    (max-width: 999px) 313px,
                    282px"
             placeholder="blur"
-            blurDataURL={getDataURL(width, height)}
+            blurDataURL={getProductSrc(product.getMainImageSrc())}
             src={getProductSrc(product.getMainImageSrc())}
             alt={product.getTitle()}
           />

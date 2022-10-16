@@ -25,9 +25,13 @@ export default function useFilter() {
   }
 
   const updateURL = (newQuery?: typeof query) => {
-    router.replace({
-      query: newQuery || query,
-    })
+    router.push(
+      {
+        query: newQuery || query,
+      },
+      undefined,
+      { shallow: true }
+    )
   }
 
   const reset = () => {
