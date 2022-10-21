@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import isEqual from 'lodash.isequal'
 import { useRouter } from 'next/router'
 import { DEFAULT_SORT_FOR_PRODUCTS, SHOPPING_ID } from '../constants'
-import { arrayWrapper, HandlerError, getFilteredProducts } from '../helpers'
+import { arrayWrapper, getFilteredProducts } from '../helpers'
 import { InitialFilter, FilterQuery, IProduct } from '../interfaces'
 
 export default function useFilter() {
@@ -11,9 +11,6 @@ export default function useFilter() {
   const [isQueryEquallyURL, setIsQueryEquallyURL] = useState(true)
 
   const define = (option: keyof InitialFilter, values: string[]) => {
-    HandlerError.stringType({ option })
-    HandlerError.arrOfStringsType({ values })
-
     const newQuery = { ...query, [option]: values }
 
     if (values.length === 0) delete newQuery[option]

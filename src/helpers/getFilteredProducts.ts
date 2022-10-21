@@ -1,5 +1,4 @@
 import arrayWrapper from './arrayWrapper'
-import HendlerError from './HandlerError'
 import { SHOPPING_ID } from '../constants'
 import { IProduct } from '../interfaces'
 
@@ -8,7 +7,6 @@ interface IOptions {
 }
 
 export default function getFilteredProducts(products: readonly IProduct[], options?: IOptions): IProduct[] {
-  HendlerError.productType(products)
   OptionChecker(options)
 
   let filteredProducts = [...products]

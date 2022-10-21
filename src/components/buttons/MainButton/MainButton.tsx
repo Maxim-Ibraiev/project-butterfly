@@ -1,8 +1,8 @@
 import React, { MouseEvent } from 'react'
 import cn from 'classnames'
-import s from './MainButton.module.scss'
 import { Request } from '../../../interfaces'
 import { LoadingIcon } from '../../icons'
+import s from './MainButton.module.scss'
 
 interface IProps {
   isSubmit?: boolean

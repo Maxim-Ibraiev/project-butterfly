@@ -19,13 +19,13 @@ export default function Footer() {
             </span>
           </a>
         </Link>
-        <Link href="/a" passHref>
+        <Link href="tel:+380 97 00 000" passHref>
           <a className={s.link}>
             <PhoneIcon fill="white" height="38px" className={s.icon} />
             <span>+380 97 00 000</span>
           </a>
         </Link>
-        <Link href="/a" passHref>
+        <Link href="mailto:support@butterfly.com" passHref>
           <a className={s.link}>
             <MailIcon fill="white" height="38px" className={s.icon} />
             <span>support@butterfly.com</span>

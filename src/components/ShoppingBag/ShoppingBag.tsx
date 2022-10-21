@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { SHOPPING_ID } from '../../constants'
 import { useSelectedProducts } from '../../customHook'
+import { IProduct } from '../../interfaces'
 import language from '../../language'
 import Button from '../buttons/MainButton'
-import ShoppingBagItem from '../ShoppingBagItem'
 import { CloseIcon } from '../icons'
-import s from './ShoppingBag.module.scss'
-import { IProduct } from '../../interfaces'
-import routes from '../../routes'
 import ShoppingBagFooter from '../ShoppingBagFooter'
-import { SHOPPING_ID } from '../../constants'
+import ShoppingBagItem from '../ShoppingBagItem'
+import routes from '../../routes'
+import s from './ShoppingBag.module.scss'
 
 interface Props {
   handleCloseModal?: () => void
@@ -61,7 +61,7 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
             <Button className={s.secondaryBottom} handleClick={() => handleCloseModal()}>
               {language.continueShopping}
             </Button>
-            <Link href={routes.getCheckout(shoppingId)}>
+            <Link href={routes.getCheckout(shoppingId)} style={{ pointerEvents: 'none' }}>
               <a className={s.primaryBottom}>
                 <Button handleClick={handleOrder} isLoading={isLoading}>
                   {language.orderProduct}

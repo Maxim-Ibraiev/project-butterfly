@@ -3,6 +3,7 @@ import throttle from 'lodash.throttle'
 import { getImgSize } from '../../helpers'
 import { IProduct } from '../../interfaces'
 import ProductCard from '../cards/ProductCard'
+import NoProduct from '../NoProduct'
 import s from './CardList.module.scss'
 
 interface IProps {
@@ -21,11 +22,13 @@ export default function CardList({ products }: IProps) {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  return (
+  return products.length > 0 ? (
     <section className={s.cards}>
       {products.map(el => (
         <ProductCard key={el.getId()} width={imgSize.width} height={imgSize.height} product={el} />
       ))}
     </section>
+  ) : (
+    <NoProduct />
   )
 }
