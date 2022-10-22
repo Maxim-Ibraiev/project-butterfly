@@ -11,7 +11,7 @@ import s from './Filter.module.scss'
 export default function Filter() {
   const filter = useFilter()
   const [isOpenAllOptions, setIsOpenAllOptions] = useState(false)
-  const isCanReset = Object.keys(filter.query).every(
+  const isNotNeedToReset = Object.keys(filter.query).every(
     el => el === 'category' || el === 'sort' || el === SHOPPING_ID
   )
 
@@ -20,6 +20,7 @@ export default function Filter() {
 
     filter.updateURL(newFilter)
   }
+
   return (
     <div className={s.container}>
       <div
@@ -72,7 +73,7 @@ export default function Filter() {
           </span>
         </Chip>
         <Chip
-          disabled={isCanReset}
+          disabled={isNotNeedToReset}
           onClick={() => {
             filter.reset()
             setIsOpenAllOptions(false)
