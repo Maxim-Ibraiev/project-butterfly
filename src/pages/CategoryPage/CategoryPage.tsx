@@ -1,18 +1,16 @@
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 import CardList from '../../components/CardList'
 import Filter from '../../components/filters/Filter'
 import Layout from '../../components/Layout'
 import NotFoundProduct from '../../components/NotFoundProduct'
+import { useReduceSelectors } from '../../customHook'
 import useFilter from '../../customHook/useFilter'
-import { getCategories, getProducts } from '../../redux/selectors'
 
 export default function CategoryPage() {
   const router = useRouter()
   const filter = useFilter()
-  const products = useSelector(getProducts)
+  const { products, categories } = useReduceSelectors()
   const filteredProducts = filter.getQueryProducts(products)
-  const categories = useSelector(getCategories)
   const isValidCategory = categories.includes(
     Array.isArray(router.query.category) ? router.query.category[0] : router.query.category
   )

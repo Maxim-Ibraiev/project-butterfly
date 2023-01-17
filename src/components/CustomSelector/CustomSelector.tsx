@@ -1,9 +1,8 @@
-import { useSelector } from 'react-redux'
 import Select, { GroupTypeBase, OptionsType, Styles, defaultTheme, Props as selectProps } from 'react-select'
+import { useReduceSelectors } from '../../customHook'
 import { arrayWrapper, getOptionsFormatFromValue } from '../../helpers'
 import { FilterOption, InitialFilter, IProduct } from '../../interfaces'
 import l from '../../language'
-import { getProducts } from '../../redux/selectors'
 import s from './CustomSelector.module.scss'
 
 type IOptionsFromProduct = {
@@ -85,7 +84,7 @@ export default function CustomSelector({
   menuPosition = 'absolute',
   isMulti = false,
 }: Props) {
-  const products = useSelector(getProducts)
+  const { products } = useReduceSelectors()
   const allOptions = getOptionsFromProducts(products)
 
   return (

@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit'
-
 import type { IState, IProduct, IShotSelectedProducts, IProductObject, IError } from '../../interfaces'
 
 export const categoriesSuccess = createAction<string[], string>('main/categoriesSuccess')

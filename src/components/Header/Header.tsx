@@ -4,9 +4,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import queryString from 'query-string'
 import ReactModal from 'react-modal'
-import { useSelector } from 'react-redux'
+import { useReduceSelectors } from '../../customHook'
 import language from '../../language'
-import { getCategories } from '../../redux/selectors'
 import Button from '../buttons/HederBtn'
 import Menu from '../MenuMob'
 import ShoppingBag from '../ShoppingBag'
@@ -15,7 +14,7 @@ import s from './Header.module.scss'
 
 export default function Header() {
   const router = useRouter()
-  const categories = useSelector(getCategories)
+  const { categories } = useReduceSelectors()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isOpenShoppingBag, setIsOpenShoppingBag] = useState(false)
   const params = queryString.parseUrl(router.asPath).query

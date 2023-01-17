@@ -1,7 +1,6 @@
 import { ProductStructure } from '../helpers'
 import { Categories, IError, IProduct, IProductObject, IState } from '../interfaces'
 
-export const getState = (state: IState): IState => state
 export const getCategories = (state: IState): Categories => state.main.categories
 export const getProducts = (state: IState): IProduct[] => getProductStructure(state.main.products)
 export const getProductsForRedux = (state: IState): IProductObject[] => state.main.products
