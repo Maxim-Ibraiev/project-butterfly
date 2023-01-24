@@ -6,6 +6,7 @@ export default {
   largeSizes: 'Большие размеры',
   tShirt: 'Футболки',
   shirts: 'Рубашки',
+  handMade: 'Индивидуальный пошив',
 
   // ru - filters
   size: 'Размер',

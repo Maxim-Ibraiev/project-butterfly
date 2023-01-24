@@ -8,7 +8,6 @@
 
   & > *:first-child {
     grid-column: 1/3;
-    grid-row: 1/3;
   }
 
   @media screen and (min-width: $mobileUpper) {

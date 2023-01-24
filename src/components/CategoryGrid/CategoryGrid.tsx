@@ -1,61 +1,46 @@
 import CategoryItem from './CategoryGridItem'
 import { mobileUpper } from '../../constants'
 import language from '../../language'
+import Title from '../Title'
 import routes from '../../routes'
 import s from './CategoryGrid.module.scss'
 
 export default function Category() {
-  const { categories } = routes
+  const { categories, handMade } = routes
 
   return (
     <section>
-      <h2 className={s.item}>Категории</h2>
+      <Title>Категории</Title>
       <div className={s.gallery}>
+        <CategoryItem
+          href={handMade}
+          text={language.handMade}
+          width={700}
+          height={430}
+          layout="responsive"
+          sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
+          src="/handMadeHero.jpg"
+        />
+
         <CategoryItem
           href={categories.dress}
           text={language.dress}
           width={700}
-          height={475}
+          height={900}
           layout="responsive"
           sizes={`(max-width: ${mobileUpper}px) 100vw,
                   575px`}
-          src="/ss_2-770x550.1.0.webp"
+          src="/products/ex-2.jpg"
         />
         <CategoryItem
           href={categories.suit}
           text={language.suit}
           width={700}
-          height={475}
+          height={900}
           layout="responsive"
+          objectFit="cover"
           sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
-          src="/exp/1.webp"
-        />
-        <CategoryItem
-          href={categories.jeans}
-          text={language.jeans}
-          width={700}
-          height={475}
-          layout="responsive"
-          sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
-          src="/exp/2.webp"
-        />
-        <CategoryItem
-          href={categories.tShirt}
-          text={language.tShirt}
-          width={700}
-          height={475}
-          layout="responsive"
-          sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
-          src="/exp/3.webp"
-        />
-        <CategoryItem
-          href={categories.shirts}
-          text={language.shirts}
-          width={700}
-          height={475}
-          layout="responsive"
-          sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
-          src="/exp/4.webp"
+          src="/products/s1.8.jpg"
         />
       </div>
     </section>

@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { listCategories } from './categoriesModel'
-import Responser from '../Responser'
-import { Categories, IResponse } from '../../../../interfaces'
 import cashedCategories from '../../../../constants/CATEGORIES'
+import { Categories, IResponse } from '../../../../interfaces'
+import Responser from '../Responser'
 
 export const getCategories = async (
   req?: NextApiRequest,

@@ -9,9 +9,11 @@ const routes = {
     shirts: '/shirts',
     tShirt: '/t-shirt',
   },
+  handMade: '/handeMade',
   product: '/product',
   checkout: '/checkout',
   getCheckout: (id: string) => (id ? `/checkout?shoppingId=${id}` : '/checkout'),
+
   api: {
     getShoppingBag: (id?: string) => (id ? `/api/shoppingBag?id=${id}` : '/api/shoppingBag'),
     shoppingBag: '/api/shoppingBag',
