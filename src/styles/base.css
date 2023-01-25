@@ -31,6 +31,7 @@
   --violet-light: #7048e8;
   */
   --bg: #f5f5f5;
+  --bgTransparent: rgba(245, 245, 245, 0.9);
   --bgContrast: rgb(45, 45, 45);
   --backdrop: rgba(100, 100, 100, 0.5);
   --accents-0: #f8f9fa;
