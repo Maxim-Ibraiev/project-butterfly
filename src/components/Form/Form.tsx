@@ -1,12 +1,14 @@
-import React, { FormEventHandler } from 'react'
+import React from 'react'
+import classNames from 'classnames'
 import s from './Form.module.scss'
 
 interface IProps {
-  handleSubmit: (e?: React.BaseSyntheticEvent) => FormEventHandler<HTMLFormElement>
+  handleSubmit: React.FormEventHandler<HTMLFormElement>
+  className?: string
 }
 
-const Form: React.FC<IProps> = ({ handleSubmit, children }) => (
-  <form onSubmit={handleSubmit()} className={s.wrapper}>
+const Form: React.FC<IProps> = ({ handleSubmit, children, className = '' }) => (
+  <form onSubmit={handleSubmit} className={classNames(s.wrapper, className)}>
     {children}
   </form>
 )

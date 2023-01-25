@@ -14,6 +14,7 @@ export default {
   material: 'Материал',
   color: 'Цвет',
   season: 'Сезон',
+  model: 'Модель',
   popularity: 'По популярности',
   highPrice: 'По возрастанию цены',
   lowPrice: 'По убыванию цены',
@@ -73,4 +74,13 @@ export default {
   aboutOurCompany: 'О нашей компании',
   adressOfCompany: 'Улица Лермотова №3',
   cityOfCompany: 'Кривой рог, Украина',
+
+  handMagePage: {
+    title: 'Форма для индивидуального пошива.',
+    description: 'Для заказа индивидуального пошива нужно все несколько вещей.',
+    defineModel: 'Определится с моделей или дизайном.',
+    defineMaterial: 'Выбрать ткань.',
+    defineSize: 'Знать размеры.',
+    submit: 'Подать заявку на звонок',
+  },
 }

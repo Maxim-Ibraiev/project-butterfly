@@ -34,6 +34,11 @@ export type IShotSelectedProducts = {
   id: string
 }[]
 
+export interface ICallRequest {
+  name: string
+  phoneNumber: string
+}
+
 export interface IDataResponse {
   error: Error | null
   categories?: Categories
@@ -57,7 +62,7 @@ export interface IError {
 export interface IResponse<T> {
   status: number
   data: T | null
-  error: IError
+  error: IError | null
 }
 
 export type FilterOption = { value: string; label: string }

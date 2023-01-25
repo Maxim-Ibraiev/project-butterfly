@@ -2,8 +2,7 @@ import React from 'react'
 import { useReduceSelectors } from '../../customHook'
 import language from '../../language'
 import CardList from '../CardList'
-import Title from '../Title'
-import s from './CategoryRow.module.scss'
+import Text from '../Text'
 
 function CategoryRow() {
   const { products } = useReduceSelectors()
@@ -12,14 +11,20 @@ function CategoryRow() {
   const shirtProducts = products.filter(el => el.getCategory() === 'shirts').filter((_, ind) => ind <= 3)
 
   return (
-    <div className={s.container}>
-      <Title>{language.jeans}</Title>
+    <div>
+      <Text component="h2" type="header">
+        {language.jeans}
+      </Text>
       <CardList products={jeansProducts} />
 
-      <Title>{language.largeSizes}</Title>
+      <Text component="h2" type="header">
+        {language.largeSizes}
+      </Text>
       <CardList products={largeProducts} />
 
-      <Title>{language.shirts}</Title>
+      <Text component="h2" type="header">
+        {language.shirts}
+      </Text>
       <CardList products={shirtProducts} />
     </div>
   )

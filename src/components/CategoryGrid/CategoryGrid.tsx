@@ -1,7 +1,7 @@
 import CategoryItem from './CategoryGridItem'
 import { mobileUpper } from '../../constants'
 import language from '../../language'
-import Title from '../Title'
+import Text from '../Text'
 import routes from '../../routes'
 import s from './CategoryGrid.module.scss'
 
@@ -10,7 +10,9 @@ export default function Category() {
 
   return (
     <section>
-      <Title>Категории</Title>
+      <Text component="h2" type="header">
+        Категории
+      </Text>
       <div className={s.gallery}>
         <CategoryItem
           href={handMade}

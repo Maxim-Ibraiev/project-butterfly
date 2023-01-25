@@ -9,7 +9,7 @@ const routes = {
     shirts: '/shirts',
     tShirt: '/t-shirt',
   },
-  handMade: '/handeMade',
+  handMade: '/handMade',
   product: '/product',
   checkout: '/checkout',
   getCheckout: (id: string) => (id ? `/checkout?shoppingId=${id}` : '/checkout'),
