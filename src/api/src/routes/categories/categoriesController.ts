@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { listCategories } from './categoriesModel'
-import cashedCategories from '../../../../constants/CATEGORIES'
+// import cashedCategories from '../../../../constants/CATEGORIES'
 import { Categories, IResponse } from '../../../../interfaces'
 import Responser from '../Responser'
 

@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { listProducts } from './productsModel'
-import cashedProducts from '../../../../constants/PRODUCTS'
+// import cashedProducts from '../../../../constants/PRODUCTS'
 import { IResponse, IProductObject } from '../../../../interfaces'
-import httpStatusCodes from '../../httpStatusCodes'
 import Responser from '../Responser'
 
 export async function getProducts(
