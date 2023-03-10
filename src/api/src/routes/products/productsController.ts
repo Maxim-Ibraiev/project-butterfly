@@ -1,17 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import httpStatusCodes from '../../httpStatusCodes'
 import { listProducts } from './productsModel'
-import Responser from '../Responser'
-import { IResponse, IProductObject } from '../../../../interfaces'
 import cashedProducts from '../../../../constants/PRODUCTS'
+import { IResponse, IProductObject } from '../../../../interfaces'
+import httpStatusCodes from '../../httpStatusCodes'
+import Responser from '../Responser'
 
 export async function getProducts(
   req?: NextApiRequest,
   res?: NextApiResponse
 ): Promise<IResponse<IProductObject[]>> {
-  if (process.env.CASH_DEV_MODE) {
-    return { status: httpStatusCodes.OK, data: cashedProducts, error: null }
-  }
+  // if (process.env.CASH_DEV_MODE) {
+  //   return { status: httpStatusCodes.OK, data: cashedProducts, error: null }
+  // }
 
   try {
     const products = await listProducts()

@@ -8,9 +8,9 @@ export const getCategories = async (
   req?: NextApiRequest,
   res?: NextApiResponse
 ): Promise<IResponse<Categories>> => {
-  if (process.env.CASH_DEV_MODE) {
-    return Responser.getOK(cashedCategories)
-  }
+  // if (process.env.CASH_DEV_MODE) {
+  //   return Responser.getOK(cashedCategories)
+  // }
 
   try {
     const categoriesResponse = await listCategories()
