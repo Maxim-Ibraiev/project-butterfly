@@ -10,6 +10,7 @@ export interface IProductObject {
   color: string
   images: { original: string; thumbnail: string; color: string[] }[]
   id: string
+  globalCategory: string
   category: string
   description: string
   title: string

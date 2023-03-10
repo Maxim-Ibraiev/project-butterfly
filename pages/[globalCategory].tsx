@@ -1,8 +1,8 @@
+import api from '../src/api'
+import { REVALIDATE, CATEGORIES } from '../src/constants'
+import { dispatchData } from '../src/helpers'
 import CategoryPage from '../src/pages/CategoryPage'
 import { wrapper } from '../src/redux/store'
-import { dispatchData } from '../src/helpers'
-import { REVALIDATE, CATEGORIES } from '../src/constants'
-import api from '../src/api'
 
 export default function Category() {
   return <CategoryPage />
@@ -26,11 +26,11 @@ export async function getStaticPaths() {
   const { data, error } = await api.getCategories()
 
   const paths = !error
-    ? data.map(category => ({
-        params: { category },
+    ? data.map(globalCategory => ({
+        params: { globalCategory },
       }))
-    : CATEGORIES.map(category => ({
-        params: { category },
+    : CATEGORIES.map(globalCategory => ({
+        params: { globalCategory },
       }))
 
   return {

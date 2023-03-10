@@ -6,7 +6,7 @@ import routes from '../../routes'
 import s from './CategoryGrid.module.scss'
 
 export default function Category() {
-  const { categories, handMade } = routes
+  const { femaleClothes, maleClothes, childrenClothes } = routes
 
   return (
     <section>
@@ -15,34 +15,34 @@ export default function Category() {
       </Text>
       <div className={s.gallery}>
         <CategoryItem
-          href={handMade}
-          text={language.handMade}
+          href={femaleClothes}
+          text={language.femaleClothes}
           width={700}
           height={430}
           layout="responsive"
           sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
-          src="/handMadeHero.jpg"
+          src="/femaleClothes.jpg"
         />
 
         <CategoryItem
-          href={categories.dress}
-          text={language.dress}
+          href={maleClothes}
+          text={language.maleClothes}
           width={700}
           height={900}
           layout="responsive"
           sizes={`(max-width: ${mobileUpper}px) 100vw,
                   575px`}
-          src="/products/ex-2.jpg"
+          src="/maleClothes.jpg"
         />
         <CategoryItem
-          href={categories.suit}
-          text={language.suit}
+          href={childrenClothes}
+          text={language.childrenClothes}
           width={700}
           height={900}
           layout="responsive"
           objectFit="cover"
           sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
-          src="/products/s1.8.jpg"
+          src="/childrenClothes.jpg"
         />
       </div>
     </section>

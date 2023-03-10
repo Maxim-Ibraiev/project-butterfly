@@ -1,6 +1,6 @@
 const routes = {
   home: '/',
-  category: '/[category]',
+  category: '/[globalCategory]',
   categories: {
     dress: '/dress',
     suit: '/suit',
@@ -9,7 +9,11 @@ const routes = {
     shirts: '/shirts',
     tShirt: '/t-shirt',
   },
+  femaleClothes: '/femaleClothes',
+  maleClothes: '/maleClothes',
+  childrenClothes: '/childrenClothes',
   handMade: '/handMade',
+  all: '/all',
   product: '/product',
   checkout: '/checkout',
   getCheckout: (id: string) => (id ? `/checkout?shoppingId=${id}` : '/checkout'),

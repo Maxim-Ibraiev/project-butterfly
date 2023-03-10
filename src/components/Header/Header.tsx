@@ -28,16 +28,16 @@ export default function Header() {
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
             {categories.map(category => (
-              <li key={category}>
+              <li key={category} className={s.navItem}>
                 <Link
                   href={{
-                    pathname: routes.categories[category],
+                    pathname: routes[category],
                     query: params,
                   }}
                 >
                   <a
                     className={cn(s.link, {
-                      [s.active]: router.query.category === category,
+                      [s.active]: router.query.globalCategory === category,
                     })}
                   >
                     <b>{language[category]}</b>

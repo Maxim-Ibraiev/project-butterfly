@@ -1,5 +1,5 @@
 import { Categories } from '../interfaces'
 
-const categories: Categories = ['dress', 'suit', 'jeans', 'largeSizes', 'shirts']
+const categories: Categories = ['femaleClothes', 'maleClothes', 'childrenClothes', 'all']
 
 export default categories

@@ -12,7 +12,7 @@ export default function CategoryPage() {
   const { products, categories } = useReduceSelectors()
   const filteredProducts = filter.getQueryProducts(products)
   const isValidCategory = categories.includes(
-    Array.isArray(router.query.category) ? router.query.category[0] : router.query.category
+    Array.isArray(router.query.globalCategory) ? router.query.globalCategory[0] : router.query.globalCategory
   )
 
   return (

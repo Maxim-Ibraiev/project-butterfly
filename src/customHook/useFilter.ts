@@ -41,7 +41,7 @@ export default function useFilter() {
 
     Object.defineProperties(copyQuery, {
       [SHOPPING_ID]: { value: arrayWrapper(router.query[SHOPPING_ID]) },
-      category: { value: arrayWrapper(router.query.category) },
+      globalCategory: { value: arrayWrapper(router.query.globalCategory) },
       sort: { value: [DEFAULT_SORT_FOR_PRODUCTS] },
     })
 
@@ -59,11 +59,8 @@ export default function useFilter() {
 }
 
 function filterChecker(filter: InitialFilter): FilterQuery {
-  if (
-    (Array.isArray(filter.category) && filter.category.length > 0) ||
-    (Array.isArray(filter.sort) && filter.sort.length > 0)
-  ) {
-    console.warn(`Category and sort have to be single.`)
+  if (Array.isArray(filter.sort) && filter.sort.length > 0) {
+    console.warn(`Sort have to be single.`)
   }
 
   const reducedFilter: FilterQuery = Object.entries(filter).reduce((acc, [key, value]) => {

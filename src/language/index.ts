@@ -1,5 +1,9 @@
 export default {
   // ru - categories
+  femaleClothes: 'Женская Одежда',
+  maleClothes: 'Мужская Одежда',
+  childrenClothes: 'Детская Одежда',
+  all: 'Все',
   dress: 'Платья',
   suit: 'Костюмы',
   jeans: 'Джинсы',
@@ -9,6 +13,7 @@ export default {
   handMade: 'Индивидуальный пошив',
 
   // ru - filters
+  category: 'Категория',
   size: 'Размер',
   sizes: 'Размеры',
   material: 'Материал',

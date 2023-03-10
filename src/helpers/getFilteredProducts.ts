@@ -23,7 +23,7 @@ function OptionChecker(options?: IOptions) {
     'material',
     'season',
     'size',
-    'category',
+    'globalCategory',
     SHOPPING_ID,
   ]
 
@@ -39,6 +39,7 @@ function filterForProducts(products: IProduct[], options?: IOptions): IProduct[]
 }
 
 type MatchedOption = {
+  globalCategory?: string[]
   category?: string[]
   size?: string[]
   material?: string[]
@@ -48,7 +49,13 @@ type MatchedOption = {
 }
 
 function isMatchedProduct(product: IProduct, options: MatchedOption) {
+  const isGlobalCaterory =
+    arrayWrapper(options.globalCategory)[0] === 'all'
+      ? true
+      : isOptionMatch(product.getGlobalCategory(), options.globalCategory)
+
   const result = [
+    isGlobalCaterory,
     isOptionMatch(product.getCategory(), options.category),
     isOptionMatch(product.getColor(), options.color),
     isOptionMatch(product.getMaterial(), options.material),

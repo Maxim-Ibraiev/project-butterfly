@@ -25,6 +25,8 @@ export default class ProductStructure {
 
   getId = () => this.#product.id
 
+  getGlobalCategory = () => this.#product.globalCategory
+
   getCategory = () => this.#product.category
 
   getDescription = () => this.#product.description
@@ -44,6 +46,7 @@ export default class ProductStructure {
     color: this.getColor(),
     images: this.getImages(),
     id: this.getId(),
+    globalCategory: this.getGlobalCategory(),
     category: this.getCategory(),
     description: this.getDescription(),
     title: this.getTitle(),

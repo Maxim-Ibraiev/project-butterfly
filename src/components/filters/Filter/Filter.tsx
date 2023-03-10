@@ -30,36 +30,13 @@ export default function Filter() {
         })}
       >
         <CustomSelector type="sort" value={filter.query.sort} handleChange={handleChange} />
+        <CustomSelector type="category" value={filter.query.category} handleChange={handleChange} isMulti />
         <CustomSelector type="size" value={filter.query.size} handleChange={handleChange} isMulti />
         <CustomSelector type="material" value={filter.query.material} handleChange={handleChange} isMulti />
         <CustomSelector type="color" value={filter.query.color} handleChange={handleChange} isMulti />
-        <CustomSelector type="season" value={filter.query.season} handleChange={handleChange} isMulti />
         {isOpenAllOptions && (
           <>
-            <CustomSelector
-              type="material"
-              value={filter.query.material}
-              handleChange={handleChange}
-              isMulti
-            />
-            <CustomSelector
-              type="material"
-              value={filter.query.material}
-              handleChange={handleChange}
-              isMulti
-            />
-            <CustomSelector
-              type="material"
-              value={filter.query.material}
-              handleChange={handleChange}
-              isMulti
-            />
-            <CustomSelector
-              type="material"
-              value={filter.query.material}
-              handleChange={handleChange}
-              isMulti
-            />
+            <CustomSelector type="season" value={filter.query.season} handleChange={handleChange} isMulti />
           </>
         )}
       </div>
