@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import queryString from 'query-string'
 import ReactModal from 'react-modal'
-import { useReduceSelectors } from '../../customHook'
+import { CATEGORIES } from '../../constants'
 import language from '../../language'
 import Button from '../buttons/HederBtn'
 import Menu from '../MenuMob'
@@ -14,7 +14,6 @@ import s from './Header.module.scss'
 
 export default function Header() {
   const router = useRouter()
-  const { categories } = useReduceSelectors()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isOpenShoppingBag, setIsOpenShoppingBag] = useState(false)
   const params = queryString.parseUrl(router.asPath).query
@@ -27,7 +26,7 @@ export default function Header() {
       <div className={s.nav}>
         <nav>
           <ul className={cn(s.row, s.mobUpper)}>
-            {categories.map(category => (
+            {CATEGORIES.map(category => (
               <li key={category} className={s.navItem}>
                 <Link
                   href={{

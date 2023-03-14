@@ -2,8 +2,6 @@ import { WritableDraft } from 'immer/dist/internal'
 import { HYDRATE } from 'next-redux-wrapper'
 import { createReducer, combineReducers } from '@reduxjs/toolkit'
 import {
-  categoriesSuccess,
-  categoriesError,
   productsSuccess,
   productsError,
   setSelectedProducts,
@@ -11,17 +9,12 @@ import {
   selectedProductsSuccess,
 } from './mainActions'
 import { ProductStructure } from '../../helpers'
-import { Categories, IError, IState, IShotSelectedProducts, IProduct, IProductObject } from '../../interfaces'
-import { getProductsForRedux, getCategories, getError, getSelectedProductsForRedux } from '../selectors'
+import { IError, IState, IShotSelectedProducts, IProduct, IProductObject } from '../../interfaces'
+import { getProductsForRedux, getError, getSelectedProductsForRedux } from '../selectors'
 
 interface IPayload<T> {
   payload: T
 }
-
-const categories = createReducer<Categories>([], {
-  [HYDRATE]: (_, { payload }: IPayload<IState>) => getCategories(payload),
-  [categoriesSuccess.type]: (_, { payload }: IPayload<Categories>) => payload,
-})
 
 const products = createReducer([], {
   [HYDRATE]: (_, { payload }: IPayload<IState>) => getProductsForRedux(payload),
@@ -38,9 +31,7 @@ const selectedProducts = createReducer<IProductObject[]>([], {
 
 const error = createReducer<IError>(null, {
   [HYDRATE]: (_, { payload }) => (getError(payload) ? { ...getError(payload) } : getError(payload)),
-  [categoriesSuccess.type]: () => null,
   [productsSuccess.type]: () => null,
-  [categoriesError.type]: (_, { payload }) => payload,
   [productsError.type]: (_, { payload }) => payload,
 })
 
@@ -57,7 +48,6 @@ function handleSelectedSizeOfProduct(
 }
 
 export default combineReducers({
-  categories,
   products,
   selectedProducts,
   error,

@@ -1,9 +1,9 @@
-import ProductPage from '../../src/pages/ProductPage'
-import { wrapper } from '../../src/redux/store'
-import { getProductStructure } from '../../src/redux/selectors'
-import { dispatchData } from '../../src/helpers'
-import { REVALIDATE } from '../../src/constants'
 import api from '../../src/api'
+import { REVALIDATE } from '../../src/constants'
+import { dispatchData } from '../../src/helpers'
+import ProductPage from '../../src/pages/ProductPage'
+import { getProductStructure } from '../../src/redux/selectors'
+import { wrapper } from '../../src/redux/store'
 
 export default function Product() {
   return <ProductPage />
@@ -11,7 +11,6 @@ export default function Product() {
 
 export const getStaticProps = wrapper.getStaticProps(store => async () => {
   const data = {
-    categories: await api.getCategories(),
     products: await api.getProducts(),
   }
 
@@ -24,14 +23,17 @@ export const getStaticProps = wrapper.getStaticProps(store => async () => {
 })
 
 export async function getStaticPaths() {
-  const { data, error } = await api.getProducts()
-  const isSuccess = !error && !!data
-  const productsStructure = isSuccess && getProductStructure(data)
-  const paths = isSuccess
-    ? productsStructure.map(product => ({
-        params: { id: product.getId() },
-      }))
-    : [{ params: { id: '/' } }]
+  let paths = []
+
+  try {
+    const { data } = await api.getProducts()
+    const productsStructure = getProductStructure(data)
+    paths = productsStructure.map(product => ({
+      params: { id: product.getId() },
+    }))
+  } catch (error) {
+    console.error('Product fetch error: ', error)
+  }
 
   return {
     paths,

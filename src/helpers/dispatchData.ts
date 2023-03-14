@@ -1,28 +1,21 @@
 import { Dispatch } from 'redux'
+import { IProductObject, IResponse, IShoppingBag } from '../interfaces'
 import * as actions from '../redux/main/mainActions'
-import { Categories, IProductObject, IResponse, IShoppingBag } from '../interfaces'
 import { getProductStructure } from '../redux/selectors'
 
 interface IDispatchData {
   products: IResponse<IProductObject[]>
-  categories: IResponse<Categories>
   shoppingBag?: IResponse<IShoppingBag>
 }
 
-export default async function dispatchData(
-  dispatch: Dispatch,
-  { shoppingBag, categories, products }: IDispatchData
-) {
-  const isNeedToHandleError =
-    (products.error || categories.error || shoppingBag?.error) && process.env.NODE_ENV === 'development'
+export default async function dispatchData(dispatch: Dispatch, { shoppingBag, products }: IDispatchData) {
+  const isNeedToHandleError = (products.error || shoppingBag?.error) && process.env.NODE_ENV === 'development'
 
   if (isNeedToHandleError) {
     dispatch(actions.productsError(products.error))
-    dispatch(actions.categoriesError(categories.error))
 
     console.warn({
       products: JSON.stringify(products),
-      categories: JSON.stringify(categories),
       shoppingBag: JSON.stringify(shoppingBag),
     })
 
@@ -30,7 +23,6 @@ export default async function dispatchData(
   }
 
   dispatch(actions.productsSuccess(products.data))
-  dispatch(actions.categoriesSuccess(categories.data))
 
   if (shoppingBag) {
     const productList = getProductStructure(products.data)

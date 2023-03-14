@@ -10,7 +10,6 @@ export default function Category() {
 
 export const getStaticProps = wrapper.getStaticProps(store => async () => {
   const data = {
-    categories: await api.getCategories(),
     products: await api.getProducts(),
   }
 
@@ -23,15 +22,9 @@ export const getStaticProps = wrapper.getStaticProps(store => async () => {
 })
 
 export async function getStaticPaths() {
-  const { data, error } = await api.getCategories()
-
-  const paths = !error
-    ? data.map(globalCategory => ({
-        params: { globalCategory },
-      }))
-    : CATEGORIES.map(globalCategory => ({
-        params: { globalCategory },
-      }))
+  const paths = CATEGORIES.map(globalCategory => ({
+    params: { globalCategory },
+  }))
 
   return {
     paths,

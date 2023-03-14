@@ -10,7 +10,6 @@ export default function Home() {
 
 export const getStaticProps = wrapper.getStaticProps(store => async () => {
   const data = {
-    categories: await api.getCategories(),
     products: await api.getProducts(),
   }
 
