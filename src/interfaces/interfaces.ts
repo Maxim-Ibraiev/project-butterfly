@@ -48,7 +48,6 @@ export interface IDataResponse {
 
 export interface IState {
   main: {
-    categories: Categories
     products: IProductObject[]
     selectedProducts: IProductObject[]
     error: IError
