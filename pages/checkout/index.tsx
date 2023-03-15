@@ -1,4 +1,4 @@
-import api from '../../src/api'
+import api from '../../src/api/serverApi'
 import { dispatchData } from '../../src/helpers'
 import CheckoutPage from '../../src/pages/CheckoutPage'
 import { wrapper } from '../../src/redux/store'

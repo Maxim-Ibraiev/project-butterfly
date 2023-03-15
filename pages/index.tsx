@@ -1,8 +1,8 @@
-import { wrapper } from '../src/redux/store'
-import MainPage from '../src/pages/MainPage'
-import { dispatchData } from '../src/helpers'
+import api from '../src/api/serverApi'
 import { REVALIDATE } from '../src/constants'
-import api from '../src/api'
+import { dispatchData } from '../src/helpers'
+import MainPage from '../src/pages/MainPage'
+import { wrapper } from '../src/redux/store'
 
 export default function Home() {
   return <MainPage />

@@ -49,6 +49,10 @@ class Responser {
     })
   }
 
+  static getForbidden(error: IError) {
+    return this.getBaseResponse({ status: httpStatusCodes.FORBIDDEN, error })
+  }
+
   static getServerError(error: IError) {
     return this.getBaseResponse({ status: httpStatusCodes.INTERNAL_SERVER_ERROR, error })
   }

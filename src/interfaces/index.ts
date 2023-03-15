@@ -14,4 +14,6 @@ export type {
   IShotSelectedProducts,
   IShoppingBag,
   FilterQuery,
+  ILoginData,
+  IAuth,
 } from './interfaces'

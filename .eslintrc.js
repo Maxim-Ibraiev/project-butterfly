@@ -17,6 +17,7 @@ const rulesBasic = {
   'eslint linebreak-style': [0, 'error', 'windows'],
   'react/jsx-props-no-spreading': 0,
   'arrow-body-style': 'warn',
+  'react/self-closing-comp': 'warn',
 }
 
 const rulesTS = {

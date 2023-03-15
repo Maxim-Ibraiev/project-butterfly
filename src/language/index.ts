@@ -74,6 +74,9 @@ export default {
   phoneNumber: 'Номер телефона',
   confirmOrder: 'Подтвердить заказ',
   orderIsConfirmed: 'Заказ подтвержден',
+  enterToAdmin: 'Вход в админ панель',
+  login: 'Логин',
+  password: 'Пароль',
 
   // foter
   aboutOurCompany: 'О нашей компании',

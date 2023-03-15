@@ -81,3 +81,12 @@ export type FilterQuery = {
 }
 
 export type Request = 'Error' | 'Request' | 'Success' | undefined | null
+
+export interface ILoginData {
+  login: string
+  password: string
+}
+
+export interface IAuth {
+  auth: boolean
+}
