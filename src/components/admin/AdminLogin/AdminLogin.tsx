@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { ILoginData, Request } from '../../../interfaces'
 import language from '../../../language'
@@ -6,18 +7,35 @@ import MainButton from '../../buttons/MainButton'
 import Form from '../../Form'
 import Input from '../../inputs/Input'
 import Text from '../../Text'
+import api from '../../../api/api'
+import routes from '../../../routes'
 import s from './AdminLogin.module.scss'
 
 export type IonSubmit = (data: ILoginData) => void
 
-interface IProps {
-  onSubmit: IonSubmit
-  isLoading: boolean
-  status: Request
-}
-
-export default function AdminLogin({ onSubmit, isLoading, status }: IProps) {
+export default function AdminLogin() {
   const { register, handleSubmit } = useForm()
+  const router = useRouter()
+  const [status, setStatus] = useState<Request>()
+  const [isLoading, setIsLoading] = useState(false)
+
+  const onSubmit: IonSubmit = async body => {
+    setIsLoading(true)
+
+    try {
+      const res = await api.adminLogin(body)
+
+      if (res.data?.auth) {
+        setStatus('Success')
+        router.push(routes.admin)
+      }
+    } catch (error) {
+      console.warn(error)
+      setStatus('Error')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <Form handleSubmit={handleSubmit(onSubmit)}>

@@ -24,6 +24,7 @@
     "classnames": "^2.3.1",
     "cloudinary-build-url": "^0.2.1",
     "file-loader": "^6.2.0",
+    "iron-session": "^6.3.1",
     "joi": "^17.6.0",
     "libphonenumber-js": "^1.9.38",
     "lint": "^0.7.0",

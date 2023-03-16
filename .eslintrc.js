@@ -18,6 +18,7 @@ const rulesBasic = {
   'react/jsx-props-no-spreading': 0,
   'arrow-body-style': 'warn',
   'react/self-closing-comp': 'warn',
+  'prefer-destructuring': 'warn',
 }
 
 const rulesTS = {

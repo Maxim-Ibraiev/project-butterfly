@@ -16,6 +16,8 @@ const routes = {
   all: '/all',
   product: '/product',
   checkout: '/checkout',
+  admin: '/admin',
+  adminAuth: '/admin/login',
   getCheckout: (id: string) => (id ? `/checkout?shoppingId=${id}` : '/checkout'),
 
   api: {

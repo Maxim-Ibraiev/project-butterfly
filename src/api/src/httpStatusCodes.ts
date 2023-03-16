@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-shadow
 enum httpStatusCodes {
   OK = 200,
+  NoContent = 204,
   BAD_REQUEST = 400,
   FORBIDDEN = 403,
   NOT_FOUND = 404,

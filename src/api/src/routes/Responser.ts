@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { Categories, IError, IProductObject, IResponse, IShoppingBag } from '../../../interfaces'
+import { Categories, IAdmin, IError, IProductObject, IResponse, IShoppingBag } from '../../../interfaces'
 import httpStatusCodes from '../httpStatusCodes'
 
 type InputData<Type> = {
@@ -8,7 +8,7 @@ type InputData<Type> = {
   error?: IError
   message?: string
 }
-type Data = Categories | IProductObject[] | IShoppingBag
+type Data = Categories | IProductObject[] | IShoppingBag | IAdmin
 
 class Responser {
   static getBaseResponse<T extends Data = null>({
@@ -26,6 +26,10 @@ class Responser {
 
   static getOK<T extends Data>(data: T) {
     return this.getBaseResponse({ data, status: httpStatusCodes.OK })
+  }
+
+  static getNoContent() {
+    return this.getBaseResponse({ status: httpStatusCodes.NoContent })
   }
 
   static getBadRequest(error: Joi.ValidationError) {

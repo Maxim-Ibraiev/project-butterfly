@@ -87,6 +87,7 @@ export interface ILoginData {
   password: string
 }
 
-export interface IAuth {
+export interface IAdmin {
+  name: string
   auth: boolean
 }

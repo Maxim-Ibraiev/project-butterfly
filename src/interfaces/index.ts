@@ -15,5 +15,5 @@ export type {
   IShoppingBag,
   FilterQuery,
   ILoginData,
-  IAuth,
+  IAdmin,
 } from './interfaces'
