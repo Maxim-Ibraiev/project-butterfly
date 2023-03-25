@@ -63,21 +63,23 @@ const handler: NextApiHandler = async (req, res) => {
       ...query,
       images: imageParser(files, query.color),
     }
-    const fileError = RequestValidator.fileList(files).error
+    // const fileError = RequestValidator.fileList(files).error
     const productError = RequestValidator.product(product).error
 
     console.log('query:', query)
 
-    if (fileError) response = Responser.getBadRequest(fileError)
+    // if (fileError) response = Responser.getBadRequest(fileError)
     if (productError) response = Responser.getBadRequest(productError)
     if (response) res.status(response.status).json(response)
     if (response) return
+
+    console.log('response error:', response)
 
     // add products
     try {
       const productResponse = await addProduct(product)
       console.log('productResponse:', productResponse)
-
+      response = Responser.getOK(null)
       // response = Responser.getOK(productResponse)
     } catch (error) {
       response = Responser.getServerError(error)
