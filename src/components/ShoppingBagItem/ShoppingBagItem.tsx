@@ -6,8 +6,8 @@ import { IProduct } from '../../interfaces'
 import language from '../../language'
 import * as actions from '../../redux/main/mainActions'
 import Button from '../buttons/MainButton'
-import CustomSelector, { HandleChange } from '../inputs/CustomSelector'
 import { CloseIcon } from '../icons'
+import CustomSelector, { OnChange } from '../inputs/CustomSelector'
 import routes from '../../routes'
 import s from './ShoppingBagItem.module.scss'
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -22,7 +22,7 @@ interface Props {
 export default function ShoppingBagItem({ product, handleDelete, handleClose }: Props) {
   const dispatch = useDispatch()
 
-  const handleChangeSize: HandleChange = (_, option) => {
+  const handleChangeSize: OnChange = (_, option) => {
     const payload = { id: product.getId(), selectedSize: Number(option) }
 
     dispatch(actions.setSelectedSizeOfProduct([payload]))
