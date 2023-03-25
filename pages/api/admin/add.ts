@@ -52,12 +52,6 @@ const fileReader: FileReader = req => {
 }
 
 const handler: NextApiHandler = async (req, res) => {
-  try {
-    await fs.readdir(dirName)
-  } catch (error) {
-    await fs.mkdir(dirName)
-  }
-
   let response: IResponse<IProductObject> = null
 
   try {
