@@ -1,23 +1,41 @@
 import React from 'react'
+import { withIronSessionSsr } from 'iron-session/next'
+import getConfig from 'next/config'
 import api from '../../src/api/serverApi'
-import { REVALIDATE } from '../../src/constants'
 import { dispatchData } from '../../src/helpers'
 import AdminAddPage from '../../src/pages/admin/AdminAddPage'
 import { wrapper } from '../../src/redux/store'
+import routes from '../../src/routes'
 
 export default function AdminAdd() {
   return <AdminAddPage />
 }
 
-export const getStaticProps = wrapper.getStaticProps(store => async () => {
-  const data = {
-    products: await api.getProducts(),
-  }
+const { sessionOptions } = getConfig().serverRuntimeConfig
 
-  dispatchData(store.dispatch, data)
+export const getServerSideProps = wrapper.getServerSideProps(store =>
+  withIronSessionSsr(async ({ req }) => {
+    const admin = req.session?.admin
 
-  return {
-    props: {},
-    revalidate: REVALIDATE,
-  }
-})
+    if (!admin) {
+      return {
+        redirect: {
+          destination: routes.admin.auth,
+          statusCode: 303,
+        },
+      }
+    }
+
+    const data = {
+      products: await api.getProducts(),
+    }
+
+    dispatchData(store.dispatch, data)
+
+    return {
+      props: {
+        admin,
+      },
+    }
+  }, sessionOptions)
+)

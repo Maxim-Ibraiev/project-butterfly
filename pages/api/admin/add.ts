@@ -30,20 +30,15 @@ interface IProductToAdd {
   }
 }
 
-const dirName = `${process.cwd()}/public/products`
+const dirName = `${process.cwd()}/images`
 
 type FileReader = (
   req: NextApiRequest,
   saveLocally?: boolean
 ) => Promise<{ fields: formidable.Fields; files: formidable.Files }>
 
-const fileReader: FileReader = (req, saveLocally) => {
+const fileReader: FileReader = req => {
   const options: Options = { maxFileSize: 4000 * 1024 * 1024, multiples: true }
-
-  if (saveLocally) {
-    options.uploadDir = dirName
-    options.filename = (name, ext, part) => `${Date.now().toString()}_${part.originalFilename}`
-  }
 
   const form = formidable(options)
 
@@ -66,7 +61,8 @@ const handler: NextApiHandler = async (req, res) => {
   let response: IResponse<IProductObject> = null
 
   try {
-    const { files, fields } = await fileReader(req, true)
+    const { files, fields } = await fileReader(req)
+
     const query = queryParser(fields.data)
     const product: IProductToAdd = {
       popularity: 0,

@@ -9,7 +9,6 @@ import FilesGrid from '../../FilesGrid'
 import Form from '../../Form'
 import CustomSelector, { OnChange } from '../../inputs/CustomSelector'
 import Input from '../../inputs/Input'
-import InputFiles from '../../inputs/InputFiles'
 import api from '../../../api/api'
 
 type ProductOptions = FilterQuery
@@ -39,8 +38,7 @@ export default function AdminAdd() {
       }
     }
 
-    console.log('files', files)
-
+    console.log('product:', product)
     api.adminAdd(files, product).then(console.log)
   }
 

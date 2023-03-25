@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios'
-import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url'
 import requestSymulator from './requestSymulator'
 import { getShotSelectedProducts } from '../helpers'
 import { ICallRequest, IProduct, IResponse, IShoppingBag, ILoginData, IAdmin } from '../interfaces'
