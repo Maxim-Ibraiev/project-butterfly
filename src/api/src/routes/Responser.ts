@@ -8,7 +8,7 @@ type InputData<Type> = {
   error?: IError
   message?: string
 }
-type Data = Categories | IProductObject[] | IShoppingBag | IAdmin
+type Data = Categories | IProductObject | IProductObject[] | IShoppingBag | IAdmin
 
 class Responser {
   static getBaseResponse<T extends Data = null>({

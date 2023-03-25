@@ -6,7 +6,7 @@ import { IProduct } from '../../interfaces'
 import language from '../../language'
 import * as actions from '../../redux/main/mainActions'
 import Button from '../buttons/MainButton'
-import CustomSelector, { HandleChange } from '../CustomSelector'
+import CustomSelector, { HandleChange } from '../inputs/CustomSelector'
 import { CloseIcon } from '../icons'
 import routes from '../../routes'
 import s from './ShoppingBagItem.module.scss'
@@ -43,7 +43,7 @@ export default function ShoppingBagItem({ product, handleDelete, handleClose }: 
           <span>{language.size}:</span>
           <div className={s.select}>
             <CustomSelector
-              handleChange={handleChangeSize}
+              onChange={handleChangeSize}
               value={product.getSelectedSize() && String(product.getSelectedSize())}
               type="size"
               menuPosition="fixed"

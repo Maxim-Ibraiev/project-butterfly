@@ -68,6 +68,8 @@ export interface IResponse<T> {
 export type FilterOption = { value: string; label: string }
 
 export type InitialFilter = {
+  globalCategory?: string | string[]
+  model?: string | string[]
   category?: string | string[]
   size?: string | string[]
   material?: string | string[]
@@ -90,4 +92,15 @@ export interface ILoginData {
 export interface IAdmin {
   name: string
   auth: boolean
+}
+
+export type ProductToAdd = {
+  files: FileList
+  title: string
+  description: string
+  category: string[]
+  size: string[]
+  material: string[]
+  color: string[]
+  season: string[]
 }

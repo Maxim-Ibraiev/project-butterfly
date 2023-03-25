@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import '../../../styles/variables.scss';
 
 .selector {
   .multiValue {
@@ -10,6 +10,7 @@
     @extend .hidden;
   }
 
+  /*
   @media screen and (max-width: $tableLesser) {
     [class$='-control'] {
       box-shadow: none;
@@ -28,4 +29,5 @@
       width: 50%;
     }
   }
+  */
 }

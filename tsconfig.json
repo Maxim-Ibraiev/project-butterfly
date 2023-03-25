@@ -25,7 +25,7 @@
     "**/*.tsx",
     "src/components/Header/Header.tsx",
     "src/components/CategoryGrid/index.ts",
-    "src/components/CustomSelector/CustomSelector.tsx"
+    "src/components/inputs/CustomSelector/CustomSelector.tsx"
   ],
   "exclude": [
     "node_modules"

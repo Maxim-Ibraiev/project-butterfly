@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { login, logout } from './authController'
-import Responser from '../Responser'
+import Responser from '../../Responser'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {

@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
-import { Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
 
 const productSchema = new Schema(
   {
@@ -47,6 +47,7 @@ const productSchema = new Schema(
     },
   },
   {
+    bufferTimeoutMS: 60000,
     timestamps: true,
     toJSON: {
       transform: (_, ret) => {
@@ -58,4 +59,4 @@ const productSchema = new Schema(
   }
 )
 
-export default productSchema
+export default model('products', productSchema)

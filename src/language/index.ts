@@ -13,6 +13,7 @@ export default {
   handMade: 'Индивидуальный пошив',
 
   // ru - filters
+  globalCategory: 'Глобальная категория',
   category: 'Категория',
   size: 'Размер',
   sizes: 'Размеры',
@@ -91,4 +92,7 @@ export default {
     defineSize: 'Знать размеры.',
     submit: 'Подать заявку на звонок',
   },
+
+  // admin
+  addProduct: 'Добавить товар',
 }

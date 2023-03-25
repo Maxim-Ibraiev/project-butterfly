@@ -4,8 +4,8 @@ import { SHOPPING_ID } from '../../../constants'
 import useFilter from '../../../customHook/useFilter'
 import language from '../../../language'
 import Chip from '../../buttons/Chip'
-import CustomSelector, { HandleChange } from '../../CustomSelector'
 import Toggle from '../../icons/Toggle'
+import CustomSelector, { OnChange } from '../../inputs/CustomSelector'
 import s from './Filter.module.scss'
 
 export default function Filter() {
@@ -15,7 +15,7 @@ export default function Filter() {
     el => el === 'category' || el === 'sort' || el === SHOPPING_ID
   )
 
-  const handleChange: HandleChange = (type, value) => {
+  const handleChange: OnChange = (type, value) => {
     const newFilter = filter.define(type, value)
 
     filter.updateURL(newFilter)
@@ -29,14 +29,14 @@ export default function Filter() {
           [s.wrap]: isOpenAllOptions,
         })}
       >
-        <CustomSelector type="sort" value={filter.query.sort} handleChange={handleChange} />
-        <CustomSelector type="category" value={filter.query.category} handleChange={handleChange} isMulti />
-        <CustomSelector type="size" value={filter.query.size} handleChange={handleChange} isMulti />
-        <CustomSelector type="material" value={filter.query.material} handleChange={handleChange} isMulti />
-        <CustomSelector type="color" value={filter.query.color} handleChange={handleChange} isMulti />
+        <CustomSelector type="sort" value={filter.query.sort} onChange={handleChange} />
+        <CustomSelector type="category" value={filter.query.category} onChange={handleChange} isMulti />
+        <CustomSelector type="size" value={filter.query.size} onChange={handleChange} isMulti />
+        <CustomSelector type="material" value={filter.query.material} onChange={handleChange} isMulti />
+        <CustomSelector type="color" value={filter.query.color} onChange={handleChange} isMulti />
         {isOpenAllOptions && (
           <>
-            <CustomSelector type="season" value={filter.query.season} handleChange={handleChange} isMulti />
+            <CustomSelector type="season" value={filter.query.season} onChange={handleChange} isMulti />
           </>
         )}
       </div>

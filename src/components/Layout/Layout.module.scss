@@ -7,7 +7,10 @@
 }
 
 .main {
+  position: relative;
+
   min-height: calc(100vh - 550px);
+
   padding-left: 15px;
   padding-right: 15px;
 }

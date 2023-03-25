@@ -27,7 +27,7 @@ export default function AdminLogin() {
 
       if (res.data?.auth) {
         setStatus('Success')
-        router.push(routes.admin)
+        router.push(routes.admin.main)
       }
     } catch (error) {
       console.warn(error)

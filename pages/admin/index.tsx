@@ -20,7 +20,7 @@ export const getServerSideProps = withIronSessionSsr(async ({ req }) => {
   if (!admin) {
     return {
       redirect: {
-        destination: routes.adminAuth,
+        destination: routes.admin.auth,
         statusCode: 303,
       },
     }

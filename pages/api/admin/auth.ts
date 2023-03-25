@@ -1,3 +1,3 @@
-import handler from '../../../src/api/src/routes/admin/authRouter'
+import handler from '../../../src/api/src/routes/admin/auth/authRouter'
 
 export default handler

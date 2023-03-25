@@ -2,9 +2,9 @@ import { AxiosError } from 'axios'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import getConfig from 'next/config'
 import { adminLogin } from './authModel'
-import { IResponse, IAdmin } from '../../../../interfaces'
-import RequestValidator from '../RequestValidator'
-import Responser from '../Responser'
+import { IResponse, IAdmin } from '../../../../../interfaces'
+import RequestValidator from '../../RequestValidator'
+import Responser from '../../Responser'
 
 const { sessionOptions } = getConfig().serverRuntimeConfig
 

@@ -19,6 +19,7 @@ const rulesBasic = {
   'arrow-body-style': 'warn',
   'react/self-closing-comp': 'warn',
   'prefer-destructuring': 'warn',
+  'no-plusplus': 0,
 }
 
 const rulesTS = {

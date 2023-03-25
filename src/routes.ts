@@ -16,14 +16,19 @@ const routes = {
   all: '/all',
   product: '/product',
   checkout: '/checkout',
-  admin: '/admin',
-  adminAuth: '/admin/login',
   getCheckout: (id: string) => (id ? `/checkout?shoppingId=${id}` : '/checkout'),
 
   api: {
     getShoppingBag: (id?: string) => (id ? `/api/shoppingBag?id=${id}` : '/api/shoppingBag'),
     shoppingBag: '/api/shoppingBag',
     adminLogin: '/api/admin/auth',
+    add: '/api/admin/add',
+  },
+
+  admin: {
+    main: '/admin',
+    auth: '/admin/login',
+    add: 'admin/add',
   },
 }
 
