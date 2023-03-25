@@ -4,10 +4,10 @@ import productsSchemas from '../../../db/schemas/productsSchemas'
 
 export const listProducts = async () => productsSchemas.find()
 
-export const addProduct = async newProduct => productsSchemas.create<IProductObject>(newProduct)
-// axios
-//   .post<IProductObject>('https://projectbf-29lq.onrender.com/products', newProduct)
-//   .then(r => r.data as IProductObject)
+export const addProduct = async newProduct =>
+  axios
+    .post<IProductObject>('https://projectbf-29lq.onrender.com/products', newProduct)
+    .then(r => r.data as IProductObject)
 
 export const removeProduct = async id => productsSchemas.findByIdAndRemove({ _id: id })
 
