@@ -2,6 +2,7 @@ export type { ICategoriesProps, IProductsProps } from './props'
 export type {
   Categories,
   IProduct,
+  IProductToAdd,
   ICallRequest,
   IDataResponse,
   IState,

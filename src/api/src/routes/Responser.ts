@@ -58,6 +58,8 @@ class Responser {
   }
 
   static getServerError(error: IError) {
+    console.error(error)
+
     return this.getBaseResponse({ status: httpStatusCodes.INTERNAL_SERVER_ERROR, error })
   }
 }

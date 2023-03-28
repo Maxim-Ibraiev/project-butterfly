@@ -25,6 +25,23 @@ export interface IProductObject {
   selectedSize?: null | number
 }
 
+export interface IProductToAdd {
+  price?: number
+  popularity?: number
+  material?: string[]
+  color?: string
+  images?: { original: string; thumbnail: string; color: string[] }[]
+  globalCategory?: string
+  category?: string
+  description?: string
+  title?: string
+  model?: string
+  season?: string
+  size?: {
+    [key: string]: number
+  }
+}
+
 export interface IShoppingBag {
   id: string
   selectedProducts: IShotSelectedProducts
