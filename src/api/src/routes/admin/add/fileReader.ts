@@ -1,10 +1,10 @@
-import formidable, { Options } from 'formidable'
+import formidable, { Files, Options } from 'formidable'
 import { NextApiRequest } from 'next'
 
 type FileReader = (
   req: NextApiRequest,
   saveLocally?: boolean
-) => Promise<{ fields: formidable.Fields; files: formidable.Files }>
+) => Promise<{ fields: formidable.Fields; files: Files }>
 
 const fileReader: FileReader = req => {
   const options: Options = { maxFileSize: 4000 * 1024 * 1024, multiples: true }
