@@ -12,7 +12,7 @@ export default function Filter() {
   const filter = useFilter()
   const [isOpenAllOptions, setIsOpenAllOptions] = useState(false)
   const isNotNeedToReset = Object.keys(filter.query).every(
-    el => el === 'category' || el === 'sort' || el === SHOPPING_ID
+    el => el === 'globalCategory' || el === 'sort' || el === SHOPPING_ID
   )
 
   const handleChange: OnChange = (type, value) => {

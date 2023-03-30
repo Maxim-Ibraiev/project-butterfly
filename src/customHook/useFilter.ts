@@ -21,7 +21,7 @@ export default function useFilter() {
     return newQuery
   }
 
-  const updateURL = (newQuery?: typeof query) => {
+  const updateURL = (newQuery?: typeof query & { id?: string }) => {
     router.push(
       {
         query: newQuery || query,

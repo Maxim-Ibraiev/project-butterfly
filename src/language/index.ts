@@ -95,4 +95,5 @@ export default {
 
   // admin
   addProduct: 'Добавить товар',
+  editProduct: 'Редактировать товар',
 }

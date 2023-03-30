@@ -10,9 +10,10 @@ interface Props {
   width: number
   height: number
   product: IProduct
+  getLinkForProdutc?: (id: string) => string
 }
 
-export default function ProductCard({ width, height, product }: Props) {
+export default function ProductCard({ width, height, product, getLinkForProdutc }: Props) {
   const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, product.getModel()))
   console.log(
     'allModels:',
@@ -20,7 +21,9 @@ export default function ProductCard({ width, height, product }: Props) {
   )
 
   return (
-    <Link href={`${routes.product}/${product.getId()}`}>
+    <Link
+      href={getLinkForProdutc ? getLinkForProdutc(product.getId()) : `${routes.product}/${product.getId()}`}
+    >
       <a className={s.wrapper}>
         <div className={s.image}>
           <Image

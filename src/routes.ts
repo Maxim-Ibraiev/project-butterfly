@@ -29,6 +29,7 @@ const routes = {
     main: '/admin',
     auth: '/admin/login',
     add: 'admin/add',
+    toEditProduct: (id: string) => `/admin/product/${id}`,
   },
 }
 

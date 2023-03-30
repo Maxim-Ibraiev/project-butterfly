@@ -8,9 +8,10 @@ import s from './CardList.module.scss'
 
 interface IProps {
   products: IProduct[]
+  getLinkForProdutc?: (id: string) => string
 }
 
-export default function CardList({ products }: IProps) {
+export default function CardList({ products, getLinkForProdutc }: IProps) {
   const [imgSize, setImgSize] = useState({ width: 170, height: 220 })
 
   useEffect(() => {
@@ -25,7 +26,13 @@ export default function CardList({ products }: IProps) {
   return products.length > 0 ? (
     <section className={s.cards}>
       {products.map(el => (
-        <ProductCard key={el.getId()} width={imgSize.width} height={imgSize.height} product={el} />
+        <ProductCard
+          key={el.getId()}
+          width={imgSize.width}
+          height={imgSize.height}
+          product={el}
+          getLinkForProdutc={getLinkForProdutc}
+        />
       ))}
     </section>
   ) : (

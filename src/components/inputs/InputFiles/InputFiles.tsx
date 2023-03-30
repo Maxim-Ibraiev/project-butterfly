@@ -6,10 +6,11 @@ import s from './InputFiles.module.scss'
 interface IProps {
   register: UseFormRegister<FieldValues>
   fileName: string
+  imageUrl?: string
 }
 
-export default function InputFiles({ register, fileName }: IProps) {
-  const [selectedImages, setSelectedImages] = useState<string>(null)
+export default function InputFiles({ register, fileName, imageUrl = null }: IProps) {
+  const [selectedImages, setSelectedImages] = useState<string>(imageUrl)
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const file = target.files[0]
@@ -38,36 +39,3 @@ export default function InputFiles({ register, fileName }: IProps) {
     </div>
   )
 }
-
-/* return (
-    <div>
-      <div className={s.grid}>
-        <div className={s.addContainer}>
-          <input
-            {...register(fileName)}
-            className={s.input}
-            type="file"
-            accept=".jpg,.png,.jpeg"
-            onChange={handleChange}
-          />
-        </div>
-        {selectedImages ? (
-          selectedImages.map(el => (
-            <div key={el} className={s.imageContainer}>
-              <Image src={el} alt="Image to add" height={128} width={128} objectFit="contain" />
-            </div>
-          ))
-        ) : (
-          <>
-            <div className={s.imageContainer} />
-            <div className={s.imageContainer} />
-            <div className={s.imageContainer} />
-          </>
-        )}
-      </div>
-      <div>{selectedImages}</div>
-    </div>
-  )
-}
-
-*/
