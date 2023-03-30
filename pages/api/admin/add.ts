@@ -30,8 +30,8 @@ const handler: NextApiHandler = async (req, res) => {
     const fileError = RequestValidator.fileList(files).error
     const productError = RequestValidator.product(product).error
 
-    if (fileError) response = Responser.getBadRequest(fileError)
     if (productError) response = Responser.getBadRequest(productError)
+    if (fileError) response = Responser.getBadRequest(fileError)
     if (response) res.status(response.status).json(response)
     if (response) return
 

@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
-import { getProductSrc } from '../../helpers'
 import { IProduct } from '../../interfaces'
 import language from '../../language'
 import * as actions from '../../redux/main/mainActions'
@@ -33,7 +32,7 @@ export default function ShoppingBagItem({ product, handleDelete, handleClose }: 
       <div className={s.image}>
         <Link href={`${routes.product}/${product.getId()}`}>
           <a onClick={handleClose} className={s.imageLink} style={{ width: '80px', height: '110px' }}>
-            <Image src={getProductSrc(product.getMainImageSrc())} width={80} height={110} />
+            <Image src={product.getMainImageSrc()} width={80} height={110} />
           </a>
         </Link>
       </div>

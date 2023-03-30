@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { CATEGORIES } from '../../../constants'
 import { useFilter } from '../../../customHook'
-import { FilterQuery } from '../../../interfaces'
+import { FilterQuery, Request } from '../../../interfaces'
 import language from '../../../language'
 import MainButton from '../../buttons/MainButton'
 import FilesGrid from '../../FilesGrid'
@@ -16,7 +16,7 @@ type ProductRest = { files: FileList; title: string; description: string; price:
 
 export default function AdminAdd() {
   const options = useFilter()
-
+  const [buttonStatus, setButtonStatus] = useState<Request>(null)
   const form = useForm<ProductOptions>()
 
   const handleChange: OnChange = (type, value) => options.define(type, value)
@@ -38,8 +38,16 @@ export default function AdminAdd() {
       }
     }
 
-    console.log('product:', product)
-    api.adminAdd(files, product).then(console.log)
+    setButtonStatus('Request')
+    api
+      .adminAdd(files, product)
+      .then(() => setButtonStatus('Success'))
+      .catch(() => setButtonStatus('Error'))
+      .finally(() =>
+        setTimeout(() => {
+          if (buttonStatus !== 'Request') setButtonStatus(null)
+        }, 3000)
+      )
   }
 
   return (
@@ -100,7 +108,9 @@ export default function AdminAdd() {
           isSeaSelectedOptions
         />
 
-        <MainButton isSubmit> {language.save}</MainButton>
+        <MainButton isSubmit status={buttonStatus} isLoading={buttonStatus === 'Request'}>
+          {language.save}
+        </MainButton>
       </Form>
     </div>
   )

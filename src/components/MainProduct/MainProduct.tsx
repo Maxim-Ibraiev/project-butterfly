@@ -1,25 +1,24 @@
 import { FormEvent, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import cn from 'classnames'
+import { E164Number } from 'libphonenumber-js/core'
 import Image from 'next/image'
 import Link from 'next/link'
-import cn from 'classnames'
+import { useRouter } from 'next/router'
 import { isValidPhoneNumber, parsePhoneNumber } from 'react-phone-number-input'
-import { E164Number } from 'libphonenumber-js/core'
 import PhoneNumber from 'react-phone-number-input/input'
-import Gallery from '../Gallery'
+import { useSelector } from 'react-redux'
+import { SHOPPING_ID, UAH } from '../../constants'
+import { useSelectedProducts } from '../../customHook'
+import { IProduct, IState, Request } from '../../interfaces'
+import language from '../../language'
+import { getProductsByModel, getProductById } from '../../redux/selectors'
 import MainButton from '../buttons/MainButton'
+import Gallery from '../Gallery'
 import GridOfSizes from '../GridOfSizes'
 import { BagIcon } from '../icons'
-import { getProductsByModel, getProductById } from '../../redux/selectors'
-import { SHOPPING_ID, UAH } from '../../constants'
-import { getProductSrc } from '../../helpers'
-import { useSelectedProducts } from '../../customHook'
-import routes from '../../routes'
-import language from '../../language'
-import s from './MainProduct.module.scss'
 import NotFoundProduct from '../NotFoundProduct'
-import { IProduct, IState, Request } from '../../interfaces'
+import routes from '../../routes'
+import s from './MainProduct.module.scss'
 
 export default function MainProduct() {
   const router = useRouter()
@@ -34,13 +33,6 @@ export default function MainProduct() {
   const [shoppingId, setShoppingId] = useState('')
   const [phoneNumber, setPhoneNumber] = useState<E164Number>('+380')
   const [phoneBtnStatus, setPhoneBtnStatus] = useState<Request>()
-  const getItems = () =>
-    product.getImages().map(el => {
-      const original = `/products/${el.original}`
-      const thumbnail = `/products/${el.original}`
-
-      return { ...el, thumbnail, original }
-    })
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -74,7 +66,7 @@ export default function MainProduct() {
   return product ? (
     <section className={s.container}>
       <div className={s.galleryWrapper}>
-        <Gallery items={getItems()} />
+        <Gallery items={product.getImages()} />
       </div>
       <div className={s.infoContainer}>
         <div className={s.infoSection}>
@@ -124,7 +116,7 @@ export default function MainProduct() {
                   <Link key={model.getId()} href={`${routes.product}/${model.getId()}`}>
                     <a className={s.colorImg}>
                       <Image
-                        src={getProductSrc(model.getMainImageSrc())}
+                        src={model.getMainImageSrc()}
                         key={model.getColor()}
                         width={70}
                         height={90}

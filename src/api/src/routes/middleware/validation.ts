@@ -14,7 +14,7 @@ export const shoppingBagValidation = Joi.object({
 })
 
 export const fileValidation = Joi.object({
-  myImage: Joi.array().min(3).max(10),
+  myImage: Joi.array().min(2).max(10),
 })
 
 const images = Joi.array()
@@ -25,7 +25,7 @@ const images = Joi.array()
       color: Joi.array().min(1).max(99),
     })
   )
-  .min(3)
+  .min(2)
   .max(10)
   .required()
 

@@ -1,21 +1,27 @@
-import { v2 as cloudinary, UploadApiResponse, ConfigOptions } from 'cloudinary'
+import { v2 as cloudinary, UploadApiResponse } from 'cloudinary'
 import { File } from 'formidable'
 import getConfig from 'next/config'
 import { arrayWrapper } from '../../../../../helpers'
 
 export default class ImageCloud {
-  private static config: ConfigOptions
-
-  constructor() {
+  static doConfig() {
     const { imageCloudConfig } = getConfig().serverRuntimeConfig
 
-    ImageCloud.config = imageCloudConfig
+    cloudinary.config(imageCloudConfig)
+  }
+
+  static getURL(src: string, quality?: boolean) {
+    this.doConfig()
+
+    return cloudinary.url(`products/${src}`, {
+      transformations: { quality: quality ? 30 : 100 },
+    })
   }
 
   static async imageUploader(files: File | File[], title: string, id: string) {
-    cloudinary.config(this.config)
-    const arrFiles = arrayWrapper(files)
+    this.doConfig()
 
+    const arrFiles = arrayWrapper(files)
     const data: UploadApiResponse[] = []
 
     return new Promise((resolve, reject) => {

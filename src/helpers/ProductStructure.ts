@@ -1,3 +1,4 @@
+import url, { buildImageUrl } from 'cloudinary-build-url'
 import { IProductObject } from '../interfaces'
 
 export default class ProductStructure {
@@ -7,11 +8,17 @@ export default class ProductStructure {
     this.#product = product
   }
 
+  #getImageURL = (src: string) =>
+    src.includes('http')
+      ? src
+      : `https://res.cloudinary.com/butterfly-project/image/upload/v2/products/${src}`
+  // url(src, { cloud: { cloudName: 'products/butterfly-project', apiKey: '276225481278987' } })
+
   getAvailableSize = () => this.#product.size
 
   getAllSizeOptions = () => Object.keys(this.getAvailableSize())
 
-  getMainImageSrc = () => this.getImages()[0].original
+  getMainImageSrc = () => this.#getImageURL(this.getImages()[0].original)
 
   getPrice = () => this.#product.price
 
@@ -21,7 +28,12 @@ export default class ProductStructure {
 
   getMaterial = () => this.#product.material
 
-  getImages = () => this.#product.images
+  getImages = () =>
+    this.#product.images.map(el => ({
+      original: this.#getImageURL(el.original),
+      thumbnail: this.#getImageURL(el.thumbnail),
+      color: el.color,
+    }))
 
   getId = () => this.#product.id
 

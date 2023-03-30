@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import { getProductSrc } from '../../../helpers'
 import { IProduct, IState } from '../../../interfaces'
 import { getProductsByModel } from '../../../redux/selectors'
 import routes from '../../../routes'
@@ -15,6 +14,10 @@ interface Props {
 
 export default function ProductCard({ width, height, product }: Props) {
   const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, product.getModel()))
+  console.log(
+    'allModels:',
+    allModels.map(el => el.toObject())
+  )
 
   return (
     <Link href={`${routes.product}/${product.getId()}`}>
@@ -27,8 +30,8 @@ export default function ProductCard({ width, height, product }: Props) {
                    (max-width: 999px) 313px,
                    282px"
             placeholder="blur"
-            blurDataURL={getProductSrc(product.getMainImageSrc())}
-            src={getProductSrc(product.getMainImageSrc())}
+            blurDataURL={product.getMainImageSrc()}
+            src={product.getMainImageSrc()}
             alt={product.getTitle()}
           />
         </div>
@@ -47,7 +50,7 @@ export default function ProductCard({ width, height, product }: Props) {
           {allModels.length > 1 && (
             <div className={s.palette}>
               {allModels.map(models => (
-                <div key={models.getColor()} style={{ backgroundColor: models.getColor() }} />
+                <div key={models.getId()} style={{ backgroundColor: models.getColor() }} />
               ))}
             </div>
           )}
