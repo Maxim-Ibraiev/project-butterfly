@@ -121,3 +121,25 @@ export type ProductToAdd = {
   color: string[]
   season: string[]
 }
+
+export type ProductToUpdate = {
+  title?: string
+  description?: string
+  category?: string[]
+  size?: string[]
+  material?: string[]
+  color?: string[]
+  season?: string[]
+}
+
+export type ProductReceivingForUpdate = {
+  title?: string
+  description?: string
+  category?: string[]
+  material?: string[]
+  color?: string
+  season?: string[]
+  id: string
+  size?: IProductObject['size']
+  images?: IProductObject['images']
+}

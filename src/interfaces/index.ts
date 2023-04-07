@@ -16,5 +16,7 @@ export type {
   IShoppingBag,
   FilterQuery,
   ILoginData,
+  ProductToUpdate,
+  ProductReceivingForUpdate,
   IAdmin,
 } from './interfaces'

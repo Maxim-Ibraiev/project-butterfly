@@ -11,6 +11,7 @@ import CustomSelector from '../../inputs/CustomSelector'
 import Input from '../../inputs/Input'
 import NoProduct from '../../NoProduct'
 import Text from '../../Text'
+import api from '../../../api/api'
 
 export default function AdminEdit() {
   const router = useRouter()
@@ -39,9 +40,29 @@ export default function AdminEdit() {
     form.setValue('price', product.getPrice())
   }, [])
 
-  const handleEdit = data => {
-    // todo
-    console.log({ data })
+  const handleEdit = (data: { description: string; title: string; price: number }) => {
+    const files: File[] = []
+
+    for (let index = 0; index < 6; index++) {
+      const fileList = data[`files_${index}`]
+      if (fileList[0]) {
+        files[index] = fileList[0]
+      } else {
+        files[index] = null
+      }
+    }
+
+    const productToUpdate = {
+      title: data.title,
+      description: data.description,
+      price: data.price,
+      ...filter.query,
+      id,
+    }
+
+    delete productToUpdate.sort
+
+    api.edit(files, productToUpdate)
   }
 
   return (
@@ -61,13 +82,34 @@ export default function AdminEdit() {
         <Text type="body">{language.category}</Text>
         <CustomSelector value={filter.query.category} type="category" onChange={filter.define} />
         <Text type="body">{language.model}</Text>
-        <CustomSelector value={filter.query.model} type="model" onChange={filter.define} />
+        <CustomSelector
+          value={filter.query.model}
+          type="model"
+          onChange={filter.define}
+          isCreatableSelector
+        />
         <Text type="body">{language.size}</Text>
-        <CustomSelector value={filter.query.size} type="size" isMulti onChange={filter.define} />
+        <CustomSelector
+          value={filter.query.size}
+          type="size"
+          isMulti
+          onChange={filter.define}
+          isCreatableSelector
+        />
         <Text type="body">{language.material}</Text>
-        <CustomSelector value={filter.query.material} type="material" onChange={filter.define} />
+        <CustomSelector
+          value={filter.query.material}
+          type="material"
+          onChange={filter.define}
+          isCreatableSelector
+        />
         <Text type="body">{language.color}</Text>
-        <CustomSelector value={filter.query.color} type="color" onChange={filter.define} />
+        <CustomSelector
+          value={filter.query.color}
+          type="color"
+          onChange={filter.define}
+          isCreatableSelector
+        />
         <Text type="body">{language.season}</Text>
         <CustomSelector value={filter.query.season} type="season" onChange={filter.define} />
 

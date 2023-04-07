@@ -7,10 +7,10 @@ import s from './FilesGrid.module.scss'
 interface IProps {
   register: UseFormRegister<FieldValues>
   fileName: string
-  images: IProductObject['images']
+  images?: IProductObject['images']
 }
 
-export default function FilesGrid({ register, fileName, images }: IProps) {
+export default function FilesGrid({ register, fileName, images = [] }: IProps) {
   return (
     <div className={s.grid}>
       <InputFiles register={register} fileName={`${fileName}_0`} imageUrl={images[0]?.original} />

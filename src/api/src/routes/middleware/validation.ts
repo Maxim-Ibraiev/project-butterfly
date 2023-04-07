@@ -17,6 +17,15 @@ export const fileValidation = Joi.object({
   myImage: Joi.array().min(2).max(10),
 })
 
+export const fileListToUpdateValidation = Joi.object({
+  'image-0': Joi.array().min(1).max(1).optional(),
+  'image-1': Joi.array().min(1).max(1).optional(),
+  'image-2': Joi.array().min(1).max(1).optional(),
+  'image-3': Joi.array().min(1).max(1).optional(),
+  'image-4': Joi.array().min(1).max(1).optional(),
+  'image-5': Joi.array().min(1).max(1).optional(),
+})
+
 const images = Joi.array()
   .items(
     Joi.object({
@@ -45,7 +54,7 @@ export const productToAddValidation = Joi.object({
 })
 
 export const updateProductValidation = Joi.object({
-  images,
+  images: images.optional(),
   title: Joi.string().min(3).max(1000),
   description: Joi.string().min(3).max(1000),
   material: Joi.array(),
@@ -57,4 +66,20 @@ export const updateProductValidation = Joi.object({
   category: Joi.string().min(3).max(999),
   season: Joi.string().min(3).max(999),
   popularity: Joi.number().min(-999).max(999999),
+})
+
+export const receivingproductforUpdate = Joi.object({
+  images: images.optional(),
+  title: Joi.string().min(3).max(1000).optional(),
+  description: Joi.string().min(3).max(1000).optional(),
+  material: Joi.array().optional(),
+  price: Joi.number().min(1).max(999999).optional(),
+  color: Joi.string().min(3).max(1000).optional(),
+  model: Joi.string().min(3).max(1000).optional(),
+  size: Joi.object().max(999).optional(),
+  globalCategory: Joi.string().min(3).max(999).optional(),
+  category: Joi.string().min(3).max(999).optional(),
+  season: Joi.string().min(3).max(999).optional(),
+  popularity: Joi.number().min(-999).max(999999).optional(),
+  id: Joi.string(),
 })

@@ -23,12 +23,13 @@ const routes = {
     shoppingBag: '/api/shoppingBag',
     adminLogin: '/api/admin/auth',
     add: '/api/admin/add',
+    edit: '/api/admin/edit',
   },
 
   admin: {
     main: '/admin',
     auth: '/admin/login',
-    add: 'admin/add',
+    add: '/admin/add',
     toEditProduct: (id: string) => `/admin/product/${id}`,
   },
 }

@@ -1,7 +1,16 @@
 import axios, { AxiosResponse } from 'axios'
 import requestSymulator from './requestSymulator'
 import { getShotSelectedProducts } from '../helpers'
-import { ICallRequest, IProduct, IResponse, IShoppingBag, ILoginData, IAdmin } from '../interfaces'
+import {
+  ICallRequest,
+  IProduct,
+  IResponse,
+  IShoppingBag,
+  ILoginData,
+  IAdmin,
+  IProductObject,
+} from '../interfaces'
+import { ProductToUpdate } from '../interfaces/interfaces'
 import routes from '../routes'
 
 const api = {
@@ -28,6 +37,18 @@ const api = {
     })
 
     return axios.post(routes.api.add, formData)
+  },
+
+  edit: (files: File[], productToUpdate: ProductToUpdate) => {
+    const formData = new FormData()
+
+    files.forEach((file, ind) => {
+      if (file) formData.append(`image-${ind}`, file)
+    })
+
+    formData.append('data', JSON.stringify(productToUpdate))
+
+    return axios.patch(routes.api.edit, formData)
   },
 
   callRequest: async (data: ICallRequest): Promise<IResponse<null>> => {

@@ -1,6 +1,7 @@
 import { File } from 'formidable'
 import { NextApiHandler } from 'next'
-import { addProduct } from '../../../src/api/src/routes/admin/add/addModel'
+import serverApi from '../../../src/api/serverApi'
+import { updateProduct } from '../../../src/api/src/routes/admin/add/addModel'
 import fileReader from '../../../src/api/src/routes/admin/add/fileReader'
 import imageParser from '../../../src/api/src/routes/admin/add/imageParser'
 import queryParser from '../../../src/api/src/routes/admin/add/queryParcer'
@@ -22,30 +23,42 @@ const handler: NextApiHandler = async (req, res) => {
 
   try {
     const { files, fields } = await fileReader(req)
-    const query = queryParser(fields.data)
-    const product: IProductToAdd = {
-      popularity: 0,
-      ...query,
-      images: imageParser(files, { color: query.color, title: query.title, id: imageId }),
-    }
-    const fileError = RequestValidator.fileList(files).error
-    const productError = RequestValidator.product(product).error
+    const data = queryParser(fields.data)
 
+    // validation
+    const fileError = RequestValidator.fileListToUpdate(files).error
+    const productError = RequestValidator.receivingproductforUpdate(data).error
     if (productError) response = Responser.getBadRequest(productError)
     if (fileError) response = Responser.getBadRequest(fileError)
     if (response) res.status(response.status).json(response)
     if (response) return
 
-    // add products
+    // update product
+    const products = await serverApi.getProducts()
+    const product = products.data.find(el => el.id === data.id)
+    const images = imageParser(files, {
+      color: data.color,
+      id: imageId,
+      title: data.title,
+      preImages: product.images,
+    })
+    data.images = images
+    const id = data.id
+    delete data.id
+
     try {
-      const productResponse = await addProduct(product)
+      // add image
+      const arrFiles = Object.values(files).map(el => arrayWrapper(el)[0])
+      ImageCloud.imageUploader(arrFiles, data.title, imageId)
+
+      const productResponse = await updateProduct(id, data)
+
       response = Responser.getOK(productResponse)
     } catch (error) {
+      console.error('Files/product adding error')
+
       response = Responser.getServerError(error)
     }
-
-    // add image
-    await ImageCloud.imageUploader(files.myImage, product.title, imageId)
 
     res.status(response.status).json(response)
   } catch (error) {

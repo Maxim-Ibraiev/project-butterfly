@@ -1,10 +1,12 @@
 import { arrayWrapper } from '../../../../../helpers'
-import { IProductToAdd } from '../../../../../interfaces'
+import { ProductReceivingForUpdate } from '../../../../../interfaces'
 
-export default function queryParser(query: string | string[]): IProductToAdd {
-  if (Array.isArray(query)) throw new Error('Unexpected value of query. Expecting string.')
+export default function queryParser(query: string | string[]): ProductReceivingForUpdate {
+  const arrQuery = arrayWrapper(query)
 
-  const queryPrased = JSON.parse(query)
+  if (arrQuery.length > 1) throw new Error('Unexpected value of query. Expecting single value.')
+
+  const queryPrased = JSON.parse(arrQuery[0])
 
   return Object.entries(queryPrased).reduce((acc, [key, value]: [string, string[]]) => {
     if (key === 'material') acc[key] = arrayWrapper(value)
@@ -12,9 +14,9 @@ export default function queryParser(query: string | string[]): IProductToAdd {
     else if (key === 'price') acc[key] = Number(value)
     else {
       // eslint-disable-next-line prefer-destructuring
-      acc[key] = value[0]
+      acc[key] = arrayWrapper(value)[0]
     }
 
     return acc
-  }, {})
+  }, {} as ProductReceivingForUpdate)
 }

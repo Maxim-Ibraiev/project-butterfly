@@ -15,10 +15,6 @@ interface Props {
 
 export default function ProductCard({ width, height, product, getLinkForProdutc }: Props) {
   const allModels = useSelector<IState, IProduct[]>(state => getProductsByModel(state, product.getModel()))
-  console.log(
-    'allModels:',
-    allModels.map(el => el.toObject())
-  )
 
   return (
     <Link
