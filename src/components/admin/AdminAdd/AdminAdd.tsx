@@ -16,7 +16,7 @@ type ProductRest = { files: FileList; title: string; description: string; price:
 
 export default function AdminAdd() {
   const options = useFilter()
-  const [buttonStatus, setButtonStatus] = useState<Request>(null)
+  const [submitStatus, setSubmitStatus] = useState<Request>()
   const form = useForm<ProductOptions>()
 
   const handleChange: OnChange = (type, value) => options.define(type, value)
@@ -38,16 +38,16 @@ export default function AdminAdd() {
       }
     }
 
-    setButtonStatus('Request')
+    setSubmitStatus('Request')
     api.admin
       .addProduct(files, product)
-      .then(() => setButtonStatus('Success'))
-      .catch(() => setButtonStatus('Error'))
-      .finally(() =>
+      .then(() => {
+        setSubmitStatus('Success')
         setTimeout(() => {
-          if (buttonStatus !== 'Request') setButtonStatus(null)
+          if (submitStatus !== 'Request') setSubmitStatus(null)
         }, 3000)
-      )
+      })
+      .catch(() => setSubmitStatus('Error'))
   }
 
   return (
@@ -108,7 +108,7 @@ export default function AdminAdd() {
           isSeaSelectedOptions
         />
 
-        <MainButton isSubmit status={buttonStatus} isLoading={buttonStatus === 'Request'}>
+        <MainButton isSubmit status={submitStatus} isLoading={submitStatus === 'Request'}>
           {language.save}
         </MainButton>
       </Form>

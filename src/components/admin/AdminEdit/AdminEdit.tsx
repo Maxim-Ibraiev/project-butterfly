@@ -67,9 +67,11 @@ export default function AdminEdit() {
 
     api.admin
       .editProduct(files, productToUpdate)
-      .then(() => setSubmitStatus('Success'))
+      .then(() => {
+        setSubmitStatus('Success')
+        if (submitStatus !== 'Request') setSubmitStatus(null)
+      })
       .catch(() => setSubmitStatus('Error'))
-      .finally(() => setTimeout(() => setSubmitStatus(null), 2000))
   }
 
   return (
