@@ -18,7 +18,7 @@ export default function InputFiles({ register, fileName, imageUrl = null }: IPro
     if (file) {
       setSelectedImages(URL.createObjectURL(file))
     } else {
-      setSelectedImages(null)
+      setSelectedImages(imageUrl)
     }
   }
 

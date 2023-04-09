@@ -62,7 +62,7 @@ export default function AdminEdit() {
 
     delete productToUpdate.sort
 
-    api.edit(files, productToUpdate)
+    api.admin.editProduct(files, productToUpdate)
   }
 
   return (

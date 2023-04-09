@@ -33,7 +33,7 @@ export default function AdminPanel({ admin }: IProps) {
           }}
           type="button"
           onClick={async () => {
-            await api.adminLogout()
+            await api.admin.logout()
             router.push(routes.admin.auth)
           }}
         >

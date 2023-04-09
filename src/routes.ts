@@ -22,8 +22,7 @@ const routes = {
     getShoppingBag: (id?: string) => (id ? `/api/shoppingBag?id=${id}` : '/api/shoppingBag'),
     shoppingBag: '/api/shoppingBag',
     adminLogin: '/api/admin/auth',
-    add: '/api/admin/add',
-    edit: '/api/admin/edit',
+    adminProduct: '/api/admin/product',
   },
 
   admin: {

@@ -23,7 +23,7 @@ export default function AdminLogin() {
     setIsLoading(true)
 
     try {
-      const res = await api.adminLogin(body)
+      const res = await api.admin.login(body)
 
       if (res.data?.auth) {
         setStatus('Success')

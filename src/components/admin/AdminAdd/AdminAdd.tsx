@@ -39,8 +39,8 @@ export default function AdminAdd() {
     }
 
     setButtonStatus('Request')
-    api
-      .adminAdd(files, product)
+    api.admin
+      .addProduct(files, product)
       .then(() => setButtonStatus('Success'))
       .catch(() => setButtonStatus('Error'))
       .finally(() =>

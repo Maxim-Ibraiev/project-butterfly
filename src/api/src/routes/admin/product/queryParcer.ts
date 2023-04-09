@@ -13,7 +13,6 @@ export default function queryParser(query: string | string[]): ProductReceivingF
     else if (key === 'size') acc[key] = value.reduce((a, el) => Object.assign(a, { [el]: 1 }), {})
     else if (key === 'price') acc[key] = Number(value)
     else {
-      // eslint-disable-next-line prefer-destructuring
       acc[key] = arrayWrapper(value)[0]
     }
 

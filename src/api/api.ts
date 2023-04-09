@@ -1,15 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import requestSymulator from './requestSymulator'
 import { getShotSelectedProducts } from '../helpers'
-import {
-  ICallRequest,
-  IProduct,
-  IResponse,
-  IShoppingBag,
-  ILoginData,
-  IAdmin,
-  IProductObject,
-} from '../interfaces'
+import { ICallRequest, IProduct, IResponse, IShoppingBag, ILoginData, IAdmin } from '../interfaces'
 import { ProductToUpdate } from '../interfaces/interfaces'
 import routes from '../routes'
 
@@ -23,32 +15,34 @@ const api = {
       selectedProducts: getShotSelectedProducts(selectedProducts),
     }),
 
-  adminLogin: (body: ILoginData): Promise<IResponse<IAdmin>> =>
-    axios.post(routes.api.adminLogin, body).then(res => res.data),
+  admin: {
+    login: (body: ILoginData): Promise<IResponse<IAdmin>> =>
+      axios.post(routes.api.adminLogin, body).then(res => res.data),
 
-  adminLogout: (): Promise<IResponse<IAdmin>> => axios.get(routes.api.adminLogin).then(res => res.data),
+    logout: (): Promise<IResponse<IAdmin>> => axios.get(routes.api.adminLogin).then(res => res.data),
 
-  adminAdd: (files: File[], body) => {
-    const formData = new FormData()
+    addProduct: (files: File[], body) => {
+      const formData = new FormData()
 
-    formData.append('data', JSON.stringify(body))
-    files.forEach(file => {
-      formData.append('myImage', file)
-    })
+      formData.append('data', JSON.stringify(body))
+      files.forEach(file => {
+        formData.append('myImage', file)
+      })
 
-    return axios.post(routes.api.add, formData)
-  },
+      return axios.post(routes.api.adminProduct, formData)
+    },
 
-  edit: (files: File[], productToUpdate: ProductToUpdate) => {
-    const formData = new FormData()
+    editProduct: (files: File[], productToUpdate: ProductToUpdate) => {
+      const formData = new FormData()
 
-    files.forEach((file, ind) => {
-      if (file) formData.append(`image-${ind}`, file)
-    })
+      files.forEach((file, ind) => {
+        if (file) formData.append(`image-${ind}`, file)
+      })
 
-    formData.append('data', JSON.stringify(productToUpdate))
+      formData.append('data', JSON.stringify(productToUpdate))
 
-    return axios.patch(routes.api.edit, formData)
+      return axios.patch(routes.api.adminProduct, formData)
+    },
   },
 
   callRequest: async (data: ICallRequest): Promise<IResponse<null>> => {

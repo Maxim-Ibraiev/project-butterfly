@@ -135,10 +135,10 @@ export type ProductToUpdate = {
 export type ProductReceivingForUpdate = {
   title?: string
   description?: string
-  category?: string[]
+  category?: string
   material?: string[]
   color?: string
-  season?: string[]
+  season?: string
   id: string
   size?: IProductObject['size']
   images?: IProductObject['images']
