@@ -17,13 +17,32 @@ export const fileValidation = Joi.object({
   myImage: Joi.array().min(2).max(10),
 })
 
+const fileSchema = Joi.array()
+  .items({
+    filepath: Joi.string().max(300),
+    mimetype: Joi.string().max(300),
+    mtime: Joi.string().max(300),
+    newFilename: Joi.string().max(300),
+    originalFilename: Joi.string().max(300),
+    size: Joi.number().max(10485760), // 10MB in binary
+
+    _events: Joi.optional(),
+    _eventsCount: Joi.optional(),
+    _maxListeners: Joi.optional(),
+    _writeStream: Joi.optional(),
+    lastModifiedDate: Joi.optional(),
+    hashAlgorithm: Joi.optional(),
+    hash: Joi.optional(),
+  })
+  .single()
+
 export const fileListToUpdateValidation = Joi.object({
-  'image-0': Joi.array().min(1).max(1).optional(),
-  'image-1': Joi.array().min(1).max(1).optional(),
-  'image-2': Joi.array().min(1).max(1).optional(),
-  'image-3': Joi.array().min(1).max(1).optional(),
-  'image-4': Joi.array().min(1).max(1).optional(),
-  'image-5': Joi.array().min(1).max(1).optional(),
+  'image-0': fileSchema,
+  'image-1': fileSchema,
+  'image-2': fileSchema,
+  'image-3': fileSchema,
+  'image-4': fileSchema,
+  'image-5': fileSchema,
 })
 
 const images = Joi.array()

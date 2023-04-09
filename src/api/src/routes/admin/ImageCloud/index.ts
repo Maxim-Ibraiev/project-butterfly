@@ -58,7 +58,7 @@ export default class ImageCloud {
             resolve(data)
           }
         } catch (error) {
-          reject(new Error('imageUploader error: '))
+          reject(error)
         }
       })
     })
