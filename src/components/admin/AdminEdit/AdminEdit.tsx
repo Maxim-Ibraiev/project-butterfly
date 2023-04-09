@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { useFilter, useReduceSelectors } from '../../../customHook'
 import { arrayWrapper } from '../../../helpers'
+import { Request } from '../../../interfaces'
 import language from '../../../language'
 import MainButton from '../../buttons/MainButton'
 import FilesGrid from '../../FilesGrid'
@@ -20,6 +21,7 @@ export default function AdminEdit() {
   const product = getProductById(id)
   const form = useForm()
   const filter = useFilter()
+  const [submitStatus, setSubmitStatus] = useState<Request>()
 
   if (!product) return <NoProduct />
 
@@ -41,6 +43,7 @@ export default function AdminEdit() {
   }, [])
 
   const handleEdit = (data: { description: string; title: string; price: number }) => {
+    setSubmitStatus('Request')
     const files: File[] = []
 
     for (let index = 0; index < 6; index++) {
@@ -62,7 +65,11 @@ export default function AdminEdit() {
 
     delete productToUpdate.sort
 
-    api.admin.editProduct(files, productToUpdate)
+    api.admin
+      .editProduct(files, productToUpdate)
+      .then(() => setSubmitStatus('Success'))
+      .catch(() => setSubmitStatus('Error'))
+      .finally(() => setTimeout(() => setSubmitStatus(null), 2000))
   }
 
   return (
@@ -113,7 +120,9 @@ export default function AdminEdit() {
         <Text type="body">{language.season}</Text>
         <CustomSelector value={filter.query.season} type="season" onChange={filter.define} />
 
-        <MainButton isSubmit>{language.save}</MainButton>
+        <MainButton status={submitStatus} isSubmit>
+          {language.save}
+        </MainButton>
       </Form>
     </div>
   )
