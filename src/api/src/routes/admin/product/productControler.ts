@@ -35,8 +35,7 @@ export const edit: NextApiHandler = async (req, res) => {
       delete data.id
 
       // add image
-      const x = ImageCloud.imageUploader(files, imageOptions)
-      console.log(x)
+      await ImageCloud.imageUploader(files, imageOptions)
 
       // update product
       const productResponse = await updateProduct(id, data)
@@ -78,7 +77,7 @@ export const add: NextApiHandler = async (req, res) => {
 
     try {
       // add image
-      ImageCloud.imageUploader(files, imageOptions)
+      await ImageCloud.imageUploader(files, imageOptions)
 
       // add products
       const productResponse = await addProduct(product)

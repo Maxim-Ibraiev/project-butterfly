@@ -58,7 +58,7 @@ class Responser {
   }
 
   static getServerError(error: IError) {
-    console.error(error)
+    console.error('Server error middleware, ', error)
 
     return this.getBaseResponse({ status: httpStatusCodes.INTERNAL_SERVER_ERROR, error })
   }

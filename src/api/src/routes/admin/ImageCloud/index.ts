@@ -6,48 +6,48 @@ import { IProductObject } from '../../../../../interfaces'
 
 type Options = { id: string; color: string; title: string; preImages?: IProductObject['images'] }
 
+const { imageCloudConfig } = getConfig().serverRuntimeConfig
+
+cloudinary.config(imageCloudConfig)
+
 export default class ImageCloud {
-  static doConfig() {
-    const { imageCloudConfig } = getConfig().serverRuntimeConfig
-
-    cloudinary.config(imageCloudConfig)
-  }
-
   static getURL(src: string, quality?: boolean) {
-    this.doConfig()
-
     return cloudinary.url(`products/${src}`, {
       transformations: { quality: quality ? 30 : 100 },
     })
   }
 
-  static imageUploader(files: formidable.Files, options: Options) {
+  static async imageUploader(files: formidable.Files, options: Options) {
     if (files.myImage) {
-      this.fileUploader(files.myImage, { title: options.title, id: options.id })
+      return this.fileUploader(files.myImage, { title: options.title, id: options.id })
     }
+
+    const filePromises: Promise<UploadApiResponse[]>[] = []
 
     for (let index = 0; index < 6; index++) {
       const file = files[`image-${index}`]
 
       if (file) {
-        this.fileUploader(file, { title: options.title, index, id: options.id })
         this.deleteImage(options.preImages[index])
+        const fileResponse = this.fileUploader(file, { title: options.title, index, id: options.id })
+
+        filePromises.push(fileResponse)
       }
     }
+
+    return Promise.all(filePromises).then(el => el.flat())
   }
 
   private static async fileUploader(
     files: File | File[],
     options: { title: string; id: string; index?: number }
   ) {
-    this.doConfig()
-
     const arrFiles = arrayWrapper(files)
     const data: UploadApiResponse[] = []
 
-    return new Promise((resolve, reject) => {
-      try {
-        arrFiles.forEach(async (file, ind) => {
+    return new Promise<UploadApiResponse[]>((resolve, reject) => {
+      arrFiles.forEach(async (file, ind) => {
+        try {
           const res = await cloudinary.uploader.upload(file.filepath, {
             folder: 'products',
             public_id: this.getImageName(options.title, options.index || ind, options.id),
@@ -57,18 +57,14 @@ export default class ImageCloud {
           if (data.length === arrFiles.length) {
             resolve(data)
           }
-        })
-      } catch (error) {
-        console.error('imageUploader ', error)
-
-        reject(error)
-      }
+        } catch (error) {
+          reject(new Error('imageUploader error: '))
+        }
+      })
     })
   }
 
   static async deleteImage(image: IProductObject['images'][0]) {
-    this.doConfig()
-
     return cloudinary.uploader.destroy(`products/${image.original}`)
   }
 
