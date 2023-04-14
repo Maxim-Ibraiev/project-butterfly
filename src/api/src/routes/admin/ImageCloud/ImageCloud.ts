@@ -4,16 +4,16 @@ import getConfig from 'next/config'
 import { arrayWrapper } from '../../../../../helpers'
 import { IProductObject } from '../../../../../interfaces'
 
-type Options = { id: string; color: string; title: string; preImages?: IProductObject['images'] }
+export type ImageOptions = { id: string; color: string; title: string; preImages?: IProductObject['images'] }
 
 const { imageCloudConfig } = getConfig().serverRuntimeConfig
 
 cloudinary.config(imageCloudConfig)
 
 export default class ImageCloud {
-  static async imageUploader(files: formidable.Files, options: Options) {
-    if (files.myImage) {
-      return this.fileUploader(files.myImage, { title: options.title, id: options.id })
+  static async imageUploader(files: formidable.Files, options: ImageOptions) {
+    if (files.images) {
+      return this.fileUploader(files.images, { title: options.title, id: options.id })
     }
 
     const filePromises: Promise<UploadApiResponse[]>[] = []
@@ -67,9 +67,9 @@ export default class ImageCloud {
     return `${title}__${index}__${id}`
   }
 
-  static imageParser(files: formidable.Files, options: Options) {
-    if (files.myImage) {
-      return arrayWrapper(files.myImage).map((_, ind) => this.getImageItem(ind, options))
+  static imageParser(files: formidable.Files, options: ImageOptions) {
+    if (files.images) {
+      return arrayWrapper(files.images).map((_, ind) => this.getImageItem(ind, options))
     }
 
     const images: IProductObject['images'] = []
@@ -79,13 +79,13 @@ export default class ImageCloud {
 
       if (file) {
         images[index] = this.getImageItem(index, options)
-      } else images[index] = options.preImages[index]
+      } else images[index] = options.preImages ? options.preImages[index] : null
     }
 
     return images.filter(Boolean)
   }
 
-  private static getImageItem = (index: number, options: Options) => ({
+  private static getImageItem = (index: number, options: ImageOptions) => ({
     original: ImageCloud.getImageName(options.title, index, options.id),
     thumbnail: ImageCloud.getImageName(options.title, index, options.id),
     color: [options.color],

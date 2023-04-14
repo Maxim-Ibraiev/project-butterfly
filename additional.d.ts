@@ -1,5 +1,6 @@
 import { Db } from 'mongodb'
-import { IAdmin } from './src/interfaces'
+import { ImageOptions } from './src/api/src/routes/admin/ImageCloud/ImageCloud'
+import { ProductReceivingForUpdate, IProductObject } from './src/interfaces'
 
 declare module '*.scss'
 
@@ -14,5 +15,12 @@ declare global {
 declare module 'iron-session' {
   interface IronSessionData {
     admin?: IAdmin
+  }
+}
+
+declare module 'formidable' {
+  interface Fields {
+    id?: IProductObject['id']
+    imageOptions?: string
   }
 }

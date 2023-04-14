@@ -1,49 +1,36 @@
 import { NextApiHandler } from 'next'
 import fileReader from './fileReader'
 import { addProduct, updateProduct } from './productModel'
-import queryParser from './queryParcer'
-import { IProductObject, IProductToAdd, IResponse } from '../../../../../interfaces'
-import serverApi from '../../../../serverApi'
+import { IProductObject, IResponse } from '../../../../../interfaces'
 import RequestValidator from '../../RequestValidator'
 import Responser from '../../Responser'
-import ImageCloud from '../ImageCloud'
 
 export const edit: NextApiHandler = async (req, res) => {
   let response: IResponse<IProductObject> = null
-  const imageId = Math.round(Math.random() * 10000).toString()
 
   try {
-    const { files, fields } = await fileReader(req)
-    const data = queryParser(fields.data)
+    const data = req.body.product
+    const id = req.body.id
+    delete data.id
+
+    console.log('data:', data)
 
     // validation
-    const fileError = RequestValidator.fileListToUpdate(files).error
-    const productError = RequestValidator.receivingproductforUpdate(data).error
+    const productError = RequestValidator.productUpdate(data).error
+    const idError = RequestValidator.id(id).error
     if (productError) response = Responser.getBadRequest(productError)
-    if (fileError) response = Responser.getBadRequest(fileError)
+    if (idError) response = Responser.getBadRequest(idError)
     if (response) res.status(response.status).json(response)
     if (response) return
 
-    const products = await serverApi.getProducts()
-    const product = products.data.find(el => el.id === data.id)
-
     try {
-      const imageOptions = { title: data.title, id: imageId, color: data.color, preImages: product.images }
-      data.images = ImageCloud.imageParser(files, imageOptions)
-
-      const id = data.id
-      delete data.id
-
-      // add image
-      await ImageCloud.imageUploader(files, imageOptions)
-
       // update product
+      console.log('sent')
       const productResponse = await updateProduct(id, data)
+      console.log('productResponse:', productResponse)
 
       response = Responser.getOK(productResponse)
     } catch (error) {
-      console.error('Files/product adding error')
-
       response = Responser.getServerError(error)
     }
 
@@ -56,31 +43,19 @@ export const edit: NextApiHandler = async (req, res) => {
 
 export const add: NextApiHandler = async (req, res) => {
   let response: IResponse<IProductObject> = null
-  const imageId = Math.round(Math.random() * 10000).toString()
 
   try {
-    const { files, fields } = await fileReader(req)
-    const query = queryParser(fields.data)
-    const imageOptions = { color: query.color, id: imageId, title: query.title }
-    const product: IProductToAdd = {
-      popularity: 0,
-      ...query,
-      images: ImageCloud.imageParser(files, imageOptions),
-    }
-    const fileError = RequestValidator.fileList(files).error
-    const productError = RequestValidator.product(product).error
+    const data = req.body
 
+    // validation
+    const productError = RequestValidator.product(data).error
     if (productError) response = Responser.getBadRequest(productError)
-    if (fileError) response = Responser.getBadRequest(fileError)
     if (response) res.status(response.status).json(response)
     if (response) return
 
     try {
-      // add image
-      await ImageCloud.imageUploader(files, imageOptions)
-
       // add products
-      const productResponse = await addProduct(product)
+      const productResponse = await addProduct(data)
       response = Responser.getOK(productResponse)
     } catch (error) {
       response = Responser.getServerError(error)
@@ -91,4 +66,9 @@ export const add: NextApiHandler = async (req, res) => {
     response = Responser.getServerError(error)
     res.status(response.status).json(response)
   }
+}
+
+export const productDelete: NextApiHandler = async (req, res) => {
+  const { fields } = await fileReader(req)
+  console.log('fields:', fields)
 }

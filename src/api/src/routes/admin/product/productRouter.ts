@@ -1,16 +1,21 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { add, edit } from './productControler'
+import { add, edit, productDelete } from './productControler'
 import Responser from '../../Responser'
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'POST': {
-      add(req, res)
+      await add(req, res)
       break
     }
 
     case 'PATCH': {
-      edit(req, res)
+      await edit(req, res)
+      break
+    }
+
+    case 'DELETE': {
+      await productDelete(req, res)
       break
     }
 

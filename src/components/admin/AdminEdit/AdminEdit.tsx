@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { useFilter, useReduceSelectors } from '../../../customHook'
 import { arrayWrapper } from '../../../helpers'
-import { Request } from '../../../interfaces'
+import { IProductToAdd, ProductToUpdate, Request } from '../../../interfaces'
 import language from '../../../language'
 import MainButton from '../../buttons/MainButton'
 import FilesGrid from '../../FilesGrid'
@@ -22,6 +22,8 @@ export default function AdminEdit() {
   const form = useForm()
   const filter = useFilter()
   const [submitStatus, setSubmitStatus] = useState<Request>()
+  const [fileList, setFileList] = useState(new Array(6).fill(null))
+  const [productImages, setProductImages] = useState(product.getImages())
 
   if (!product) return <NoProduct />
 
@@ -42,36 +44,49 @@ export default function AdminEdit() {
     form.setValue('price', product.getPrice())
   }, [])
 
-  const handleEdit = (data: { description: string; title: string; price: number }) => {
-    setSubmitStatus('Request')
-    const files: File[] = []
+  const handleEdit = async (data: { description: string; title: string; price: number }) => {
+    const { query } = filter
 
-    for (let index = 0; index < 6; index++) {
-      const fileList = data[`files_${index}`]
-      if (fileList[0]) {
-        files[index] = fileList[0]
-      } else {
-        files[index] = null
-      }
-    }
-
-    const productToUpdate = {
+    const productToUpdate: ProductToUpdate = {
       title: data.title,
       description: data.description,
       price: data.price,
-      ...filter.query,
-      id,
+      globalCategory: query.globalCategory[0],
+      category: query.category[0],
+      model: query.model[0],
+      material: query.material,
+      color: query.color[0],
+      season: query.season[0],
+      size: query.size.reduce((acc, el) => {
+        acc[el] = 1
+        return acc
+      }, {}),
     }
 
-    delete productToUpdate.sort
-
-    api.admin
-      .editProduct(files, productToUpdate)
-      .then(() => {
-        setSubmitStatus('Success')
-        if (submitStatus !== 'Request') setSubmitStatus(null)
+    setSubmitStatus('Request')
+    try {
+      const imageResponse = await api.admin.imageUpdate(id, fileList, {
+        color: productToUpdate.color,
+        title: productToUpdate.title,
+        preImages: productImages.filter(Boolean),
       })
-      .catch(() => setSubmitStatus('Error'))
+
+      productToUpdate.images = imageResponse.data
+
+      await api.admin.editProduct(product.getId(), productToUpdate)
+
+      setSubmitStatus('Success')
+    } catch (error) {
+      setSubmitStatus('Error')
+    } finally {
+      setTimeout(() => {
+        if (submitStatus !== 'Request') setSubmitStatus(null)
+      }, 3000)
+    }
+  }
+
+  const handleDeleteItem = (index: number) => {
+    setProductImages(productImages.map((el, ind) => (ind === index ? null : el)))
   }
 
   return (
@@ -81,7 +96,7 @@ export default function AdminEdit() {
       </Text>
 
       <Form handleSubmit={form.handleSubmit(handleEdit)}>
-        <FilesGrid fileName="files" register={form.register} images={product.getImages()} />
+        <FilesGrid onChange={setFileList} onDeleteItem={handleDeleteItem} images={product.getImages()} />
         <Input label="title" register={form.register} />
         <Input label="description" register={form.register} />
         <Input label="price" type="number" register={form.register} />

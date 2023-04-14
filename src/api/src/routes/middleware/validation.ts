@@ -36,6 +36,7 @@ const fileSchema = Joi.array()
   })
   .single()
 
+export const fileListToAddValidation = Joi.object({ images: Joi.array().items(fileSchema).min(2).max(10) })
 export const fileListToUpdateValidation = Joi.object({
   'image-0': fileSchema,
   'image-1': fileSchema,
@@ -45,17 +46,13 @@ export const fileListToUpdateValidation = Joi.object({
   'image-5': fileSchema,
 })
 
-const images = Joi.array()
-  .items(
-    Joi.object({
-      original: Joi.string().min(1).max(999),
-      thumbnail: Joi.string().min(1).max(999),
-      color: Joi.array().min(1).max(99),
-    })
-  )
-  .min(2)
-  .max(10)
-  .required()
+const imageItem = Joi.object({
+  original: Joi.string().min(1).max(999),
+  thumbnail: Joi.string().min(1).max(999),
+  color: Joi.array().min(1).max(99),
+})
+
+const images = Joi.array().items(imageItem).min(2).max(10).required()
 
 export const productToAddValidation = Joi.object({
   images,
@@ -72,8 +69,10 @@ export const productToAddValidation = Joi.object({
   popularity: Joi.number().min(-999).max(999999),
 })
 
+export const updateImage = images.min(0).optional().allow()
+
 export const updateProductValidation = Joi.object({
-  images: images.optional(),
+  images: updateImage,
   title: Joi.string().min(3).max(1000),
   description: Joi.string().min(3).max(1000),
   material: Joi.array(),
@@ -87,18 +86,25 @@ export const updateProductValidation = Joi.object({
   popularity: Joi.number().min(-999).max(999999),
 })
 
-export const receivingproductforUpdate = Joi.object({
-  images: images.optional(),
-  title: Joi.string().min(3).max(1000).optional(),
-  description: Joi.string().min(3).max(1000).optional(),
-  material: Joi.array().optional(),
-  price: Joi.number().min(1).max(999999).optional(),
-  color: Joi.string().min(3).max(1000).optional(),
-  model: Joi.string().min(3).max(1000).optional(),
-  size: Joi.object().max(999).optional(),
-  globalCategory: Joi.string().min(3).max(999).optional(),
-  category: Joi.string().min(3).max(999).optional(),
-  season: Joi.string().min(3).max(999).optional(),
-  popularity: Joi.number().min(-999).max(999999).optional(),
-  id: Joi.string(),
+export const imageOptionsValidation = Joi.object({
+  title: Joi.string().min(3).max(1000),
+  color: Joi.string().min(3).max(1000),
+  id: Joi.array().items(Joi.string().min(0).max(9999)).single(),
+  preImages: updateImage,
 })
+
+// export const receivingproductforUpdate = Joi.object({
+//   images: images.min(0).optional(),
+//   title: Joi.string().min(3).max(1000).optional(),
+//   description: Joi.string().min(3).max(1000).optional(),
+//   material: Joi.array().optional(),
+//   price: Joi.number().min(1).max(999999).optional(),
+//   color: Joi.string().min(3).max(1000).optional(),
+//   model: Joi.string().min(3).max(1000).optional(),
+//   size: Joi.object().max(999).optional(),
+//   globalCategory: Joi.string().min(3).max(999).optional(),
+//   category: Joi.string().min(3).max(999).optional(),
+//   season: Joi.string().min(3).max(999).optional(),
+//   popularity: Joi.number().min(-999).max(999999).optional(),
+//   id: idValidation.optional(),
+// })

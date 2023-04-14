@@ -1,25 +1,38 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { UseFormRegister, FieldValues } from 'react-hook-form'
 import s from './InputFiles.module.scss'
 
 interface IProps {
-  register: UseFormRegister<FieldValues>
   fileName: string
+  index: number
+  onChange: (file: File, index: number) => void
+  onDeleteItem?: (index: number) => void
   imageUrl?: string
 }
 
-export default function InputFiles({ register, fileName, imageUrl = null }: IProps) {
+export default function InputFiles({ fileName, index, onChange, onDeleteItem, imageUrl = null }: IProps) {
   const [selectedImages, setSelectedImages] = useState<string>(imageUrl)
+  const [value, setValue] = useState<string>('')
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    const file = target.files[0]
+    const file = target.files[0] || null
 
     if (file) {
       setSelectedImages(URL.createObjectURL(file))
     } else {
       setSelectedImages(imageUrl)
+      setValue('')
     }
+
+    onChange(file, index)
+  }
+
+  const handleDelete = () => {
+    setSelectedImages(null)
+    setValue('')
+    onChange(null, index)
+
+    if (onDeleteItem) onDeleteItem(index)
   }
 
   return (
@@ -30,12 +43,18 @@ export default function InputFiles({ register, fileName, imageUrl = null }: IPro
         </div>
       )}
       <input
-        {...register(fileName)}
+        name={fileName}
+        value={value}
         className={s.input}
         type="file"
         accept=".jpg,.png,.jpeg"
         onChange={handleChange}
       />
+      {selectedImages && (
+        <button type="button" className={s.deleteButton} onClick={handleDelete}>
+          {' '}
+        </button>
+      )}
     </div>
   )
 }

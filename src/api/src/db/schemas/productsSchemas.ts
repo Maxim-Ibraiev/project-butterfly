@@ -26,6 +26,9 @@ const productSchema = new Schema(
     category: {
       type: String,
     },
+    globalCategory: {
+      type: String,
+    },
     images: {
       type: [{ original: String, thumbnail: String, color: [String] }],
       require: [true, 'Image is required'],

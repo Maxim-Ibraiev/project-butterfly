@@ -9,19 +9,19 @@ export interface IProductObject {
   material: string[]
   color: string
   images: { original: string; thumbnail: string; color: string[] }[]
-  id: string
   globalCategory: string
   category: string
   description: string
   title: string
   model: string
   season: string
-  createdAt: string
-  updatedAt: string
-  __v: number
   size: {
     [key: string]: number
   }
+  id: string
+  createdAt: string
+  updatedAt: string
+  __v: number
   selectedSize?: null | number
 }
 
@@ -122,24 +122,19 @@ export type ProductToAdd = {
   season: string[]
 }
 
-export type ProductToUpdate = {
-  title?: string
-  description?: string
-  category?: string[]
-  size?: string[]
-  material?: string[]
-  color?: string[]
-  season?: string[]
-}
+export type ProductToUpdate = Omit<
+  Partial<IProductObject>,
+  'id' | 'createdAt' | 'updatedAt' | '__v' | 'selectedSize'
+>
 
-export type ProductReceivingForUpdate = {
-  title?: string
-  description?: string
-  category?: string
-  material?: string[]
-  color?: string
-  season?: string
-  id: string
-  size?: IProductObject['size']
-  images?: IProductObject['images']
-}
+// export type ProductReceivingForUpdate = {
+//   title?: string
+//   description?: string
+//   category?: string[]
+//   size?: string[]
+//   material?: string[]
+//   color?: string[]
+//   season?: string[]
+//   price?: number
+//   images?: IProductObject['images']
+// }

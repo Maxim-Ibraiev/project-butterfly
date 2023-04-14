@@ -23,6 +23,7 @@ const routes = {
     shoppingBag: '/api/shoppingBag',
     adminLogin: '/api/admin/auth',
     adminProduct: '/api/admin/product',
+    adminImags: '/api/admin/images',
   },
 
   admin: {

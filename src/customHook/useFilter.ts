@@ -24,7 +24,7 @@ export default function useFilter() {
   const updateURL = (newQuery?: typeof query & { id?: string }) => {
     router.push(
       {
-        query: newQuery || query,
+        query: filterChecker(newQuery) || query,
       },
       undefined,
       { shallow: true }

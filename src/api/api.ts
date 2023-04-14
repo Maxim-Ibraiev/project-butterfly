@@ -1,8 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
 import requestSymulator from './requestSymulator'
+import { ImageOptions } from './src/routes/admin/ImageCloud/ImageCloud'
 import { getShotSelectedProducts } from '../helpers'
 import { ICallRequest, IProduct, IResponse, IShoppingBag, ILoginData, IAdmin } from '../interfaces'
-import { ProductToUpdate } from '../interfaces/interfaces'
+import { IProductObject, ProductToUpdate } from '../interfaces/interfaces'
 import routes from '../routes'
 
 const api = {
@@ -21,27 +22,30 @@ const api = {
 
     logout: (): Promise<IResponse<IAdmin>> => axios.get(routes.api.adminLogin).then(res => res.data),
 
-    addProduct: (files: File[], body) => {
-      const formData = new FormData()
+    addProduct: body => axios.post(routes.api.adminProduct, body),
+    editProduct: (id: string, productToUpdate: ProductToUpdate) =>
+      axios.patch(routes.api.adminProduct, { id, product: productToUpdate }),
 
-      formData.append('data', JSON.stringify(body))
+    imageAdd: async (files: File[], options: Omit<ImageOptions, 'id'>) => {
+      const formData = new FormData()
+      formData.append('imageOptions', JSON.stringify(options))
+
       files.forEach(file => {
-        formData.append('myImage', file)
+        if (file) formData.append('images', file)
       })
 
-      return axios.post(routes.api.adminProduct, formData)
+      return (await axios.post(routes.api.adminImags, formData)).data as IResponse<IProductObject['images']>
     },
-
-    editProduct: (files: File[], productToUpdate: ProductToUpdate) => {
+    imageUpdate: async (id: string, files: File[], options: Omit<ImageOptions, 'id'>) => {
       const formData = new FormData()
+      formData.append('id', JSON.stringify(id))
+      formData.append('imageOptions', JSON.stringify(options))
 
       files.forEach((file, ind) => {
         if (file) formData.append(`image-${ind}`, file)
       })
 
-      formData.append('data', JSON.stringify(productToUpdate))
-
-      return axios.patch(routes.api.adminProduct, formData)
+      return (await axios.patch(routes.api.adminImags, formData)).data as IResponse<IProductObject['images']>
     },
   },
 
