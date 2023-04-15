@@ -126,15 +126,3 @@ export type ProductToUpdate = Omit<
   Partial<IProductObject>,
   'id' | 'createdAt' | 'updatedAt' | '__v' | 'selectedSize'
 >
-
-// export type ProductReceivingForUpdate = {
-//   title?: string
-//   description?: string
-//   category?: string[]
-//   size?: string[]
-//   material?: string[]
-//   color?: string[]
-//   season?: string[]
-//   price?: number
-//   images?: IProductObject['images']
-// }

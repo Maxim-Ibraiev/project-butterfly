@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 import { IProductObject } from '../../interfaces'
 import InputFiles from '../inputs/InputFiles'
 import s from './FilesGrid.module.scss'
@@ -7,9 +8,10 @@ interface IProps {
   onDeleteItem?: (index: number) => void
   onChange: (files: File[]) => void
   images?: IProductObject['images']
+  register?: UseFormRegister<FieldValues>
 }
 
-export default function FilesGrid({ onChange, onDeleteItem, images = [] }: IProps) {
+export default function FilesGrid({ onChange, onDeleteItem, images = [], register }: IProps) {
   const [fileList, setFileList] = useState(new Array(6).fill(null))
 
   const handleChange = (file: File, index: number) => {
@@ -28,6 +30,7 @@ export default function FilesGrid({ onChange, onDeleteItem, images = [] }: IProp
         index={0}
         onDeleteItem={onDeleteItem}
         imageUrl={images[0]?.original}
+        register={register}
       />
       <InputFiles
         onChange={handleChange}
@@ -35,6 +38,7 @@ export default function FilesGrid({ onChange, onDeleteItem, images = [] }: IProp
         index={1}
         onDeleteItem={onDeleteItem}
         imageUrl={images[1]?.original}
+        register={register}
       />
       <InputFiles
         onChange={handleChange}
@@ -42,6 +46,7 @@ export default function FilesGrid({ onChange, onDeleteItem, images = [] }: IProp
         index={2}
         onDeleteItem={onDeleteItem}
         imageUrl={images[2]?.original}
+        register={register}
       />
       <InputFiles
         onChange={handleChange}
@@ -49,6 +54,7 @@ export default function FilesGrid({ onChange, onDeleteItem, images = [] }: IProp
         index={3}
         onDeleteItem={onDeleteItem}
         imageUrl={images[3]?.original}
+        register={register}
       />
       <InputFiles
         onChange={handleChange}
@@ -56,6 +62,7 @@ export default function FilesGrid({ onChange, onDeleteItem, images = [] }: IProp
         index={4}
         onDeleteItem={onDeleteItem}
         imageUrl={images[4]?.original}
+        register={register}
       />
       <InputFiles
         onChange={handleChange}
@@ -63,6 +70,7 @@ export default function FilesGrid({ onChange, onDeleteItem, images = [] }: IProp
         index={5}
         onDeleteItem={onDeleteItem}
         imageUrl={images[5]?.original}
+        register={register}
       />
     </div>
   )

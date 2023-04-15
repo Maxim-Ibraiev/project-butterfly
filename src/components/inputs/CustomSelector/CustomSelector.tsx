@@ -1,3 +1,4 @@
+import { UseFormRegister, FieldValues } from 'react-hook-form'
 import Select, { OptionsType, Props } from 'react-select'
 import CreatableSelector from 'react-select/creatable'
 import styles from './selectStyles'
@@ -19,6 +20,8 @@ export interface ISelect {
   isMulti?: boolean
   isCreatableSelector?: boolean
   isSeaSelectedOptions?: boolean
+  required?: boolean
+  register?: UseFormRegister<FieldValues>
 }
 
 export default function CustomSelector({
@@ -30,15 +33,21 @@ export default function CustomSelector({
   isMulti = false,
   isCreatableSelector = false,
   isSeaSelectedOptions = false,
+  required = false,
+  register = null,
 }: ISelect) {
   const { products } = useReduceSelectors()
   const allOptions = (options && { [type]: getOptionFormat(options) }) || getOptionsFromProducts(products)
+  const regOption = register && {
+    ...register(type, {
+      required,
+      // onChange: (option: FilterOption & OptionsType<FilterOption>) =>
+      //   onChange(type, option ? arrayWrapper(option).map(el => el.value) : []),
+    }),
+  }
 
   const props = {
     value: getOptionsFormatFromValue(value),
-    onChange: (option: FilterOption & OptionsType<FilterOption>) => {
-      onChange(type, option ? arrayWrapper(option).map(el => el.value) : [])
-    },
     components: !isSeaSelectedOptions && {
       MultiValueContainer: () => ValueContainer({ text: l[type] || type }),
       SingleValue: () => ValueContainer({ text: l[arrayWrapper(value)[0]] || arrayWrapper(value) }),
@@ -55,6 +64,21 @@ export default function CustomSelector({
     className: s.selector,
     menuPosition,
   } as Props
+
+  if (regOption) {
+    Object.assign(props, regOption)
+  }
+  props.onChange = (option: FilterOption & OptionsType<FilterOption>) => {
+    const incomingValue = option ? arrayWrapper(option).map(el => el.value) : []
+    onChange(type, incomingValue)
+
+    if (regOption) {
+      regOption.onChange({
+        target: { value: incomingValue, name: type },
+        type,
+      })
+    }
+  }
 
   return isCreatableSelector ? (
     <CreatableSelector {...props} isClearable isSearchable />

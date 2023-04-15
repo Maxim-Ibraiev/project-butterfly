@@ -13,8 +13,6 @@ export const edit: NextApiHandler = async (req, res) => {
     const id = req.body.id
     delete data.id
 
-    console.log('data:', data)
-
     // validation
     const productError = RequestValidator.productUpdate(data).error
     const idError = RequestValidator.id(id).error
@@ -25,9 +23,7 @@ export const edit: NextApiHandler = async (req, res) => {
 
     try {
       // update product
-      console.log('sent')
       const productResponse = await updateProduct(id, data)
-      console.log('productResponse:', productResponse)
 
       response = Responser.getOK(productResponse)
     } catch (error) {

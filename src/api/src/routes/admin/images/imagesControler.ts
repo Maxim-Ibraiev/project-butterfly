@@ -10,10 +10,7 @@ import fileReader from '../product/fileReader'
 export const updateAdd: NextApiHandler = async (req, res) => {
   let response: IResponse<IProductObject['images']> = null
   const { files, fields } = await fileReader(req)
-  console.log('files:', files)
-  console.log('fields:', fields)
   const imageOptions = JSON.parse(fields.imageOptions) as ImageOptions
-  console.log('imageOptions:', imageOptions)
 
   imageOptions.id = Math.round(Math.random() * 10000).toString()
 

@@ -18,27 +18,30 @@ export default function AdminAdd() {
   const options = useFilter()
   const [submitStatus, setSubmitStatus] = useState<Request>()
   const form = useForm<FilterQuery>()
+  const fireFform = useForm()
   const [fileList, setFileList] = useState(new Array(6).fill(null))
 
   const handleChange: OnChange = (type, value) => options.define(type, value)
   const handleAdd = async (data: FormOptions) => {
-    const { query } = options
+    if (fileList.filter(Boolean).length < 2) {
+      if (!fileList[0]) fireFform.setFocus('image-0')
+      else fireFform.setFocus('image-1')
+
+      return
+    }
+
     const productToAdd: ProductToUpdate = {
-      title: data.title,
-      description: data.description,
-      price: data.price,
-      globalCategory: query.globalCategory[0],
-      category: query.category[0],
-      model: query.model[0],
-      material: query.material,
-      color: query.color[0],
-      season: query.season[0],
-      size: query.size.reduce((acc, el) => {
+      ...data,
+      globalCategory: data.globalCategory[0],
+      category: data.category[0],
+      model: data.model[0],
+      color: data.color[0],
+      season: data.season[0],
+      size: data.size.reduce((acc, el) => {
         acc[el] = 1
         return acc
       }, {}),
     }
-
     try {
       setSubmitStatus('Request')
 
@@ -64,59 +67,86 @@ export default function AdminAdd() {
   return (
     <div>
       <Form handleSubmit={form.handleSubmit(handleAdd)}>
-        <FilesGrid onChange={setFileList} />
-        <Input label="Title" name="title" register={form.register} />
-        <Input label="description" name="description" register={form.register} />
-        <Input label="price" name="price" type="number" register={form.register} />
+        <FilesGrid onChange={setFileList} register={fireFform.register} />
+        <Input label="Title" name="title" register={form.register} options={{ minLength: 3 }} required />
+        <Input
+          label="description"
+          name="description"
+          register={form.register}
+          options={{ minLength: 3 }}
+          required
+        />
+        <Input
+          label="price"
+          name="price"
+          type="number"
+          register={form.register}
+          options={{ valueAsNumber: true }}
+          required
+        />
         <CustomSelector
           type="globalCategory"
-          value={options.query.globalCategory}
+          value={form.getValues('globalCategory')}
           onChange={handleChange}
           options={CATEGORIES}
+          register={form.register}
+          required
         />
         <CustomSelector
           type="category"
-          value={options.query.category}
+          value={form.getValues('category')}
           onChange={handleChange}
           isCreatableSelector
           isSeaSelectedOptions
+          register={form.register}
+          required
         />
         <CustomSelector
           type="model"
-          value={options.query.model}
+          value={form.getValues('model')}
           onChange={handleChange}
           isCreatableSelector
           isSeaSelectedOptions
+          register={form.register}
+          required
         />
         <CustomSelector
           type="size"
-          value={options.query.size}
+          value={form.getValues('size')}
           onChange={handleChange}
           isCreatableSelector
           isMulti
           isSeaSelectedOptions
+          register={form.register}
+          required
         />
         <CustomSelector
           type="material"
-          value={options.query.material}
+          value={form.getValues('material')}
           onChange={handleChange}
           isCreatableSelector
           isMulti
           isSeaSelectedOptions
+          register={form.register}
+          required
         />
         <CustomSelector
           type="color"
-          value={options.query.color}
+          value={form.getValues('color')}
           onChange={handleChange}
           isCreatableSelector
           isSeaSelectedOptions
+          register={form.register}
+          required
         />
         <CustomSelector
           type="season"
-          value={options.query.season}
+          value={form.getValues('season')}
           onChange={handleChange}
           isCreatableSelector
           isSeaSelectedOptions
+          register={form.register}
+          required
         />
 
         <MainButton isSubmit status={submitStatus} isLoading={submitStatus === 'Request'}>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { useFilter, useReduceSelectors } from '../../../customHook'
 import { arrayWrapper } from '../../../helpers'
-import { IProductToAdd, ProductToUpdate, Request } from '../../../interfaces'
+import { ProductToUpdate, Request } from '../../../interfaces'
 import language from '../../../language'
 import MainButton from '../../buttons/MainButton'
 import FilesGrid from '../../FilesGrid'
@@ -20,6 +20,7 @@ export default function AdminEdit() {
   const { getProductById } = useReduceSelectors()
   const product = getProductById(id)
   const form = useForm()
+  const fileForm = useForm()
   const filter = useFilter()
   const [submitStatus, setSubmitStatus] = useState<Request>()
   const [fileList, setFileList] = useState(new Array(6).fill(null))
@@ -45,6 +46,15 @@ export default function AdminEdit() {
   }, [])
 
   const handleEdit = async (data: { description: string; title: string; price: number }) => {
+    if (fileList.filter(Boolean).length + productImages.filter(Boolean).length < 2) {
+      const Fileindex = fileList.findIndex(el => el == null)
+      const imageIndex = productImages.length
+      const index = Math.max(Fileindex, imageIndex)
+      fileForm.setFocus(`image-${index}`)
+
+      return
+    }
+
     const { query } = filter
 
     const productToUpdate: ProductToUpdate = {
@@ -96,10 +106,15 @@ export default function AdminEdit() {
       </Text>
 
       <Form handleSubmit={form.handleSubmit(handleEdit)}>
-        <FilesGrid onChange={setFileList} onDeleteItem={handleDeleteItem} images={product.getImages()} />
-        <Input label="title" register={form.register} />
-        <Input label="description" register={form.register} />
-        <Input label="price" type="number" register={form.register} />
+        <FilesGrid
+          onChange={setFileList}
+          onDeleteItem={handleDeleteItem}
+          images={product.getImages()}
+          register={fileForm.register}
+        />
+        <Input label="title" register={form.register} required />
+        <Input label="description" register={form.register} required />
+        <Input label="price" type="number" register={form.register} required />
 
         <Text type="body">{language.globalCategory}</Text>
         <CustomSelector value={filter.query.globalCategory} type="globalCategory" onChange={filter.define} />

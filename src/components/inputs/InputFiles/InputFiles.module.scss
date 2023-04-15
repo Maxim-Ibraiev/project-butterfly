@@ -7,8 +7,13 @@
   @extend .size;
 
   position: relative;
-
   background: var(--backdrop);
+}
+
+.border:focus-within {
+  position: absolute;
+  inset: 0;
+  border: 3px var(--blue) solid;
 }
 
 .addContainer::before {
@@ -29,9 +34,9 @@
 }
 
 .input {
+  @extend .size;
   opacity: 0;
-  width: 100%;
-  height: 100%;
+
   cursor: pointer;
 }
 
