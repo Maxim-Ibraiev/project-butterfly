@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
-import { CATEGORIES } from '../../../constants'
+import { CATEGORIES, defaultOptions } from '../../../constants'
 import { useFilter } from '../../../customHook'
 import { FilterQuery, Request } from '../../../interfaces'
 import { ProductToAdd } from '../../../interfaces/interfaces'
@@ -10,6 +10,7 @@ import FilesGrid from '../../FilesGrid'
 import Form from '../../Form'
 import CustomSelector, { OnChange } from '../../inputs/CustomSelector'
 import Input from '../../inputs/Input'
+import AdminNav from '../AdminNav/AdminNav'
 import api from '../../../api/api'
 
 type ProductRest = { title: string; description: string; price: number; files: File[] }
@@ -67,6 +68,7 @@ export default function AdminAdd() {
 
   return (
     <div>
+      <AdminNav />
       <Form handleSubmit={form.handleSubmit(handleAdd)}>
         <FilesGrid onChange={setFileList} register={fireFform.register} />
         <Input label="Title" name="title" register={form.register} options={{ minLength: 3 }} required />
@@ -99,6 +101,7 @@ export default function AdminAdd() {
           onChange={handleChange}
           isCreatableSelector
           isSeaSelectedOptions
+          options={defaultOptions.category}
           register={form.register}
           required
         />
@@ -118,6 +121,7 @@ export default function AdminAdd() {
           isCreatableSelector
           isMulti
           isSeaSelectedOptions
+          options={defaultOptions.size}
           register={form.register}
           required
         />
@@ -128,6 +132,7 @@ export default function AdminAdd() {
           isCreatableSelector
           isMulti
           isSeaSelectedOptions
+          options={defaultOptions.material}
           register={form.register}
           required
         />
@@ -137,6 +142,8 @@ export default function AdminAdd() {
           onChange={handleChange}
           isCreatableSelector
           isSeaSelectedOptions
+          isMulti
+          options={defaultOptions.color}
           register={form.register}
           required
         />

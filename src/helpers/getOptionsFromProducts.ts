@@ -10,21 +10,21 @@ export const getOptionFormat = (arr: string[]) => arr.map(el => ({ value: el, la
 
 const getOptionsFromProducts = (products: IProduct[]): IOptionsFromProduct => {
   const initialOptions: {
-    size: string[]
+    sizes: string[]
     material: string[]
-    color: string[]
+    colors: string[]
     category: string[]
     model: string[]
   } = {
-    size: [],
+    sizes: [],
     material: [],
-    color: [],
+    colors: [],
     category: [],
     model: [],
   }
 
   const allOptions = products.reduce((acc, product) => {
-    acc.size.push(...product.getAllSizeOptions())
+    acc.sizes.push(...product.getAllSizeOptions())
     acc.material.push(...product.getMaterial())
     acc.category.push(product.getCategory())
     acc.model.push(product.getModel())
@@ -33,9 +33,9 @@ const getOptionsFromProducts = (products: IProduct[]): IOptionsFromProduct => {
   }, initialOptions)
 
   const setOptions = {
-    size: Array.from(new Set(allOptions.size)),
+    size: Array.from(new Set(allOptions.sizes)),
     material: Array.from(new Set(allOptions.material)),
-    color: Array.from(new Set(allOptions.color)),
+    color: Array.from(new Set(allOptions.colors)),
     category: Array.from(new Set(allOptions.category)),
     model: Array.from(new Set(allOptions.model)),
   }

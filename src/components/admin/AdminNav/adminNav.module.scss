@@ -1,0 +1,9 @@
+.container {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px var(--border-palette) solid;
+
+  & > *:not(:first-child) {
+    margin-left: 10px;
+  }
+}

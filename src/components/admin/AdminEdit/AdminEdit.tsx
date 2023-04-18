@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { defaultOptions } from '../../../constants'
 import { useFilter, useReduceSelectors } from '../../../customHook'
 import { arrayWrapper } from '../../../helpers'
 import { ProductToUpdate, Request } from '../../../interfaces'
 import language from '../../../language'
+import Chip from '../../buttons/Chip/Chip'
 import MainButton from '../../buttons/MainButton'
 import FilesGrid from '../../FilesGrid'
 import Form from '../../Form'
@@ -12,7 +14,9 @@ import CustomSelector from '../../inputs/CustomSelector'
 import Input from '../../inputs/Input'
 import NoProduct from '../../NoProduct'
 import Text from '../../Text'
+import AdminNav from '../AdminNav/AdminNav'
 import api from '../../../api/api'
+import routes from '../../../routes'
 
 export default function AdminEdit() {
   const router = useRouter()
@@ -32,11 +36,10 @@ export default function AdminEdit() {
     filter.updateURL({
       id,
       category: [product.getCategory()],
-      color: [product.getColor()],
+      color: product.getColor(),
       globalCategory: [product.getGlobalCategory()],
       material: product.getMaterial(),
       model: [product.getModel()],
-      season: [product.getSeason()],
       size: product.getAllSizeOptions(),
     })
 
@@ -65,18 +68,14 @@ export default function AdminEdit() {
       category: query.category[0],
       model: query.model[0],
       material: query.material,
-      color: query.color[0],
-      season: query.season[0],
-      size: query.size.reduce((acc, el) => {
-        acc[el] = 1
-        return acc
-      }, {}),
+      colors: query.color,
+      sizes: query.size,
     }
 
     setSubmitStatus('Request')
     try {
       const imageResponse = await api.admin.imageUpdate(id, fileList, {
-        color: productToUpdate.color,
+        color: productToUpdate.colors,
         title: productToUpdate.title,
         preImages: productImages.filter(Boolean),
       })
@@ -101,10 +100,7 @@ export default function AdminEdit() {
 
   return (
     <div>
-      <Text type="header" component="h1">
-        {language.editProduct}
-      </Text>
-
+      <AdminNav />
       <Form handleSubmit={form.handleSubmit(handleEdit)}>
         <FilesGrid
           onChange={setFileList}
@@ -126,6 +122,7 @@ export default function AdminEdit() {
           type="model"
           onChange={filter.define}
           isCreatableSelector
+          options={defaultOptions.model}
         />
         <Text type="body">{language.size}</Text>
         <CustomSelector
@@ -134,6 +131,7 @@ export default function AdminEdit() {
           isMulti
           onChange={filter.define}
           isCreatableSelector
+          options={defaultOptions.size}
         />
         <Text type="body">{language.material}</Text>
         <CustomSelector
@@ -141,6 +139,7 @@ export default function AdminEdit() {
           type="material"
           onChange={filter.define}
           isCreatableSelector
+          options={defaultOptions.material}
         />
         <Text type="body">{language.color}</Text>
         <CustomSelector
@@ -148,9 +147,8 @@ export default function AdminEdit() {
           type="color"
           onChange={filter.define}
           isCreatableSelector
+          options={defaultOptions.color}
         />
-        <Text type="body">{language.season}</Text>
-        <CustomSelector value={filter.query.season} type="season" onChange={filter.define} />
 
         <MainButton status={submitStatus} isSubmit>
           {language.save}

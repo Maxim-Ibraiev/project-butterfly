@@ -37,7 +37,9 @@ export default function CustomSelector({
   register = null,
 }: ISelect) {
   const { products } = useReduceSelectors()
-  const allOptions = (options && { [type]: getOptionFormat(options) }) || getOptionsFromProducts(products)
+  const optionFormProducts = getOptionsFromProducts(products)[type] || []
+  const allOptions =
+    (options && { [type]: [...optionFormProducts, ...getOptionFormat(options)] }) || optionFormProducts
   const regOption = register && {
     ...register(type, {
       required,
