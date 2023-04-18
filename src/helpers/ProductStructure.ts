@@ -54,7 +54,7 @@ export default class ProductStructure {
     return ''
   }
 
-  getSelectedSize = () => this.#product.selectedSize || null
+  getSelectedSize = () => this.#product.selectedSize || ''
 
   toObject = (): IProductObject => ({
     price: this.getPrice(),

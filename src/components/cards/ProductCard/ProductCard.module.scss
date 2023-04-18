@@ -39,7 +39,7 @@
 
   height: 24px;
 
-  & > * {
+  & > .colorBox {
     width: 14px;
     height: 14px;
 
@@ -48,4 +48,22 @@
   & > *:not(:last-child) {
     margin-right: 10px;
   }
+}
+
+.colorBox {
+  position: relative;
+  overflow: hidden;
+}
+.colorItem {
+  position: absolute;
+  inset: 0;
+}
+
+.colorItem:nth-child(2) {
+  inset: 0;
+  left: 50%;
+}
+
+.colorItem:nth-child(3) {
+  transform: translateY(60%) rotate(45deg);
 }

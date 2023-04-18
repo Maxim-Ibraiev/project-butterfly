@@ -61,29 +61,29 @@ export const productToAddValidation = Joi.object({
   globalCategory: Joi.string().min(3).max(999).required(),
   category: Joi.string().min(3).max(999).required(),
   price: Joi.number().min(1).max(999999),
-  colors: Joi.array().items(Joi.string().min(1).max(1000)),
+  colors: Joi.array().items(Joi.string().min(1).max(30)).max(3),
   model: Joi.string().min(3).max(1000),
-  sizes: Joi.array().items(Joi.string().min(1).max(1000)),
+  sizes: Joi.array().items(Joi.string().min(1).max(30)).max(10),
   material: Joi.array().min(1).max(99),
   season: Joi.string().min(3).max(999),
   popularity: Joi.number().min(-999).max(999999),
 })
 
-export const updateImage = images.min(0).optional().allow()
+export const updateImage = images.min(0).allow()
 
 export const updateProductValidation = Joi.object({
-  images: updateImage,
-  title: Joi.string().min(3).max(1000),
-  description: Joi.string().min(3).max(1000),
-  material: Joi.array(),
-  price: Joi.number().min(1).max(999999),
-  color: Joi.string().min(3).max(1000),
-  model: Joi.string().min(3).max(1000),
-  size: Joi.object().max(999),
-  globalCategory: Joi.string().min(3).max(999),
-  category: Joi.string().min(3).max(999),
-  season: Joi.string().min(3).max(999),
-  popularity: Joi.number().min(-999).max(999999),
+  images: updateImage.optional(),
+  title: Joi.string().min(3).max(1000).required().optional(),
+  description: Joi.string().min(3).max(1000).required().optional(),
+  globalCategory: Joi.string().min(3).max(999).required().optional(),
+  category: Joi.string().min(3).max(999).required().optional(),
+  price: Joi.number().min(1).max(999999).optional(),
+  colors: Joi.array().items(Joi.string().min(1).max(30)).max(3).optional(),
+  model: Joi.string().min(3).max(1000).optional(),
+  sizes: Joi.array().items(Joi.string().min(1).max(30)).max(10).optional(),
+  material: Joi.array().min(1).max(99).optional(),
+  season: Joi.string().min(3).max(999).optional(),
+  popularity: Joi.number().min(-999).max(999999).optional(),
 })
 
 export const imageOptionsValidation = Joi.object({

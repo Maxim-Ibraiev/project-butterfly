@@ -49,7 +49,11 @@ export default function ProductCard({ width, height, product, getLinkForProdutc 
           {allModels.length > 1 && (
             <div className={s.palette}>
               {allModels.map(models => (
-                <div key={models.getId()} style={{ backgroundColor: models.getColor() }} />
+                <div className={s.colorBox} key={models.getId()}>
+                  {models.getColor().map(color => (
+                    <div className={s.colorItem} key={color} style={{ backgroundColor: color }} />
+                  ))}
+                </div>
               ))}
             </div>
           )}

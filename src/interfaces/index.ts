@@ -2,7 +2,7 @@ export type { ICategoriesProps, IProductsProps } from './props'
 export type {
   Categories,
   IProduct,
-  IProductToAdd,
+  ProductToAdd,
   ICallRequest,
   IDataResponse,
   IState,
@@ -17,6 +17,5 @@ export type {
   FilterQuery,
   ILoginData,
   ProductToUpdate,
-  ProductReceivingForUpdate,
   IAdmin,
 } from './interfaces'

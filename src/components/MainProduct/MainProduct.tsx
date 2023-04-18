@@ -6,12 +6,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { isValidPhoneNumber, parsePhoneNumber } from 'react-phone-number-input'
 import PhoneNumber from 'react-phone-number-input/input'
-import { useSelector } from 'react-redux'
 import { SHOPPING_ID, UAH } from '../../constants'
-import { useSelectedProducts } from '../../customHook'
-import { IProduct, IState, Request } from '../../interfaces'
+import { useReduceSelectors, useSelectedProducts } from '../../customHook'
+import { Request } from '../../interfaces'
 import language from '../../language'
-import { getProductsByModel, getProductById } from '../../redux/selectors'
 import MainButton from '../buttons/MainButton'
 import Gallery from '../Gallery'
 import GridOfSizes from '../GridOfSizes'
@@ -23,10 +21,9 @@ import s from './MainProduct.module.scss'
 export default function MainProduct() {
   const router = useRouter()
   const idProduct = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id
-  const product = useSelector<IState, IProduct>(state => getProductById(state, idProduct))
-  const allModels = useSelector<IState, IProduct[]>(
-    state => product && getProductsByModel(state, product.getModel())
-  )
+  const { getProductById, getProductsByModel } = useReduceSelectors()
+  const product = getProductById(idProduct)
+  const allModels = getProductsByModel(product.getModel())
   const [selectedProducts, setSelectedProduct] = useSelectedProducts()
   const [isProductSelected, setIsProductSelected] = useState(false)
   const [isLoading, setIsLoading] = useState(false)

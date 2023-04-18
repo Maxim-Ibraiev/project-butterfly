@@ -41,9 +41,10 @@ function handleSelectedSizeOfProduct(
 ) {
   return productsOfRedux.map(prd => {
     const product = new ProductStructure(prd)
-    const selectedSize = payload.find(el => el.id === product.getId())?.selectedSize || ''
-
-    return { ...product.toObject(), selectedSize }
+    const selectedSize = payload.find(el => el.id === product.getId())?.selectedSize
+    return selectedSize && selectedSize.length > 0
+      ? { ...product.toObject(), selectedSize }
+      : product.toObject()
   })
 }
 
