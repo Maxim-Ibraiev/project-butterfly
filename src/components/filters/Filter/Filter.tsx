@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import cn from 'classnames'
 import { SHOPPING_ID } from '../../../constants'
+import { useDevice } from '../../../customHook'
 import useFilter from '../../../customHook/useFilter'
 import language from '../../../language'
 import Chip from '../../buttons/Chip'
@@ -10,6 +11,7 @@ import s from './Filter.module.scss'
 
 export default function Filter() {
   const filter = useFilter()
+  const { isDesktop } = useDevice()
   const [isOpenAllOptions, setIsOpenAllOptions] = useState(false)
   const isNotNeedToReset = Object.keys(filter.query).every(
     el => el === 'globalCategory' || el === 'sort' || el === SHOPPING_ID
@@ -34,21 +36,19 @@ export default function Filter() {
         <CustomSelector type="size" value={filter.query.size} onChange={handleChange} isMulti />
         <CustomSelector type="material" value={filter.query.material} onChange={handleChange} isMulti />
         <CustomSelector type="color" value={filter.query.color} onChange={handleChange} isMulti />
-        {isOpenAllOptions && (
-          <>
-            <CustomSelector type="season" value={filter.query.season} onChange={handleChange} isMulti />
-          </>
-        )}
+        {isOpenAllOptions && <></>}
       </div>
       <div className={s.controlContainer}>
-        <Chip onClick={() => setIsOpenAllOptions(!isOpenAllOptions)} className={s.toggleOption}>
-          <span className={cn(s.toggleIcon, { [s.rotaite]: isOpenAllOptions })}>
-            <Toggle height="16px" />
-          </span>
-          <span className={cn({ [s.hide]: isOpenAllOptions })}>
-            {isOpenAllOptions ? language.hideFilters : language.allFilters}
-          </span>
-        </Chip>
+        {!isDesktop && (
+          <Chip onClick={() => setIsOpenAllOptions(!isOpenAllOptions)} className={s.toggleOption}>
+            <span className={cn(s.toggleIcon, { [s.rotaite]: isOpenAllOptions })}>
+              <Toggle height="16px" />
+            </span>
+            <span className={cn({ [s.hide]: isOpenAllOptions })}>
+              {isOpenAllOptions ? language.hideFilters : language.allFilters}
+            </span>
+          </Chip>
+        )}
         <Chip
           disabled={isNotNeedToReset}
           onClick={() => {

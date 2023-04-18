@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { CATEGORIES } from '../../../constants'
 import { useFilter } from '../../../customHook'
-import { FilterQuery, ProductToUpdate, Request } from '../../../interfaces'
+import { FilterQuery, Request } from '../../../interfaces'
+import { ProductToAdd } from '../../../interfaces/interfaces'
 import language from '../../../language'
 import MainButton from '../../buttons/MainButton'
 import FilesGrid from '../../FilesGrid'
@@ -30,28 +31,28 @@ export default function AdminAdd() {
       return
     }
 
-    const productToAdd: ProductToUpdate = {
-      ...data,
-      globalCategory: data.globalCategory[0],
-      category: data.category[0],
-      model: data.model[0],
-      color: data.color[0],
-      season: data.season[0],
-      size: data.size.reduce((acc, el) => {
-        acc[el] = 1
-        return acc
-      }, {}),
-    }
     try {
       setSubmitStatus('Request')
+      console.log(data)
 
       const imageRes = await api.admin.imageAdd(fileList, {
-        color: productToAdd.color,
-        title: productToAdd.title,
+        color: data.color,
+        title: data.title,
       })
 
-      productToAdd.images = imageRes.data
-      console.log('imageRes.data:', imageRes.data)
+      const productToAdd: ProductToAdd = {
+        price: data.price,
+        title: data.title,
+        description: data.description,
+        material: data.material,
+        globalCategory: data.globalCategory[0],
+        category: data.category[0],
+        model: data.model[0],
+        colors: data.color,
+        sizes: data.size,
+        images: imageRes.data,
+      }
+
       await api.admin.addProduct(productToAdd)
 
       setSubmitStatus('Success')
@@ -133,15 +134,6 @@ export default function AdminAdd() {
         <CustomSelector
           type="color"
           value={form.getValues('color')}
-          onChange={handleChange}
-          isCreatableSelector
-          isSeaSelectedOptions
-          register={form.register}
-          required
-        />
-        <CustomSelector
-          type="season"
-          value={form.getValues('season')}
           onChange={handleChange}
           isCreatableSelector
           isSeaSelectedOptions

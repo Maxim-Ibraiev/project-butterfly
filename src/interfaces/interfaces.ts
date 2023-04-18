@@ -7,39 +7,19 @@ export interface IProductObject {
   price: number
   popularity: number
   material: string[]
-  color: string
+  colors: string[]
   images: { original: string; thumbnail: string; color: string[] }[]
   globalCategory: string
   category: string
   description: string
   title: string
   model: string
-  season: string
-  size: {
-    [key: string]: number
-  }
+  sizes: string[]
   id: string
   createdAt: string
   updatedAt: string
   __v: number
-  selectedSize?: null | number
-}
-
-export interface IProductToAdd {
-  price?: number
-  popularity?: number
-  material?: string[]
-  color?: string
-  images?: { original: string; thumbnail: string; color: string[] }[]
-  globalCategory?: string
-  category?: string
-  description?: string
-  title?: string
-  model?: string
-  season?: string
-  size?: {
-    [key: string]: number
-  }
+  selectedSize?: null | string
 }
 
 export interface IShoppingBag {
@@ -91,7 +71,6 @@ export type InitialFilter = {
   size?: string | string[]
   material?: string | string[]
   color?: string | string[]
-  season?: string | string[]
   sort?: string | string[]
 }
 
@@ -111,18 +90,8 @@ export interface IAdmin {
   auth: boolean
 }
 
-export type ProductToAdd = {
-  files: FileList
-  title: string
-  description: string
-  category: string[]
-  size: string[]
-  material: string[]
-  color: string[]
-  season: string[]
-}
+type UnlistedDataForBackEnd = 'id' | 'createdAt' | 'updatedAt' | '__v' | 'selectedSize'
 
-export type ProductToUpdate = Omit<
-  Partial<IProductObject>,
-  'id' | 'createdAt' | 'updatedAt' | '__v' | 'selectedSize'
->
+export type ProductToAdd = Omit<IProductObject, UnlistedDataForBackEnd | 'popularity'>
+
+export type ProductToUpdate = Omit<Partial<IProductObject>, UnlistedDataForBackEnd>

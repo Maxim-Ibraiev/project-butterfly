@@ -4,7 +4,12 @@ import getConfig from 'next/config'
 import { arrayWrapper } from '../../../../../helpers'
 import { IProductObject } from '../../../../../interfaces'
 
-export type ImageOptions = { id: string; color: string; title: string; preImages?: IProductObject['images'] }
+export type ImageOptions = {
+  id: string
+  color: string[]
+  title: string
+  preImages?: IProductObject['images']
+}
 
 const { imageCloudConfig } = getConfig().serverRuntimeConfig
 
@@ -88,6 +93,6 @@ export default class ImageCloud {
   private static getImageItem = (index: number, options: ImageOptions) => ({
     original: ImageCloud.getImageName(options.title, index, options.id),
     thumbnail: ImageCloud.getImageName(options.title, index, options.id),
-    color: [options.color],
+    color: options.color,
   })
 }

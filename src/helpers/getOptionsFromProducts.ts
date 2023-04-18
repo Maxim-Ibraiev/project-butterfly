@@ -13,14 +13,12 @@ const getOptionsFromProducts = (products: IProduct[]): IOptionsFromProduct => {
     size: string[]
     material: string[]
     color: string[]
-    season: string[]
     category: string[]
     model: string[]
   } = {
     size: [],
     material: [],
     color: [],
-    season: [],
     category: [],
     model: [],
   }
@@ -28,8 +26,6 @@ const getOptionsFromProducts = (products: IProduct[]): IOptionsFromProduct => {
   const allOptions = products.reduce((acc, product) => {
     acc.size.push(...product.getAllSizeOptions())
     acc.material.push(...product.getMaterial())
-    acc.color.push(product.getColor())
-    acc.season.push(product.getSeason())
     acc.category.push(product.getCategory())
     acc.model.push(product.getModel())
 
@@ -40,7 +36,6 @@ const getOptionsFromProducts = (products: IProduct[]): IOptionsFromProduct => {
     size: Array.from(new Set(allOptions.size)),
     material: Array.from(new Set(allOptions.material)),
     color: Array.from(new Set(allOptions.color)),
-    season: Array.from(new Set(allOptions.season)),
     category: Array.from(new Set(allOptions.category)),
     model: Array.from(new Set(allOptions.model)),
   }
@@ -49,7 +44,6 @@ const getOptionsFromProducts = (products: IProduct[]): IOptionsFromProduct => {
     size: getOptionFormat(setOptions.size),
     material: getOptionFormat(setOptions.material),
     color: getOptionFormat(setOptions.color),
-    season: getOptionFormat(setOptions.season),
     category: getOptionFormat(setOptions.category),
     model: getOptionFormat(setOptions.model),
     sort: [

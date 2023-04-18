@@ -1,4 +1,3 @@
-import url, { buildImageUrl } from 'cloudinary-build-url'
 import { IProductObject } from '../interfaces'
 
 export default class ProductStructure {
@@ -12,11 +11,14 @@ export default class ProductStructure {
     src.includes('http')
       ? src
       : `https://res.cloudinary.com/butterfly-project/image/upload/v2/products/${src}`
-  // url(src, { cloud: { cloudName: 'products/butterfly-project', apiKey: '276225481278987' } })
 
-  getAvailableSize = () => this.#product.size
+  getAvailableSize = () =>
+    this.#product.sizes.reduce((acc, el) => {
+      acc[el] = 1
+      return acc
+    }, {})
 
-  getAllSizeOptions = () => Object.keys(this.getAvailableSize())
+  getAllSizeOptions = () => this.#product.sizes
 
   getMainImageSrc = () => this.#getImageURL(this.getImages()[0].original)
 
@@ -24,7 +26,7 @@ export default class ProductStructure {
 
   getPopularity = () => this.#product.popularity
 
-  getColor = () => this.#product.color
+  getColor = () => this.#product.colors
 
   getMaterial = () => this.#product.material
 
@@ -47,15 +49,18 @@ export default class ProductStructure {
 
   getModel = () => this.#product.model
 
-  getSeason = () => this.#product.season
+  getSeason = () => {
+    console.warn('property "season" is deprecated')
+    return ''
+  }
 
-  getSelectedSize = () => this.#product.selectedSize || 0
+  getSelectedSize = () => this.#product.selectedSize || null
 
   toObject = (): IProductObject => ({
     price: this.getPrice(),
     popularity: this.getPopularity(),
     material: this.getMaterial(),
-    color: this.getColor(),
+    colors: this.getColor(),
     images: this.getImages(),
     id: this.getId(),
     globalCategory: this.getGlobalCategory(),
@@ -63,8 +68,7 @@ export default class ProductStructure {
     description: this.getDescription(),
     title: this.getTitle(),
     model: this.getModel(),
-    season: this.getSeason(),
-    size: this.getAvailableSize(),
+    sizes: this.getAllSizeOptions(),
     createdAt: '',
     updatedAt: '',
     __v: 0,

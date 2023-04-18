@@ -13,10 +13,10 @@ export default function GridOfSizes({ product }: Props) {
   const dispatch = useDispatch()
   const [selectedSize, setSelectedSize] = useState(product.getSelectedSize())
 
-  function handleClick(size: number) {
+  function handleClick(size: string) {
     if (size === selectedSize) {
-      setSelectedSize(0)
-      dispatch(setSelectedSizeOfProduct([{ id: product.getId(), selectedSize: 0 }]))
+      dispatch(setSelectedSizeOfProduct([{ id: product.getId(), selectedSize: '' }]))
+      setSelectedSize('')
     } else {
       setSelectedSize(size)
       dispatch(setSelectedSizeOfProduct([{ id: product.getId(), selectedSize: size }]))
@@ -32,9 +32,9 @@ export default function GridOfSizes({ product }: Props) {
       {product.getAllSizeOptions().map(size => (
         <button
           type="button"
-          onClick={() => handleClick(Number(size))}
+          onClick={() => handleClick(size)}
           className={cn(s.baseBtn, {
-            [s.activeBtn]: Number(size) === selectedSize,
+            [s.activeBtn]: size === selectedSize,
             [s.disableBtn]: product.getAvailableSize()[size] === 0,
           })}
           key={size}

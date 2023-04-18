@@ -10,7 +10,7 @@ export const adminLoginValidation = Joi.object({
 export const shoppingBagValidation = Joi.object({
   selectedProducts: Joi.array()
     .required()
-    .items(Joi.object({ selectedSize: Joi.number().min(0).max(99), id: idValidation })),
+    .items(Joi.object({ selectedSize: Joi.string().min(0).max(99), id: idValidation })),
 })
 
 export const fileValidation = Joi.object({
@@ -61,9 +61,9 @@ export const productToAddValidation = Joi.object({
   globalCategory: Joi.string().min(3).max(999).required(),
   category: Joi.string().min(3).max(999).required(),
   price: Joi.number().min(1).max(999999),
-  color: Joi.string().min(3).max(1000),
+  colors: Joi.array().items(Joi.string().min(1).max(1000)),
   model: Joi.string().min(3).max(1000),
-  size: Joi.object().max(999),
+  sizes: Joi.array().items(Joi.string().min(1).max(1000)),
   material: Joi.array().min(1).max(99),
   season: Joi.string().min(3).max(999),
   popularity: Joi.number().min(-999).max(999999),
@@ -88,23 +88,7 @@ export const updateProductValidation = Joi.object({
 
 export const imageOptionsValidation = Joi.object({
   title: Joi.string().min(3).max(1000),
-  color: Joi.string().min(3).max(1000),
+  color: Joi.array().items(Joi.string().min(1).max(1000)),
   id: Joi.array().items(Joi.string().min(0).max(9999)).single(),
   preImages: updateImage,
 })
-
-// export const receivingproductforUpdate = Joi.object({
-//   images: images.min(0).optional(),
-//   title: Joi.string().min(3).max(1000).optional(),
-//   description: Joi.string().min(3).max(1000).optional(),
-//   material: Joi.array().optional(),
-//   price: Joi.number().min(1).max(999999).optional(),
-//   color: Joi.string().min(3).max(1000).optional(),
-//   model: Joi.string().min(3).max(1000).optional(),
-//   size: Joi.object().max(999).optional(),
-//   globalCategory: Joi.string().min(3).max(999).optional(),
-//   category: Joi.string().min(3).max(999).optional(),
-//   season: Joi.string().min(3).max(999).optional(),
-//   popularity: Joi.number().min(-999).max(999999).optional(),
-//   id: idValidation.optional(),
-// })

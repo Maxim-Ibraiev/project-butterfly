@@ -9,9 +9,9 @@ import { CloseIcon } from '../icons'
 import CustomSelector, { OnChange } from '../inputs/CustomSelector'
 import routes from '../../routes'
 import s from './ShoppingBagItem.module.scss'
+
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-
 interface Props {
   product: IProduct
   handleDelete: () => void
@@ -22,7 +22,7 @@ export default function ShoppingBagItem({ product, handleDelete, handleClose }: 
   const dispatch = useDispatch()
 
   const handleChangeSize: OnChange = (_, option) => {
-    const payload = { id: product.getId(), selectedSize: Number(option) }
+    const payload = { id: product.getId(), selectedSize: option[0] }
 
     dispatch(actions.setSelectedSizeOfProduct([payload]))
   }
@@ -43,7 +43,7 @@ export default function ShoppingBagItem({ product, handleDelete, handleClose }: 
           <div className={s.select}>
             <CustomSelector
               onChange={handleChangeSize}
-              value={product.getSelectedSize() && String(product.getSelectedSize())}
+              value={product.getSelectedSize()}
               type="size"
               menuPosition="fixed"
             />

@@ -59,7 +59,6 @@ function isMatchedProduct(product: IProduct, options: MatchedOption) {
     isOptionMatch(product.getCategory(), options.category),
     isOptionMatch(product.getColor(), options.color),
     isOptionMatch(product.getMaterial(), options.material),
-    isOptionMatch(product.getSeason(), options.season),
   ]
 
   return result.every(el => el)

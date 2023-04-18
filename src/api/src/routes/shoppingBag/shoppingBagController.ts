@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getShoppingBagFromDB, setShoppingBag } from './shoppingBagModel'
-import Responser from '../Responser'
 import { IResponse, IShoppingBag } from '../../../../interfaces'
 import RequestValidator from '../RequestValidator'
+import Responser from '../Responser'
 
 export async function getShoppingBag(
   req: NextApiRequest | { query: { id: string | string[] } },

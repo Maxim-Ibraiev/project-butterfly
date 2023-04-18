@@ -20,24 +20,21 @@ const productSchema = new Schema(
     model: {
       type: String,
     },
-    color: {
+    colors: {
+      type: [String],
+    },
+    globalCategory: {
       type: String,
     },
     category: {
-      type: String,
-    },
-    globalCategory: {
       type: String,
     },
     images: {
       type: [{ original: String, thumbnail: String, color: [String] }],
       require: [true, 'Image is required'],
     },
-    season: {
-      type: String,
-    },
-    size: {
-      type: Object,
+    sizes: {
+      type: [String],
       default: {},
     },
     material: {
@@ -50,7 +47,7 @@ const productSchema = new Schema(
     },
   },
   {
-    bufferTimeoutMS: 60000,
+    bufferTimeoutMS: 300000,
     timestamps: true,
     toJSON: {
       transform: (_, ret) => {

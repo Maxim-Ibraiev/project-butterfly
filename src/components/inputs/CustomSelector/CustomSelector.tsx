@@ -41,8 +41,8 @@ export default function CustomSelector({
   const regOption = register && {
     ...register(type, {
       required,
-      // onChange: (option: FilterOption & OptionsType<FilterOption>) =>
-      //   onChange(type, option ? arrayWrapper(option).map(el => el.value) : []),
+      onChange: (option: FilterOption & OptionsType<FilterOption>) =>
+        onChange(type, option ? arrayWrapper(option).map(el => el.value) : []),
     }),
   }
 

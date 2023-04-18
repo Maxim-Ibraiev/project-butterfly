@@ -117,7 +117,7 @@ export default function MainProduct() {
                     <a className={s.colorImg}>
                       <Image
                         src={model.getMainImageSrc()}
-                        key={model.getColor()}
+                        key={model.getColor().toString()}
                         width={70}
                         height={90}
                         alt={model.getTitle()}
