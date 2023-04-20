@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProductById, getSelectedProducts } from '../redux/selectors'
-import * as actions from '../redux/main/mainActions'
-import { IProduct, IState, IShotSelectedProducts } from '../interfaces'
-import { getShotSelectedProducts } from '../helpers'
 import { SHOPPING_ID } from '../constants'
+import { getShotSelectedProducts } from '../helpers'
+import { IProduct, IState, IShotSelectedProducts } from '../interfaces'
+import * as actions from '../redux/main/mainActions'
+import { getProductById, getSelectedProducts } from '../redux/selectors'
 import api from '../api/api'
 
 const setLocalStorage = {
@@ -33,8 +33,18 @@ export default function useSelectedProducts(): [IProduct[], (newSelectedProducts
   const [firstRender, setFirstRender] = useState(true)
   const selectedProductFromRedux = useSelector(getSelectedProducts)
 
-  const getProductsFromLocalStorage = () =>
-    getDataFromStorage().map(({ id }) => id && getProductById(state, id))
+  const getProductsFromLocalStorage = () => {
+    const dataFromStorage = getDataFromStorage().map(({ id }) => getProductById(state, id))
+
+    if (dataFromStorage.includes(undefined)) {
+      const filteredData = dataFromStorage.filter(Boolean)
+      setProductsInLocalStorage(filteredData)
+
+      return filteredData
+    }
+
+    return dataFromStorage
+  }
 
   const dispatchProducts = () => {
     dispatch(actions.setSelectedProducts(getProductsFromLocalStorage()))
