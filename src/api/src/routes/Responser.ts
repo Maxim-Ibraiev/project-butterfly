@@ -53,7 +53,7 @@ class Responser {
     })
   }
 
-  static getForbidden(error: Error) {
+  static getForbidden(error: Error | IError) {
     return this.getBaseResponse({
       status: httpStatusCodes.FORBIDDEN,
       error: { data: error, message: error.message },
