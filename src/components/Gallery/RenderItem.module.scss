@@ -1,0 +1,14 @@
+@import '../../styles/variables.scss';
+.container {
+  position: relative;
+  height: 130vw;
+  min-height: 415px;
+  max-height: 650px;
+
+  @media screen and (min-width: $tableUpper) {
+    height: 530px;
+  }
+}
+.image:fullscreen {
+  max-height: 100vh;
+}

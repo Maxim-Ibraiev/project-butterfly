@@ -19,8 +19,9 @@ export default function ProductCard({ width, height, product, getLinkForProdutc 
   return (
     <Link
       href={getLinkForProdutc ? getLinkForProdutc(product.getId()) : `${routes.product}/${product.getId()}`}
+      passHref
     >
-      <a className={s.wrapper}>
+      <div className={s.wrapper}>
         <div className={s.image}>
           <Image
             width={width}
@@ -58,7 +59,7 @@ export default function ProductCard({ width, height, product, getLinkForProdutc 
             </div>
           )}
         </div>
-      </a>
+      </div>
     </Link>
   )
 }

@@ -20,8 +20,8 @@ export default function Header() {
 
   return (
     <header className={s.header}>
-      <Link href={routes.home}>
-        <a className={s.logo}>Butterfly</a>
+      <Link href={routes.home} passHref>
+        <div className={s.logo}>Butterfly</div>
       </Link>
       <div className={s.nav}>
         <nav>
@@ -33,14 +33,15 @@ export default function Header() {
                     pathname: routes[category],
                     query: params,
                   }}
+                  passHref
                 >
-                  <a
+                  <span
                     className={cn(s.link, {
                       [s.active]: router.query.globalCategory === category,
                     })}
                   >
                     <b>{language[category]}</b>
-                  </a>
+                  </span>
                 </Link>
               </li>
             ))}

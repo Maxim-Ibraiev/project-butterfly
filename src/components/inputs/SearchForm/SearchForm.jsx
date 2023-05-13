@@ -18,10 +18,10 @@ export default function InputsSearch({ handleSubmit, name, className }) {
         aria-expanded="false"
         maxLength="150"
       />
-      <Link href="/">
-        <a className={s.icon}>
+      <Link href="/" passHref>
+        <div className={s.icon}>
           <SearchIcon />
-        </a>
+        </div>
       </Link>
     </form>
   )

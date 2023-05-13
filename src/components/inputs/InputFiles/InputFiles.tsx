@@ -49,7 +49,13 @@ export default function InputFiles({
     <div className={s.addContainer}>
       {selectedImages && (
         <div className={s.imageContainer}>
-          <Image src={selectedImages} alt="Image to add" height={128} width={128} objectFit="contain" />
+          <Image
+            src={selectedImages}
+            alt="Image to add"
+            height={128}
+            width={128}
+            style={{ objectFit: 'contain' }}
+          />
         </div>
       )}
       <div className={s.border}>

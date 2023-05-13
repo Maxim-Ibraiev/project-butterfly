@@ -14,36 +14,41 @@ export default function Category() {
         Категории
       </Text>
       <div className={s.gallery}>
-        <CategoryItem
-          href={femaleClothes}
-          text={language.femaleClothes}
-          width={700}
-          height={430}
-          layout="responsive"
-          sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
-          src="/femaleClothes.jpg"
-        />
-
-        <CategoryItem
-          href={maleClothes}
-          text={language.maleClothes}
-          width={700}
-          height={900}
-          layout="responsive"
-          sizes={`(max-width: ${mobileUpper}px) 100vw,
+        <div className={s.firstCategory}>
+          <CategoryItem
+            href={femaleClothes}
+            text={language.femaleClothes}
+            width={700}
+            height={430}
+            layout="responsive"
+            sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
+            src="/femaleClothes.jpg"
+          />
+        </div>
+        <div className={s.categories}>
+          <CategoryItem
+            href={maleClothes}
+            text={language.maleClothes}
+            width={700}
+            height={900}
+            layout="responsive"
+            sizes={`(max-width: ${mobileUpper}px) 100vw,
                   575px`}
-          src="/maleClothes.jpg"
-        />
-        <CategoryItem
-          href={childrenClothes}
-          text={language.childrenClothes}
-          width={700}
-          height={900}
-          layout="responsive"
-          objectFit="cover"
-          sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
-          src="/childrenClothes.jpg"
-        />
+            src="/maleClothes.jpg"
+          />
+        </div>
+        <div className={s.categories}>
+          <CategoryItem
+            href={childrenClothes}
+            text={language.childrenClothes}
+            width={700}
+            height={900}
+            layout="responsive"
+            objectFit="cover"
+            sizes={`(max-width: ${mobileUpper}px) 50vw, 280px`}
+            src="/childrenClothes.jpg"
+          />
+        </div>
       </div>
     </section>
   )

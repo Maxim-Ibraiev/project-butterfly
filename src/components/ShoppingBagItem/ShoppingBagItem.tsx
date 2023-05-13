@@ -30,10 +30,10 @@ export default function ShoppingBagItem({ product, handleDelete, handleClose }: 
   return (
     <div className={s.wrapper}>
       <div className={s.image}>
-        <Link href={`${routes.product}/${product.getId()}`}>
-          <a onClick={handleClose} className={s.imageLink} style={{ width: '80px', height: '110px' }}>
-            <Image src={product.getMainImageSrc()} width={80} height={110} />
-          </a>
+        <Link href={`${routes.product}/${product.getId()}`} passHref>
+          <div onClick={handleClose} className={s.imageLink} style={{ width: '80px', height: '110px' }}>
+            <Image src={product.getMainImageSrc()} alt={product.getDescription()} width={80} height={110} />
+          </div>
         </Link>
       </div>
       <div className={s.info}>

@@ -74,8 +74,8 @@ export default function MainProduct() {
           <b className={s.title}>{language.size}</b>
           <GridOfSizes product={product} />
           {isProductSelected ? (
-            <Link href={routes.getCheckout(shoppingId)}>
-              <a>
+            <Link href={routes.getCheckout(shoppingId)} passHref>
+              <div>
                 <MainButton
                   className={cn(s.buyBtn, s.productSelected)}
                   handleClick={() => setIsLoading(true)}
@@ -83,7 +83,7 @@ export default function MainProduct() {
                 >
                   {language.orderProduct}
                 </MainButton>
-              </a>
+              </div>
             </Link>
           ) : (
             <MainButton className={s.buyBtn} handleClick={handleSelectProduct}>
@@ -110,8 +110,8 @@ export default function MainProduct() {
               <b className={s.title}>{language.color}</b>
               <div className={s.color}>
                 {allModels.map(model => (
-                  <Link key={model.getId()} href={`${routes.product}/${model.getId()}`}>
-                    <a className={s.colorImg}>
+                  <Link key={model.getId()} href={`${routes.product}/${model.getId()}`} passHref>
+                    <div className={s.colorImg}>
                       <Image
                         src={model.getMainImageSrc()}
                         key={model.getColor().toString()}
@@ -119,7 +119,7 @@ export default function MainProduct() {
                         height={90}
                         alt={model.getTitle()}
                       />
-                    </a>
+                    </div>
                   </Link>
                 ))}
               </div>

@@ -11,25 +11,25 @@ export default function Footer() {
     <footer className={s.container}>
       <div className={s.contacts}>
         <Link href="/a" passHref>
-          <a className={s.link}>
+          <div className={s.link}>
             <LocationIcon fill="white" height="38px" className={s.icon} />
             <span className={s.adress}>
               <span className={s.street}>{language.adressOfCompany}</span>
               <span className={s.contry}>{language.cityOfCompany}</span>
             </span>
-          </a>
+          </div>
         </Link>
         <Link href="tel:+380 97 00 000" passHref>
-          <a className={s.link}>
+          <div className={s.link}>
             <PhoneIcon fill="white" height="38px" className={s.icon} />
             <span>+380 97 00 000</span>
-          </a>
+          </div>
         </Link>
         <Link href="mailto:support@butterfly.com" passHref>
-          <a className={s.link}>
+          <div className={s.link}>
             <MailIcon fill="white" height="38px" className={s.icon} />
             <span>support@butterfly.com</span>
-          </a>
+          </div>
         </Link>
       </div>
       <div className={s.about}>

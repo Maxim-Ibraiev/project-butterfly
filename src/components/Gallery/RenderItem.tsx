@@ -1,23 +1,23 @@
 import Image from 'next/image'
+import { ReactImageGalleryItem } from 'react-image-gallery'
 import { getDataURL } from '../../helpers'
-import { Item } from './Gallery'
+import s from './RenderItem.module.scss'
 
-interface IRenderItem {
-  item: Item
-  priority?: boolean
-}
+export default function RenderItem(galleryItem: ReactImageGalleryItem, priority: boolean) {
+  const { original } = galleryItem
 
-export default function RenderItem({ item: { original }, priority }: IRenderItem) {
   return (
-    <div style={{ maxHeight: '100vh' }}>
+    <div className={s.container}>
       <Image
+        alt="product image."
         priority={priority}
         src={original}
-        width={1200}
-        height={1600}
+        fill
         quality={100}
         placeholder="blur"
         blurDataURL={getDataURL(700, 700)}
+        style={{ objectFit: 'contain' }}
+        className={s.image}
       />
     </div>
   )

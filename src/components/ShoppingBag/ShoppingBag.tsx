@@ -61,12 +61,12 @@ export default function ShoppingBag({ handleCloseModal }: Props) {
             <Button className={s.secondaryBottom} handleClick={() => handleCloseModal()}>
               {language.continueShopping}
             </Button>
-            <Link href={routes.getCheckout(shoppingId)} style={{ pointerEvents: 'none' }}>
-              <a className={s.primaryBottom}>
+            <Link href={routes.getCheckout(shoppingId)} style={{ pointerEvents: 'none' }} passHref>
+              <div className={s.primaryBottom}>
                 <Button handleClick={handleOrder} isLoading={isLoading}>
                   {language.orderProduct}
                 </Button>
-              </a>
+              </div>
             </Link>
           </ShoppingBagFooter>
         </>

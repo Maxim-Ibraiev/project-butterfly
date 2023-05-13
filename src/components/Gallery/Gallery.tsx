@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import ImageGallery from 'react-image-gallery'
 import cn from 'classnames'
-import RenderItem from './RenderItem'
+import Image from 'next/image'
+import ImageGallery, { ReactImageGalleryItem } from 'react-image-gallery'
+// import RenderItem from './RenderItem'
 import s from './Gallery.module.scss'
 
 export type Item = {
@@ -14,11 +14,11 @@ type Props = {
 }
 
 export default function Gallery({ items, additionalClass }: Props) {
-  const handleRenderItem = (item: Item) => {
-    const priority = items[0].original === item.original
+  // const handleRenderItem = (item: ReactImageGalleryItem) => {
+  //   const priority = items[0].original === item.original
 
-    return RenderItem({ item, priority })
-  }
+  //   return RenderItem(item, priority)
+  // }
 
   return (
     <ImageGallery
@@ -28,12 +28,14 @@ export default function Gallery({ items, additionalClass }: Props) {
       showPlayButton={false}
       disableKeyDown
       showBullets
-      renderItem={handleRenderItem}
+      disableThumbnailScroll
+      useBrowserFullscreen
+      // renderItem={handleRenderItem}
       renderThumbInner={renderThumbInner}
     />
   )
 }
 
 function renderThumbInner({ thumbnail }: Item) {
-  return <Image src={thumbnail} width={92} height={123} />
+  return <Image src={thumbnail} alt="Product image." width={92} height={123} />
 }
