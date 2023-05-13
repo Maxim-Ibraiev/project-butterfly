@@ -1,5 +1,7 @@
+import { desktop } from '../constants'
+
 export default function getImgSize() {
-  const bodyWidth = document.body.clientWidth
+  const bodyWidth = document.body.clientWidth > desktop ? desktop : document.body.clientWidth
   const numberOfColumns = () => {
     if (bodyWidth >= 1000) return 4
     if (bodyWidth >= 768) return 3

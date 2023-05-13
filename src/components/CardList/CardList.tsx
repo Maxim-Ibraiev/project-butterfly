@@ -13,6 +13,7 @@ interface IProps {
 
 export default function CardList({ products, getLinkForProdutc }: IProps) {
   const [imgSize, setImgSize] = useState({ width: 170, height: 220 })
+  console.log('imgSize:', imgSize)
 
   useEffect(() => {
     const handleResize = throttle(() => setImgSize(getImgSize()), 1000)
